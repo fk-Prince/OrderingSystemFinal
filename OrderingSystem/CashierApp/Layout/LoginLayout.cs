@@ -66,13 +66,7 @@ namespace OrderingSystem.CashierApp.Layout
 
                 if (loginStaff != null)
                 {
-                    SessionStaffData.StaffData = loginStaff;
-                    SessionStaffData.StaffId = loginStaff.StaffId;
-                    SessionStaffData.FirstName = loginStaff.FirstName;
-                    SessionStaffData.LastName = loginStaff.LastName;
-                    SessionStaffData.Role = loginStaff.Role;
-                    SessionStaffData.Image = loginStaff.Image;
-
+                    SessionStaffData.setSessionData(loginStaff);
                     MessageBox.Show("Successfully Login", "Authorized", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
                     isLogin = true;

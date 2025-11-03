@@ -14,25 +14,23 @@
 
         public interface IIngredientModel
         {
-            IngredientBuilder SetIngredientName(string ingredientName);
-            IngredientBuilder SetIngredient_id(int ingredient_id);
-            IngredientBuilder SetIngredientQuantity(int ingredientQuantity);
-            IngredientBuilder SetIngredientUnit(string ingredientUnit);
+            IngredientBuilder WithIngredientName(string ingredientName);
+            IngredientBuilder WithIngredientID(int ingredient_id);
+            IngredientBuilder WithInredeintQty(int ingredientQuantity);
+            IngredientBuilder WithIngredientUnit(string ingredientUnit);
             IngredientModel Build();
         }
-
         public static IngredientBuilder Builder() => new IngredientBuilder();
-
 
         public class IngredientBuilder : IIngredientModel
         {
             private IngredientModel ingredientModel = new IngredientModel();
-            public IngredientBuilder SetIngredientName(string ingredientName)
+            public IngredientBuilder WithIngredientName(string ingredientName)
             {
                 ingredientModel.ingredientName = ingredientName;
                 return this;
             }
-            public IngredientBuilder SetIngredient_id(int ingredient_id)
+            public IngredientBuilder WithIngredientID(int ingredient_id)
             {
                 ingredientModel.ingredientId = ingredient_id;
                 return this;
@@ -42,13 +40,13 @@
                 return ingredientModel;
             }
 
-            public IngredientBuilder SetIngredientUnit(string ingredientUnit)
+            public IngredientBuilder WithIngredientUnit(string ingredientUnit)
             {
                 ingredientModel.ingredientUnit = ingredientUnit;
                 return this;
             }
 
-            public IngredientBuilder SetIngredientQuantity(int ingredientQuantity)
+            public IngredientBuilder WithInredeintQty(int ingredientQuantity)
             {
                 ingredientModel.ingredientQuantity = ingredientQuantity;
                 return this;

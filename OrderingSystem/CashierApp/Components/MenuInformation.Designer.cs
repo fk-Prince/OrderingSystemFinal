@@ -52,6 +52,8 @@
             this.cBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cbd = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.dprice = new Guna.UI2.WinForms.Guna2TextBox();
+            this.l2Price = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.closeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
@@ -205,7 +207,7 @@
             // 
             this.mm.Location = new System.Drawing.Point(16, 327);
             this.mm.Name = "mm";
-            this.mm.Size = new System.Drawing.Size(704, 245);
+            this.mm.Size = new System.Drawing.Size(729, 245);
             this.mm.TabIndex = 15;
             // 
             // flowLayoutPanel1
@@ -417,11 +419,52 @@
             this.label5.TabIndex = 24;
             this.label5.Text = "Menu Discount";
             // 
+            // dprice
+            // 
+            this.dprice.BackColor = System.Drawing.Color.Transparent;
+            this.dprice.BorderRadius = 5;
+            this.dprice.BorderThickness = 0;
+            this.dprice.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.dprice.DefaultText = "";
+            this.dprice.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.dprice.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.dprice.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.dprice.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.dprice.Enabled = false;
+            this.dprice.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(234)))), ((int)(((byte)(254)))));
+            this.dprice.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.dprice.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dprice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.dprice.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.dprice.Location = new System.Drawing.Point(452, 144);
+            this.dprice.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dprice.Name = "dprice";
+            this.dprice.PlaceholderText = "";
+            this.dprice.SelectedText = "";
+            this.dprice.Size = new System.Drawing.Size(118, 36);
+            this.dprice.TabIndex = 25;
+            this.dprice.Visible = false;
+            this.dprice.TextChanged += new System.EventHandler(this.dprice_TextChanged);
+            // 
+            // l2Price
+            // 
+            this.l2Price.AutoSize = true;
+            this.l2Price.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.l2Price.ForeColor = System.Drawing.Color.Gray;
+            this.l2Price.Location = new System.Drawing.Point(449, 123);
+            this.l2Price.Name = "l2Price";
+            this.l2Price.Size = new System.Drawing.Size(139, 17);
+            this.l2Price.TabIndex = 26;
+            this.l2Price.Text = "(Price - Discount) * Tax";
+            this.l2Price.Visible = false;
+            // 
             // MenuInformation
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1012, 600);
+            this.Controls.Add(this.l2Price);
+            this.Controls.Add(this.dprice);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cbd);
             this.Controls.Add(this.cBox);
@@ -476,5 +519,7 @@
         private Guna.UI2.WinForms.Guna2ComboBox cBox;
         private Guna.UI2.WinForms.Guna2ComboBox cbd;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label l2Price;
+        private Guna.UI2.WinForms.Guna2TextBox dprice;
     }
 }

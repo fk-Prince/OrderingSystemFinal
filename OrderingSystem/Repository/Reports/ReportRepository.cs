@@ -236,10 +236,14 @@ namespace OrderingSystem.Repository.Reports
         {
             var db = DatabaseHandler.getInstance();
             string query = @"
-                        SELECT s.supplier_name AS 'Supplier Name',i.ingredient_name AS 'Ingredeint Name',SUM(mi.quantity) AS 'Total Supplied', MAX(si.date_supplied) AS 'Recently Supplied' FROM suppliers s
-                        INNER JOIN supplier_ingredient_stock si ON si.supplier_id = s.supplier_id 
-                        INNER JOIN monitor_inventory mi ON mi.ingredient_stock_id = si.ingredient_stock_id
-                        INNER JOIN ingredient_stock oss ON mi.ingredient_stock_id = oss.ingredient_stock_id
+                        SELECT 
+                            s.supplier_name AS 'Supplier Name',
+                            i.ingredient_name AS 'Ingredeint Name',
+                            SUM(mi.quantity) AS 'Total Supplied', 
+                            MAX(oss.created_at) AS 'Recently Supplied'
+                        FROM ingredient_stock oss 
+                        INNER JOIN suppliers s ON s.supplier_id = oss.supplier_id
+                        INNER JOIN monitor_inventory mi ON mi.ingredient_stock_id = oss.ingredient_stock_id
                         INNER JOIN ingredients i ON i.ingredient_id = oss.ingredient_id
                         WHERE mi.type = 'Add'
                         GROUP BY s.supplier_name,i.ingredient_name
@@ -268,7 +272,6 @@ namespace OrderingSystem.Repository.Reports
                 db.closeConnection();
             }
         }
-
         public Tuple<string, string> getTransactions(DateTime now)
         {
             var db = DatabaseHandler.getInstance();

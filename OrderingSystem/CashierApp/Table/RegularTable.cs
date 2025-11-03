@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using OrderingSystem.Model;
 using OrderingSystem.Repo.CashierMenuRepository;
 using OrderingSystem.Services;
+using OrderingSystem.util;
+using ComboBox = System.Windows.Forms.ComboBox;
 
 namespace OrderingSystem.CashierApp.Components
 {
@@ -14,6 +16,7 @@ namespace OrderingSystem.CashierApp.Components
         private List<MenuModel> variants;
         private DataTable table;
         private readonly IngredientServices ingredientServices;
+        private bool isUpdating = false;
 
         public RegularTable(List<MenuModel> variants, IngredientServices ingredientServices)
         {
@@ -31,9 +34,9 @@ namespace OrderingSystem.CashierApp.Components
             table.Columns.Add("Size");
             table.Columns.Add("Prep Estimated Time");
             table.Columns.Add("Price");
-            table.Columns.Add("Price After Tax");
-            table.Columns.Add("Price After Tax / Discount");
-            variants.ForEach(v => table.Rows.Add(v.FlavorName, v.SizeName, v.EstimatedTime, v.MenuPrice, v.getPriceAfterVat().ToString("N2"), v.getPriceAfterVatWithDiscount().ToString("N2")));
+            table.Columns.Add("Price After Discount");
+            table.Columns.Add("Price After Discount / Tax");
+            variants.ForEach(v => table.Rows.Add(v.FlavorName, v.SizeName, v.EstimatedTime, v.MenuPrice, v.getPriceAfterDiscount().ToString("N2"), v.getPriceAfterVatWithDiscount().ToString("N2")));
             dataGrid.AutoGenerateColumns = false;
             dataGrid.DataSource = table;
 
@@ -74,15 +77,15 @@ namespace OrderingSystem.CashierApp.Components
             dataGrid.Columns.Add(priceColumn);
 
             DataGridViewTextBoxColumn priceTaxColumn = new DataGridViewTextBoxColumn();
-            priceTaxColumn.Name = "Price After Tax";
-            priceTaxColumn.HeaderText = "Price After Tax";
-            priceTaxColumn.DataPropertyName = "Price After Tax";
+            priceTaxColumn.Name = "Price After Discount";
+            priceTaxColumn.HeaderText = "Price After Discount";
+            priceTaxColumn.DataPropertyName = "Price After Discount";
             dataGrid.Columns.Add(priceTaxColumn);
 
             DataGridViewTextBoxColumn priceTaxColmn = new DataGridViewTextBoxColumn();
-            priceTaxColmn.Name = "Price After Tax / Discount";
-            priceTaxColmn.HeaderText = "Price After Tax / Discount";
-            priceTaxColmn.DataPropertyName = "Price After Tax / Discount";
+            priceTaxColmn.Name = "Price After Discount / Tax";
+            priceTaxColmn.HeaderText = "Price After Discount / Tax";
+            priceTaxColmn.DataPropertyName = "Price After Discount / Tax";
             dataGrid.Columns.Add(priceTaxColmn);
 
 
@@ -102,7 +105,7 @@ namespace OrderingSystem.CashierApp.Components
                     cb.AutoCompleteSource = AutoCompleteSource.ListItems;
                 }
             };
-
+            dataGrid.Columns[6].Width = 100;
             dataGrid.CellContentClick += (s, e) =>
             {
                 if (e.ColumnIndex == dataGrid.Columns["ViewIngredients"].Index && e.RowIndex >= 0)
@@ -117,7 +120,7 @@ namespace OrderingSystem.CashierApp.Components
                             bool suc = ingredientServices.saveIngredientByMenu(variantDetail.MenuDetailId, ingredientSelected, "Regular");
                             if (suc)
                             {
-                                MessageBox.Show("Ingredient Updated.");
+                                MessageBox.Show("Ingredient Updated.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 im.Hide();
                             }
                             else
@@ -138,25 +141,6 @@ namespace OrderingSystem.CashierApp.Components
                     }
                 }
             };
-        }
-
-        private void dataGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            //if (dataGrid.Columns[e.ColumnIndex].Name == "Price")
-            //{
-            //    string input = e.FormattedValue?.ToString().Trim();
-
-            //    if (string.IsNullOrEmpty(input))
-            //        return;
-
-            //    string pattern = @"^(?:\d{1,3}(?:,\d{3})*|\d+)?(?:\.\d+)?$";
-
-            //    if (!Regex.IsMatch(input, pattern))
-            //    {
-            //        MessageBox.Show("Invalid Input", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        e.Cancel = true;
-            //    }
-            //}
         }
 
         public List<MenuModel> getMenus()
@@ -255,8 +239,8 @@ namespace OrderingSystem.CashierApp.Components
                 table.Columns.Add("Size");
                 table.Columns.Add("Prep Estimated Time");
                 table.Columns.Add("Price");
-                table.Columns.Add("Price After Tax");
-                table.Columns.Add("Price After Tax / Discount");
+                table.Columns.Add("Price After Discount");
+                table.Columns.Add("Price After Discount / Tax");
             }
 
             foreach (var v in variants)
@@ -266,7 +250,7 @@ namespace OrderingSystem.CashierApp.Components
                     v.SizeName,
                     v.EstimatedTime,
                     v.MenuPrice,
-                    v.getPriceAfterVat().ToString("N2"),
+                    v.getPriceAfterDiscount().ToString("N2"),
                     v.getPriceAfterVatWithDiscount().ToString("N2")
                 );
             }
@@ -274,37 +258,55 @@ namespace OrderingSystem.CashierApp.Components
             dataGrid.DataSource = null;
             dataGrid.DataSource = table;
         }
-
         private void dataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            if (isUpdating) return;
             if (e.RowIndex < 0) return;
 
             DataGridViewRow row = dataGrid.Rows[e.RowIndex];
-
             if (dataGrid.Columns[e.ColumnIndex].Name == "Price")
             {
-                string priceText = row.Cells["Price"].Value?.ToString();
-                if (double.TryParse(priceText, out double price))
+                string priceS = row.Cells["Price"].Value?.ToString();
+                if (double.TryParse(priceS, out double price))
                 {
-                    double vat = price * 0.12;
-                    double priceAfterTax = price + vat;
-
                     var variant = variants.Count > e.RowIndex ? variants[e.RowIndex] : null;
-                    double discount = variant?.Discount?.Rate ?? 0;
+                    var discount = variant?.Discount?.Rate ?? 0;
+                    var priceWithTax = price * TaxHelper.TAX_F;
+                    var discountedPrice = price * (1 - discount);
+                    var discountedPriceWithTax = discountedPrice * TaxHelper.TAX_F;
 
-                    double priceAfterDiscount = priceAfterTax - discount;
-
-                    row.Cells["Price After Tax"].Value = priceAfterTax.ToString("N2");
-                    row.Cells["Price After Tax / Discount"].Value = priceAfterDiscount.ToString("N2");
+                    isUpdating = true;
+                    row.Cells["Price After Discount"].Value = discountedPrice.ToString("N2");
+                    row.Cells["Price After Discount / Tax"].Value = discountedPriceWithTax.ToString("N2");
+                    isUpdating = false;
                 }
                 else
                 {
-                    row.Cells["Price After Tax"].Value = "";
-                    row.Cells["Price After Tax / Discount"].Value = "";
+                    row.Cells["Price After Discount"].Value = "";
+                    row.Cells["Price After Discount / Tax"].Value = "";
+                }
+            }
+            else if (dataGrid.Columns[e.ColumnIndex].Name == "Price After Discount / Tax")
+            {
+                string priceAfterTaxS = row.Cells["Price After Discount / Tax"].Value?.ToString();
+                if (double.TryParse(priceAfterTaxS, out double priceTax))
+                {
+                    var variant = variants.Count > e.RowIndex ? variants[e.RowIndex] : null;
+                    var discount = variant?.Discount?.Rate ?? 0;
+                    var origPrice = priceTax / ((1 - discount) * (TaxHelper.TAX_F));
+                    var discountedPrice = origPrice * (1 - discount);
+                    isUpdating = true;
+                    row.Cells["Price"].Value = origPrice.ToString("N2");
+                    row.Cells["Price After Discount"].Value = discountedPrice.ToString("N2");
+                    isUpdating = false;
+                }
+                else
+                {
+                    row.Cells["Price"].Value = "";
+                    row.Cells["Price After Discount"].Value = "";
                 }
             }
         }
-
         private void dataGrid_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (dataGrid.IsCurrentCellDirty)

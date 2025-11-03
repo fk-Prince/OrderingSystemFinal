@@ -7,13 +7,11 @@ namespace OrderingSystem.Model
     public class MenuPackageModel : MenuModel
     {
         public bool isFixed { get; protected set; }
-
         public int PackageId { get; protected set; }
         public List<MenuModel> MenuIncluded { get; protected set; }
         public int Quantity { get; protected set; }
         public interface IMenuPackageBuilder
         {
-
             MenuPackageBuilder WithMenuImageByte(byte[] image);
             MenuPackageBuilder isAvailable(bool x);
             MenuPackageBuilder WithEstimatedTime(TimeSpan ts);

@@ -13,7 +13,6 @@ namespace OrderingSystem.Services
         {
             this.categoryRepository = categoryRepository;
         }
-
         public List<CategoryModel> getCategories()
         {
             return categoryRepository.getCategories();
@@ -22,23 +21,17 @@ namespace OrderingSystem.Services
         {
             return categoryRepository.getCategoriesByMenu();
         }
-
         public bool createCategory(string name, Image image)
         {
             if (string.IsNullOrEmpty(name))
-            {
                 throw new InvalidInput("Category Name is required.");
-            }
 
             CategoryModel c = new CategoryModel(0, name, image);
             if (isCategoryNameExists(c))
-            {
                 throw new DuplicateException("Category Name already exists.");
-            }
 
             return categoryRepository.createCategory(c);
         }
-
         public bool updateCateogry(int id, string name, Image image)
         {
             if (string.IsNullOrEmpty(name))
@@ -54,7 +47,6 @@ namespace OrderingSystem.Services
 
             return categoryRepository.updateCategory(c);
         }
-
         public bool isCategoryNameExists(CategoryModel c)
         {
             return categoryRepository.isCategoryNameExists(c);

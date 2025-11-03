@@ -14,9 +14,7 @@ namespace OrderingSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new KioskLayout());
             Application.Run(new LoginLayout());
-            //Application.Run(new CashierLayout());
         }
     }
 }

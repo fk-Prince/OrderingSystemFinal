@@ -16,5 +16,15 @@ namespace OrderingSystem.CashierApp.SessionData
 
         public static string getFullName() => $"{FirstName.Substring(0, 1) + FirstName.Substring(1)}  {LastName.Substring(0, 1) + LastName.Substring(1)}";
 
+        public static void setSessionData(StaffModel loginStaff)
+        {
+            StaffData = loginStaff;
+            StaffId = loginStaff.StaffId;
+            FirstName = loginStaff.FirstName;
+            LastName = loginStaff.LastName;
+            Role = loginStaff.Role;
+            Image = loginStaff.Image;
+        }
+
     }
 }

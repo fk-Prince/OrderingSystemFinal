@@ -11,6 +11,7 @@ using OrderingSystem.CashierApp.Table;
 using OrderingSystem.Model;
 using OrderingSystem.Repository.Discount;
 using OrderingSystem.Services;
+using OrderingSystem.util;
 
 namespace OrderingSystem.CashierApp.Components
 {
@@ -112,7 +113,12 @@ namespace OrderingSystem.CashierApp.Components
 
                     lPrice.Visible = true;
                     price.Visible = true;
-                    price.Text = menuService.getBundlePrice(menu).ToString("N2");
+                    l2Price.Visible = true;
+                    dprice.Visible = true;
+                    double pricex = menuService.getBundlePrice(menu);
+                    DiscountModel c = (DiscountModel)cbd?.SelectedItem;
+                    price.Text = pricex.ToString("N2");
+                    dprice.Text = (((pricex - ((c?.Rate ?? 0) * pricex)) * TaxHelper.TAX_F)).ToString("N2");
                 }
                 else
                 {
@@ -125,6 +131,29 @@ namespace OrderingSystem.CashierApp.Components
             {
                 MessageBox.Show("Internal Server Error" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void price_TextChanged(object sender, EventArgs e)
+        {
+            if (isUpdate) return;
+            isUpdate = true;
+            DiscountModel c = (DiscountModel)cbd?.SelectedItem;
+            if (double.TryParse(price.Text.Trim(), out double d))
+            {
+                dprice.Text = (((d - ((c?.Rate ?? 0) * d)) * TaxHelper.TAX_F)).ToString("N2");
+            }
+            isUpdate = false;
+        }
+        private bool isUpdate;
+        private void dprice_TextChanged(object sender, EventArgs e)
+        {
+            if (isUpdate) return;
+            isUpdate = true;
+            DiscountModel c = (DiscountModel)cbd?.SelectedItem;
+            if (double.TryParse(dprice.Text.Trim(), out double dp))
+            {
+                price.Text = (dp / ((1 - (c?.Rate ?? 0)) * TaxHelper.TAX_F)).ToString("N2");
+            }
+            isUpdate = false;
         }
         private void changeMode(object sender, EventArgs e)
         {
@@ -328,7 +357,6 @@ namespace OrderingSystem.CashierApp.Components
                 pop.Hide();
             }
         }
-
         private void isAvailable()
         {
             if (cBox.Text == "Available" || !isEditMode)
@@ -345,22 +373,6 @@ namespace OrderingSystem.CashierApp.Components
             }
         }
 
-        private void price_TextChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(lPrice.Text))
-            {
-                lPrice.Text = "Price";
-                return;
-            }
-            if (double.TryParse(price.Text.Trim(), out double d))
-            {
-                lPrice.Text = $"Price ({d + (d * 0.12) - (menu.Discount == null ? 0 : menu.Discount.Rate)}) After Tax / Discount";
-            }
-            else
-            {
-                lPrice.Text = "Price";
-            }
-        }
         private string prevStat;
         private void cBox_SelectedIndexChanged(object sender, EventArgs e)
         {

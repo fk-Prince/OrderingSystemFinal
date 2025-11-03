@@ -139,6 +139,8 @@ namespace OrderingSystem.CashierApp.Layout
                 });
 
                 var maxValue = Math.Ceiling(Math.Max(totalOrders.Max(), Math.Max(paidOrders.Max(), cancelledOrder.Max())) / 10) * 10;
+                if (maxValue <= 0)
+                    maxValue = 10;
                 chart.AxisY.Add(new Axis
                 {
                     Title = "Number of Orders",

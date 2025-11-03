@@ -2,12 +2,14 @@
 
 namespace OrderingSystem.Model
 {
+
     public class DiscountModel
     {
         public int DiscountId { get; protected set; }
         public double Rate { get; protected set; }
         public DateTime UntilDate { get; protected set; }
         public string DisplayText { get; set; }
+
         public static DiscountBuilder Builder() => new DiscountBuilder();
 
         public interface IDiscountBuilder
@@ -43,6 +45,7 @@ namespace OrderingSystem.Model
             {
                 return discountModel;
             }
+
         }
     }
 }

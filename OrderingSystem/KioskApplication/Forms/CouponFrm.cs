@@ -14,11 +14,13 @@ namespace OrderingSystem.KioskApplication
         private CouponModel currentCoupon;
         private Guna2ProgressIndicator spinner = null;
         private Guna2Button b = null;
+        private double currentTotal;
 
-        public CouponFrm(ICouponRepository couponRepository)
+        public CouponFrm(ICouponRepository couponRepository, double currentTotal)
         {
             InitializeComponent();
             this.couponRepository = couponRepository;
+            this.currentTotal = currentTotal;
         }
 
 
@@ -67,13 +69,12 @@ namespace OrderingSystem.KioskApplication
             try
             {
                 CouponModel c = couponRepository.getCoupon(txtCoupon.Text);
-                if (currentCoupon != null)
-                {
-                    message.Text = "You’ve already selected a coupon. If you want to change it, please click gift icon.";
-                    message.ForeColor = Color.IndianRed;
-                    return;
-                }
-
+                //if (currentCoupon != null)
+                //{
+                //    message.Text = "You’ve already selected a coupon. If you want to change it, please click gift icon.";
+                //    message.ForeColor = Color.IndianRed;
+                //    return;
+                //}
 
 
                 if (c != null)
@@ -91,6 +92,12 @@ namespace OrderingSystem.KioskApplication
                     }
                     else
                     {
+                        if (c.getType() == CouponType.FIXED && currentTotal < c.CouponMin)
+                        {
+                            message.Text = $"Total has not reach the minimum. ₱{c.CouponMin}";
+                            message.ForeColor = Color.IndianRed;
+                            return;
+                        }
                         message.Text = "Success! Your coupon is applied.";
                         CouponSelected?.Invoke(this, c);
                         currentCoupon = c;
@@ -107,6 +114,10 @@ namespace OrderingSystem.KioskApplication
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
         }
     }
 }

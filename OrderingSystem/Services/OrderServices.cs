@@ -76,5 +76,10 @@ namespace OrderingSystem.KioskApplication.Services
         {
             return orderRepository.voidOrder(orderId);
         }
+
+        public bool adjustTime()
+        {
+            return orderRepository.adjustTime();
+        }
     }
 }

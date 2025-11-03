@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Guna.UI2.WinForms;
 using OrderingSystem.Model;
+using Point = System.Drawing.Point;
 
 namespace OrderingSystem.KioskApplication.Components
 {
@@ -52,18 +53,32 @@ namespace OrderingSystem.KioskApplication.Components
                 double p = 0;
                 string priceText;
 
-                if (m.getPrice() <= menuDetails[0].getPrice())
+                if (m is MenuPackageModel)
                 {
-                    priceText = "Free";
+                    if (m.getPriceAfterVatWithDiscount() <= menuDetails[0].getPriceAfterVatWithDiscount())
+                    {
+                        priceText = "Free";
+                    }
+                    else
+                    {
+                        p = Math.Round(m.getPriceAfterVatWithDiscount() - menuDetails[0].getPriceAfterVatWithDiscount(), 2, MidpointRounding.AwayFromZero);
+                        priceText = p.ToString("N2");
+                    }
+
                 }
                 else
                 {
-                    p = m.getPrice() - menuDetails[0].getPrice();
-                    priceText = p.ToString("N2");
+                    if (m.getPriceAfterVatWithDiscount() <= menuDetails[0].getPriceAfterVatWithDiscount())
+                    {
+                        priceText = "Free";
+                    }
+                    else
+                    {
+                        p = Math.Round(m.getPriceAfterVatWithDiscount(), 2) - Math.Round(menuDetails[0].getPriceAfterVatWithDiscount(), 2);
+                        priceText = p.ToString("N2");
+                    }
                 }
-
                 string displayPrice = isFirst ? "Free" : priceText;
-
                 MyRadioButton rs = new MyRadioButton(m.FlavorName, displayPrice, m);
                 rs.Location = new Point(50, titleOption.Bottom + y);
                 rs.RadioCheckedChanged += (s, e) =>

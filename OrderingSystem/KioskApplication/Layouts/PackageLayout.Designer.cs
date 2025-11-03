@@ -43,7 +43,7 @@
             // PackageLayout
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.ClientSize = new System.Drawing.Size(721, 141);
+            this.ClientSize = new System.Drawing.Size(721, 145);
             this.Controls.Add(this.flowPanel);
             this.Name = "PackageLayout";
             this.Text = "PackageLayout";

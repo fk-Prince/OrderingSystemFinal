@@ -55,8 +55,15 @@ namespace OrderingSystem.CashierApp.Forms.Menu
         }
         private void NewMenu_Load(object sender, System.EventArgs e)
         {
-            List<CategoryModel> cat = new CategoryServices(new CategoryRepository()).getCategories();
-            cat.ForEach(c => cmbCat.Items.Add(c.CategoryName));
+            try
+            {
+                List<CategoryModel> cat = new CategoryServices(new CategoryRepository()).getCategories();
+                cat.ForEach(c => cmbCat.Items.Add(c.CategoryName));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Server Error", "Category Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void ImageButton1(object sender, System.EventArgs e)
         {

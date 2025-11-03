@@ -19,5 +19,6 @@ namespace OrderingSystem.Repository
         Tuple<TimeSpan, string> getTimeInvoiceWaiting(string order_id);
         DataView getOrderView(int offSet);
         bool voidOrder(string orderId);
+        bool adjustTime();
     }
 }

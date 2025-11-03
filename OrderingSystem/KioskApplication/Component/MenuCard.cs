@@ -35,6 +35,8 @@ namespace OrderingSystem.KioskApplication.Cards
             v1.Visible = menu.getPriceAfterVatWithDiscount() != menu.getPriceAfterVat();
             v2.Visible = menu.getPriceAfterVatWithDiscount() != menu.getPriceAfterVat();
 
+            sale.Visible = ooo.Visible || (menu.Discount != null && menu.Discount.DiscountId != 0);
+
             ooo.Visible = !(menu.MaxOrder <= 0);
             BorderRadius = 8;
             BorderThickness = 1;

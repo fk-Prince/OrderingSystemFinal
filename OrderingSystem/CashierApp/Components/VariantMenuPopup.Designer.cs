@@ -106,11 +106,11 @@
             this.p.AutoSize = true;
             this.p.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.p.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.p.Location = new System.Drawing.Point(289, 93);
+            this.p.Location = new System.Drawing.Point(288, 93);
             this.p.Name = "p";
-            this.p.Size = new System.Drawing.Size(33, 15);
+            this.p.Size = new System.Drawing.Size(82, 15);
             this.p.TabIndex = 62;
-            this.p.Text = "Price";
+            this.p.Text = "Price After Tax";
             // 
             // menuPrice
             // 
@@ -141,7 +141,7 @@
             this.lp.AutoSize = true;
             this.lp.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lp.ForeColor = System.Drawing.Color.IndianRed;
-            this.lp.Location = new System.Drawing.Point(321, 93);
+            this.lp.Location = new System.Drawing.Point(376, 93);
             this.lp.Name = "lp";
             this.lp.Size = new System.Drawing.Size(12, 13);
             this.lp.TabIndex = 65;

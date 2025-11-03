@@ -48,30 +48,29 @@ namespace OrderingSystem.KioskApplication.Components
                     }
                     else
                     {
-
-                        p = m.getPrice() - menuDetails[0].getPrice();
+                        p = m.getPriceAfterVatWithDiscount() - menuDetails[0].getPriceAfterVatWithDiscount();
                         priceText = p.ToString("N2");
                         if (isFirst)
                         {
-                            displayPrice = isFirst && m.getPrice() <= menuDetails[0].getPrice() ? "Free" : priceText;
+                            displayPrice = isFirst && m.getPriceAfterVatWithDiscount() <= menuDetails[0].getPriceAfterVatWithDiscount() ? "Free" : priceText;
                         }
                         else
                         {
-                            displayPrice = !isFirst && m.getPrice() <= menuDetails[0].getPrice() ? "Free" : priceText;
+                            displayPrice = !isFirst && m.getPriceAfterVatWithDiscount() <= menuDetails[0].getPriceAfterVatWithDiscount() ? "Free" : priceText;
                         }
                     }
                 }
                 else
                 {
-                    p = m.getPrice() - menuDetails[0].getPrice();
+                    p = m.getPriceAfterVatWithDiscount() - menuDetails[0].getPriceAfterVatWithDiscount();
                     priceText = p.ToString("N2");
                     if (isFirst)
                     {
-                        displayPrice = isFirst && m.getPrice() <= menuDetails[0].getPrice() ? "Free" : priceText;
+                        displayPrice = isFirst && m.getPriceAfterVatWithDiscount() <= menuDetails[0].getPriceAfterVatWithDiscount() ? "Free" : priceText;
                     }
                     else
                     {
-                        displayPrice = !isFirst && m.getPrice() <= menuDetails[0].getPrice() ? "Free" : priceText;
+                        displayPrice = !isFirst && m.getPriceAfterVatWithDiscount() <= menuDetails[0].getPriceAfterVatWithDiscount() ? "Free" : priceText;
                     }
                 }
                 MyRadioButton rs = new MyRadioButton(m.SizeName, displayPrice, m);

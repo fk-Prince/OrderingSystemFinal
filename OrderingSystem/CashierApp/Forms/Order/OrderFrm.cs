@@ -19,7 +19,6 @@ namespace OrderingSystem.CashierApp.Forms
     {
         private DataTable table;
         private OrderModel om;
-        string orderId;
         private readonly OrderServices orderServices;
         private readonly IOrderRepository orderRepository;
 
@@ -35,46 +34,28 @@ namespace OrderingSystem.CashierApp.Forms
             table = new DataTable();
             table.Columns.Add("Order-ID");
             table.Columns.Add("Name");
-            //table.Columns.Add("Note");
-            //table.Columns.Add("Note Approval", typeof(bool));
             table.Columns.Add("Price");
             table.Columns.Add("Quantity");
             table.Columns.Add("Total Amount", typeof(string));
             dataGrid.DataSource = table;
-            //dataGrid.Columns["Note Approval"].Width = 70;
-            //DataGridViewCheckBoxColumn fx = new DataGridViewCheckBoxColumn();
-            //fx.DataPropertyName = "Note Approval";
-            //fx.HeaderText = "Note Approval";
-            //dataGrid.CellValueChanged += (s, e) =>
-            //{
-            //    if (e.ColumnIndex == dataGrid.Columns["Note Approval"].Index && e.RowIndex >= 0)
-            //    {
-            //        bool approved = (bool)dataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            //        om.OrderItemList[e.RowIndex].NoteApproved = approved;
-            //    }
-            //};
         }
-
-        private void displayOrders()
+        private void displayOrders(string orderId)
         {
             try
             {
-                orderId = txt.Text.Trim();
                 om = orderServices.getAllOrders(orderId);
                 if (om.OrderItemList.Count > 0)
                     foreach (var order in om.OrderItemList)
                         table.Rows.Add(om.OrderId, order.PurchaseMenu.MenuName, order.PurchaseMenu.getPriceAfterVatWithDiscount().ToString("N2"), order.PurchaseQty, order.getSubtotal().ToString("N2"));
 
-                double subtotald = om.OrderItemList.Sum(o => o.getSubtotal());
-                double couponRated = subtotald * (om.Coupon == null ? 0 : om.Coupon.CouponRate);
-                double vatd = om.OrderItemList.Sum(o => (subtotald - couponRated) * 0.12);
                 double withoutVat = om.OrderItemList.Sum(o => o.PurchaseMenu.MenuPrice * o.PurchaseQty);
-                double totald = (subtotald - couponRated);
+                double subtotald = om.GetGrossRevenue();
+                double couponRated = om.GetCouponDiscount();
+                double vatd = om.GetVATAmount();
+                double totald = om.GetTotalWithVAT();
 
-                double rated = om.Coupon.CouponRate * 100;
                 subtotal.Text = "₱ " + subtotald.ToString("N2", new CultureInfo("en-PH"));
                 coupon.Text = "₱ " + couponRated.ToString("N2", new CultureInfo("en-PH"));
-                rate.Text = rated != 0 ? rated.ToString() + "%" : "";
                 vat.Text = "₱ " + vatd.ToString("N2", new CultureInfo("en-PH"));
                 wo.Text = "₱ " + withoutVat.ToString("N2", new CultureInfo("en-PH"));
                 total.Text = "₱ " + totald.ToString("N2", new CultureInfo("en-PH"));
@@ -113,14 +94,13 @@ namespace OrderingSystem.CashierApp.Forms
             {
                 Tuple<TimeSpan, string> xd = orderServices.getTimeInvoiceWaiting(om.OrderId);
                 OrderReceipt or = new OrderReceipt(om);
-                or.Cash(p.Cash);
+                or.Cash(p.CashAmount);
                 or.Message("Wait for your Order", xd.Item1.ToString(@"hh\:mm\:ss"), xd.Item2);
                 or.print();
                 p.Hide();
                 clear();
             }
         }
-
         private void txt_MouseDown(object sender, MouseEventArgs e)
         {
             var txt = sender as Guna2TextBox;
@@ -128,25 +108,34 @@ namespace OrderingSystem.CashierApp.Forms
 
             if (iconBounds.Contains(e.Location))
             {
-                displayOrders();
+                displayOrders(txt.Text.Trim());
             }
         }
         private void txt_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                displayOrders();
+                displayOrders(txt.Text.Trim());
                 e.Handled = true;
             }
         }
-
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             OrdersPopup pop = new OrdersPopup(orderServices);
+            pop.selectedOrder += (ss, ee) => displayOrders(ee);
             DialogResult rs = pop.ShowDialog(this);
             if (rs == DialogResult.OK)
-            {
                 pop.Hide();
+        }
+        private void guna2Button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool suc = orderServices.adjustTime();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Internal Server Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

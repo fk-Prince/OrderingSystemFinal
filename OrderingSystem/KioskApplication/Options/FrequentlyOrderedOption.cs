@@ -30,10 +30,7 @@ namespace OrderingSystem.KioskApplication.Options
                     flowPanel.Controls.SetChildIndex(fot, flowPanel.Controls.Count - 1);
                     return;
                 }
-
-                if (md.Min(m => m.MaxOrder) <= 20) return;
-
-
+                md = md.Where(m => m.MaxOrder >= 2).ToList();
                 fot = new FrequentlyOrderedLayout(md);
                 fot.Margin = new Padding(20, 30, 0, 20);
                 flowPanel.Controls.Add(fot);

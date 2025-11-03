@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using OrderingSystem.CashierApp.Payment;
 using OrderingSystem.Exceptions;
@@ -14,7 +13,7 @@ namespace OrderingSystem.CashierApp.Forms.Order
         private OrderModel om;
         private OrderServices orderServices;
 
-        public double Cash;
+        public double CashAmount = 0;
         public PaymentMethod(OrderServices orderServices)
         {
             InitializeComponent();
@@ -67,15 +66,22 @@ namespace OrderingSystem.CashierApp.Forms.Order
                 if (!isCashValid(t1.Text.ToString().Trim()) && t1.Visible)
                     throw new InvalidPayment("Cash amount is invalid.");
 
-                payment.calculateFee(om.OrderItemList.Sum(ex => ex.getTotal()));
+                payment.calculateFee(om.GetTotalWithVAT());
 
-                double cashAmount = cb.SelectedItem.ToString() == "Cash" ? double.Parse(t1.Text) : 0;
-                bool suc = payment.processPayment(om, cashAmount);
+
+                if (cb.SelectedItem.ToString() == "Cash")
+                {
+                    if (!isCashValid(t1.Text.Trim()))
+                        throw new InvalidPayment("Invalid cash amount.");
+
+                    CashAmount = double.Parse(t1.Text);
+                }
+
+                bool suc = payment.processPayment(om, CashAmount);
                 if (suc)
                 {
                     MessageBox.Show("Successfull Payment", "Payment Method", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
-                    Cash = payment.getCash();
                 }
                 else
                     MessageBox.Show("Failed to Proceed Payment", "Payment Method", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -116,7 +122,7 @@ namespace OrderingSystem.CashierApp.Forms.Order
         public void setOrder(OrderModel om)
         {
             this.om = om;
-            total.Text = om.OrderItemList.Sum(e => e.getSubtotal()).ToString("N2");
+            total.Text = om.GetTotalWithVAT().ToString("N2");
         }
 
         private void t1_TextChanged(object sender, EventArgs e)

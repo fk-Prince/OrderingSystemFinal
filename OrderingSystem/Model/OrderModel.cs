@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
@@ -21,9 +22,13 @@ namespace OrderingSystem.Model
         public double GetCouponDiscount()
         {
             if (Coupon == null) return 0;
-            return GetGrossRevenue() * Coupon.CouponRate;
-        }
 
+            if (Coupon.getType() == CouponType.PERCENTAGE)
+                return GetGrossRevenue() * Coupon.CouponRate;
+            else if (Coupon.getType() == CouponType.FIXED)
+                return Coupon.CouponRate;
+            return 0;
+        }
 
         public double GetTotalWithVAT()
         {
@@ -34,7 +39,7 @@ namespace OrderingSystem.Model
         {
             double totalWithVAT = GetTotalWithVAT();
             double totalWithoutVAT = totalWithVAT / 1.12;
-            return totalWithVAT - totalWithoutVAT;
+            return Math.Max(0, totalWithVAT - totalWithoutVAT);
         }
 
         public double GetAmountWithoutVAT()

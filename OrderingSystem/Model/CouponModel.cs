@@ -2,40 +2,62 @@
 
 namespace OrderingSystem.Model
 {
+    public enum CouponType
+    {
+        PERCENTAGE,
+        FIXED
+    }
     public class CouponModel
     {
-        private string couponCode;
-        private string status;
-        private string description;
-        private double couponRate;
-        private int numberOfTimes;
-        private DateTime expiryDate;
-        public CouponModel(double couponRate)
-        {
-            this.couponRate = couponRate;
+        public string CouponCode { get; set; }
+        public string Description { get; set; }
+        public string Status { get; set; }
+        public double CouponRate { get; set; }
+        public double CouponMin { get; set; }
+        public DateTime ExpiryDate { get; set; }
+        public int NumberOfTimes { get; set; }
+        public string type { get; set; }
 
-        }
-        public CouponModel(string couponCode, string status, double couponRate, DateTime expiryDate, string description)
+        public CouponModel(double couponRate, string type)
         {
-            this.couponCode = couponCode;
-            this.status = status;
-            this.couponRate = couponRate;
-            this.expiryDate = expiryDate;
-            this.description = description;
+            this.CouponRate = couponRate;
+            this.type = type;
         }
-        public CouponModel(double couponRate, DateTime expiryDate, string description, int numberOfTimes)
+        public CouponModel(string couponCode, string status, double couponRate, DateTime expiryDate, string description, string type, double min)
         {
-            this.couponRate = couponRate;
-            this.expiryDate = expiryDate;
-            this.description = description;
-            this.numberOfTimes = numberOfTimes;
+            this.CouponCode = couponCode;
+            this.Status = status;
+            this.CouponRate = CouponRate;
+            this.ExpiryDate = expiryDate;
+            this.Description = description;
+            this.type = type;
+            this.CouponMin = min;
+        }
+        public CouponModel(double couponRate, DateTime expiryDate, string description, int numberOfTimes, string type, double min)
+        {
+            this.CouponRate = CouponRate;
+            this.ExpiryDate = expiryDate;
+            this.Description = description;
+            this.NumberOfTimes = numberOfTimes;
+            this.type = type;
+            this.CouponMin = min;
+        }
+        public CouponType getType()
+        {
+            return type.ToUpper() == "FIXED" ? CouponType.FIXED : CouponType.PERCENTAGE;
         }
 
-        public string CouponCode { get => couponCode; set => couponCode = value; }
-        public string Description { get => description; set => description = value; }
-        public string Status { get => status; set => status = value; }
-        public double CouponRate { get => couponRate; set => couponRate = value; }
-        public DateTime ExpiryDate { get => expiryDate; set => expiryDate = value; }
-        public int NumberOfTimes { get => numberOfTimes; set => numberOfTimes = value; }
+        public double calculate(double total)
+        {
+            return getType() == CouponType.FIXED ? total - CouponRate : total - (total * CouponRate);
+        }
+        public double getCoupon(double total)
+        {
+            return getType() == CouponType.FIXED ? CouponRate : total * CouponRate;
+        }
+        public double calculateX()
+        {
+            return getType() == CouponType.FIXED ? CouponRate : CouponRate * 100;
+        }
     }
 }

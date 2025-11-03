@@ -72,6 +72,7 @@ namespace OrderingSystem.Repository.Order
             var db = DatabaseHandler.getInstance();
             double couponRate = 0;
             string orderId = "";
+            string couponType = "";
 
             try
             {
@@ -97,8 +98,6 @@ namespace OrderingSystem.Repository.Order
                                 .WithDiscount(d)
                                 .Build();
                             OrderItemModel xd = OrderItemModel.Builder()
-                                //.WithNote(reader.GetString("order_note"))
-                                //.WithNoteApproved(reader.GetBoolean("note_approve"))
                                 .WithOrderItemId(reader.GetInt32("order_item_id"))
                                 .WithPurchaseQty(reader.GetInt32("quantity"))
                                 .WithPurchaseMenu(m)
@@ -109,6 +108,7 @@ namespace OrderingSystem.Repository.Order
                             {
                                 orderId = reader.GetString("order_id");
                                 couponRate = reader.GetDouble("coupon_rate");
+                                couponType = reader.GetString("type");
                             }
 
                         }
@@ -125,7 +125,7 @@ namespace OrderingSystem.Repository.Order
             }
             OrderModel om = OrderModel.Builder()
                                 .WithOrderId(orderId)
-                                .WithCoupon(new CouponModel(couponRate))
+                                .WithCoupon(new CouponModel(couponRate, couponType))
                                 .WithOrderItemList(oim)
                                 .Build();
 
@@ -309,7 +309,6 @@ namespace OrderingSystem.Repository.Order
             }
             return null;
         }
-
         public DataView getOrderView(int offSet)
         {
             string query = @"
@@ -348,7 +347,6 @@ namespace OrderingSystem.Repository.Order
                 db.closeConnection();
             }
         }
-
         public bool voidOrder(string orderId)
         {
             string query = @"
@@ -362,6 +360,33 @@ namespace OrderingSystem.Repository.Order
                 using (var cmd = new MySqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@order_id", orderId);
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                db.closeConnection();
+            }
+        }
+        public bool adjustTime()
+        {
+            string query = @"
+                  UPDATE orders SET available_until = @date WHERE status = 'Pending';
+                ";
+
+            var db = DatabaseHandler.getInstance();
+            try
+            {
+                var conn = db.getConnection();
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now.AddMinutes(30));
                     cmd.ExecuteNonQuery();
                     return true;
                 }

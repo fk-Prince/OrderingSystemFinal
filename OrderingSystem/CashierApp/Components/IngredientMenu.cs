@@ -158,9 +158,9 @@ namespace OrderingSystem.CashierApp.Components
                         if (selectedIngredient != null)
                         {
                             IngredientModel ingredient = IngredientModel.Builder()
-                                .SetIngredient_id(selectedIngredient.Ingredient_id)
-                                .SetIngredientName(ingredientName)
-                                .SetIngredientQuantity(quantity)
+                                .WithIngredientID(selectedIngredient.Ingredient_id)
+                                .WithIngredientName(ingredientName)
+                                .WithInredeintQty(quantity)
                                 .Build();
                             ingredientSelected.Add(ingredient);
                         }

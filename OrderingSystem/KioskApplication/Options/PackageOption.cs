@@ -32,8 +32,7 @@ namespace OrderingSystem.KioskApplication.Options
             {
                 this.menu = menu;
                 List<MenuModel> menuList = kioskMenuServices.getIncludedMenu(menu);
-
-                foreach (var item in menuList)
+                foreach (MenuPackageModel item in menuList)
                 {
                     var pakage = new PackageLayout(kioskMenuServices, item);
                     pakage.Margin = new Padding(20, 20, 0, 20);

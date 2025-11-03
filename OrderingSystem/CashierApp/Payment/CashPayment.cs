@@ -9,7 +9,6 @@ namespace OrderingSystem.CashierApp.Payment
     public class CashPayment : IPayment
     {
         private double amount;
-        private double cashReceived;
         private readonly OrderServices orderServices;
         public string PaymentName => "Cash";
 
@@ -36,13 +35,7 @@ namespace OrderingSystem.CashierApp.Payment
             if (amount > cashReceived)
                 throw new InsuffiecientAmount("The cash amount is insufficient to process the payment.");
 
-            this.cashReceived = cashReceived;
             return orderServices.payOrder(order, SessionStaffData.StaffId, PaymentName);
-        }
-
-        public double getCash()
-        {
-            return cashReceived;
         }
     }
 }

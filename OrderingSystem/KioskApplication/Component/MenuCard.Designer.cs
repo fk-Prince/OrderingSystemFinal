@@ -37,8 +37,10 @@
             this.dPrice = new System.Windows.Forms.Label();
             this.v1 = new Guna.UI2.WinForms.Guna2Separator();
             this.v2 = new Guna.UI2.WinForms.Guna2Separator();
+            this.sale = new Guna.UI2.WinForms.Guna2PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ooo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sale)).BeginInit();
             this.SuspendLayout();
             // 
             // menuName
@@ -69,9 +71,9 @@
             this.image.FillColor = System.Drawing.Color.Transparent;
             this.image.Image = ((System.Drawing.Image)(resources.GetObject("image.Image")));
             this.image.ImageRotate = 0F;
-            this.image.Location = new System.Drawing.Point(1, 4);
+            this.image.Location = new System.Drawing.Point(73, 3);
             this.image.Name = "image";
-            this.image.Size = new System.Drawing.Size(249, 61);
+            this.image.Size = new System.Drawing.Size(90, 61);
             this.image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.image.TabIndex = 3;
             this.image.TabStop = false;
@@ -137,9 +139,25 @@
             this.v2.UseTransparentBackground = true;
             this.v2.Visible = false;
             // 
+            // sale
+            // 
+            this.sale.AutoRoundedCorners = true;
+            this.sale.BackColor = System.Drawing.Color.Transparent;
+            this.sale.Image = ((System.Drawing.Image)(resources.GetObject("sale.Image")));
+            this.sale.ImageRotate = 0F;
+            this.sale.Location = new System.Drawing.Point(-9, 12);
+            this.sale.Name = "sale";
+            this.sale.Size = new System.Drawing.Size(57, 38);
+            this.sale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.sale.TabIndex = 8;
+            this.sale.TabStop = false;
+            this.sale.UseTransparentBackground = true;
+            this.sale.Visible = false;
+            // 
             // MenuCard
             // 
             this.ClientSize = new System.Drawing.Size(250, 189);
+            this.Controls.Add(this.sale);
             this.Controls.Add(this.v2);
             this.Controls.Add(this.v1);
             this.Controls.Add(this.dPrice);
@@ -152,6 +170,7 @@
             this.Text = "MenuCard";
             ((System.ComponentModel.ISupportInitialize)(this.image)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ooo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sale)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -166,5 +185,6 @@
         private System.Windows.Forms.Label dPrice;
         private Guna.UI2.WinForms.Guna2Separator v1;
         private Guna.UI2.WinForms.Guna2Separator v2;
+        private Guna.UI2.WinForms.Guna2PictureBox sale;
     }
 }

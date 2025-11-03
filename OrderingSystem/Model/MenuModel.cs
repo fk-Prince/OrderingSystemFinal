@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using OrderingSystem.KioskApplication.Interface;
+using OrderingSystem.util;
 
 namespace OrderingSystem.Model
 {
@@ -64,21 +64,14 @@ namespace OrderingSystem.Model
             MenuModel Build();
         }
         public static MenuBuilder Builder() => new MenuBuilder();
-        public double getPrice()
-        {
-            return MenuPrice - (MenuPrice * (Discount == null ? 0 : Discount.Rate));
-        }
-
         public double getPriceAfterVat()
         {
-            return CalculateVat.VatCalulator(MenuPrice);
+            return TaxHelper.VatCalulator(MenuPrice);
         }
-
         public double getPriceAfterVatWithDiscount()
         {
-            return CalculateVat.VatCalulator(MenuPrice - (MenuPrice * (Discount == null ? 0 : Discount.Rate)));
+            return TaxHelper.VatCalulator(MenuPrice - (MenuPrice * (Discount == null ? 0 : Discount.Rate)));
         }
-
         public MenuModel Clone()
         {
             return Builder()
@@ -102,7 +95,6 @@ namespace OrderingSystem.Model
                 .isAvailable(isAvailable)
                 .Build();
         }
-
         public override string ToString()
         {
             return base.ToString();
@@ -110,6 +102,11 @@ namespace OrderingSystem.Model
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public double getPriceAfterDiscount()
+        {
+            return Math.Round(MenuPrice - (MenuPrice * Discount?.Rate ?? 0), 2);
         }
 
         public class MenuBuilder : IMenuBuilder

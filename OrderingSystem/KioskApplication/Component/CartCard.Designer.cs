@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CartCard));
             this.image = new Guna.UI2.WinForms.Guna2PictureBox();
             this.menuName = new System.Windows.Forms.Label();
@@ -43,6 +44,7 @@
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.bb = new System.Windows.Forms.Label();
+            this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).BeginInit();
@@ -223,10 +225,15 @@
             this.bb.Text = "0";
             this.bb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // guna2BorderlessForm1
+            // 
+            this.guna2BorderlessForm1.BorderRadius = 5;
+            this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
+            this.guna2BorderlessForm1.TransparentWhileDrag = true;
+            // 
             // CartCard
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.ClientSize = new System.Drawing.Size(400, 171);
             this.Controls.Add(this.bb);
             this.Controls.Add(this.guna2PictureBox3);
             this.Controls.Add(this.guna2PictureBox2);
@@ -242,7 +249,7 @@
             this.Controls.Add(this.menuName);
             this.Controls.Add(this.image);
             this.Name = "CartCard";
-            this.Text = "CartCard";
+            this.Size = new System.Drawing.Size(400, 171);
             ((System.ComponentModel.ISupportInitialize)(this.image)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).EndInit();
@@ -267,5 +274,6 @@
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox3;
         private System.Windows.Forms.Label bb;
+        private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
     }
 }

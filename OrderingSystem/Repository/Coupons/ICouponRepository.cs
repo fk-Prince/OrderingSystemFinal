@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using OrderingSystem.Model;
 
 namespace OrderingSystem.Repository
@@ -8,6 +9,6 @@ namespace OrderingSystem.Repository
 
         CouponModel getCoupon(string code);
         List<CouponModel> getAllCoupon();
-        bool generateCoupon(CouponModel co);
+        DataView generateCoupon(CouponModel co);
     }
 }

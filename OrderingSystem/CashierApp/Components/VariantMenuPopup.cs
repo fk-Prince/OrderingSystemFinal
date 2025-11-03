@@ -8,6 +8,7 @@ using OrderingSystem.CashierApp.Components;
 using OrderingSystem.Model;
 using OrderingSystem.Repo.CashierMenuRepository;
 using OrderingSystem.Services;
+using OrderingSystem.util;
 
 namespace OrderingSystem.CashierApp.Forms.Menu
 {
@@ -67,7 +68,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
             }
 
             MenuModel variant = MenuModel.Builder()
-                .WithPrice(double.Parse(menuPrice.Text.Trim()))
+                .WithPrice(double.Parse(menuPrice.Text.Trim()) / 1.12)
                 .WithFlavorName(flavor)
                 .WithEstimatedTime(TimeSpan.Parse(estimatedTime.Text.Trim()))
                 .WithSizeName(size)
@@ -138,18 +139,18 @@ namespace OrderingSystem.CashierApp.Forms.Menu
             if (string.IsNullOrWhiteSpace(menuPrice.Text))
             {
                 p.Text = "Price";
-                lp.Location = new Point(p.Right + 5, lp.Location.Y);
+                lp.Location = new Point(p.Right, lp.Location.Y);
                 return;
             }
             if (double.TryParse(menuPrice.Text.Trim(), out double d))
             {
-                p.Text = $"Price ( {d + (d * 0.12)} ) After Tax";
+                p.Text = $"Price After Tax | ( {(d / TaxHelper.TAX_F).ToString("N2")} ) - Sale Price ";
             }
             else
             {
                 p.Text = "Price";
             }
-            lp.Location = new Point(p.Right + 5, lp.Location.Y);
+            lp.Location = new Point(p.Right, lp.Location.Y);
         }
     }
 }

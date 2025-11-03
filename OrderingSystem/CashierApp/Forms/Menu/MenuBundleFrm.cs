@@ -9,6 +9,7 @@ using OrderingSystem.Model;
 using OrderingSystem.Properties;
 using OrderingSystem.Repository.CategoryRepository;
 using OrderingSystem.Services;
+using OrderingSystem.util;
 namespace OrderingSystem.CashierApp.Forms.Menu
 {
     public partial class MenuBundleFrm : Form
@@ -76,7 +77,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
                 MenuPackageModel md = MenuPackageModel.Builder()
                     .WithMenuName(name)
                     .WithMenuDescription(desc)
-                    .WithPrice(price)
+                    .WithPrice(price / 1.12)
                     .WithEstimatedTime(est)
                     .WithMenuImageByte(image)
                     .WithIngredients(ingredientSelected)
@@ -187,7 +188,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
             }
             if (double.TryParse(menuPrice.Text.Trim(), out double d))
             {
-                l2.Text = $"Price ( {d + (d * 0.12)} ) After Tax";
+                l2.Text = $"Price After Tax | (  {(d / TaxHelper.TAX_F).ToString("N2")} Sale Price";
             }
             else
             {

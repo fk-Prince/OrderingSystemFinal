@@ -50,7 +50,26 @@ namespace OrderingSystem.Services
 
         public List<MenuModel> getDetailsByPackage(MenuModel menuDetail)
         {
-            return menuRepository.getDetailsByPackage(menuDetail);
+            List<MenuModel> l = menuRepository.getDetailsByPackage(menuDetail);
+
+            List<MenuModel> newList = new List<MenuModel>();
+
+            foreach (var i in l)
+            {
+                var menuPackage = MenuPackageModel.Builder()
+                                    .WithMenuId(i.MenuId)
+                                    .WithMenuDetailId(i.MenuDetailId)
+                                    .WithPrice(i.MenuPrice)
+                                    .WithMaxOrder(i.MaxOrder)
+                                    .WithFlavorName(i.FlavorName)
+                                    .WithDiscount(menuDetail.Discount)
+                                    .WithSizeName(i.SizeName)
+                                    .Build();
+
+                newList.Add(menuPackage);
+            }
+
+            return newList;
         }
 
         internal List<MenuModel> getMenuDetail()

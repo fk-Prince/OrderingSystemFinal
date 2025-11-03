@@ -8,14 +8,17 @@ namespace OrderingSystem.CashierApp.Forms.Order
     public partial class OrdersPopup : Form
     {
         private int offSet = 0;
-        private OrderServices orderServices;
+        private readonly OrderServices orderServices;
+        private DataView view;
+        private int page = 1;
+        public event EventHandler<string> selectedOrder;
         public OrdersPopup(OrderServices orderServices)
         {
             InitializeComponent();
             this.orderServices = orderServices;
+            pp.Text = page.ToString();
             fetchData();
         }
-        private DataView view;
         private void fetchData()
         {
             try
@@ -34,6 +37,7 @@ namespace OrderingSystem.CashierApp.Forms.Order
         {
             offSet += 50;
             fetchData();
+            pp.Text = (page += 1).ToString();
         }
 
         private void prev(object sender, EventArgs e)
@@ -42,20 +46,32 @@ namespace OrderingSystem.CashierApp.Forms.Order
             {
                 offSet -= 50;
                 fetchData();
+                pp.Text = (page -= 1).ToString();
             }
         }
         private void addViewButton()
         {
             if (dataGridView1.Columns["Void Order"] == null)
             {
+                DataGridViewButtonColumn voidOrder = new DataGridViewButtonColumn();
+                voidOrder.HeaderText = "Action";
+                voidOrder.Name = "Void Order";
+                voidOrder.Text = "Void Order";
+                voidOrder.UseColumnTextForButtonValue = true;
+                voidOrder.Width = 70;
+                dataGridView1.Columns.Add(voidOrder);
+            }
+            if (dataGridView1.Columns["Select"] == null)
+            {
                 DataGridViewButtonColumn viewButton = new DataGridViewButtonColumn();
-                viewButton.HeaderText = "Action";
-                viewButton.Name = "Void Order";
-                viewButton.Text = "Void Order";
+                viewButton.HeaderText = "View Order";
+                viewButton.Name = "View Order";
+                viewButton.Text = "View Order";
                 viewButton.UseColumnTextForButtonValue = true;
                 viewButton.Width = 70;
                 dataGridView1.Columns.Add(viewButton);
             }
+
         }
 
         private void guna2PictureBox1_Click(object sender, EventArgs e)
@@ -100,11 +116,18 @@ namespace OrderingSystem.CashierApp.Forms.Order
                             fetchData();
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        MessageBox.Show($"Error voiding order: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Internal Server Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+
+            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "View Order")
+            {
+                string orderId = dataGridView1.Rows[e.RowIndex].Cells["Order ID"].Value.ToString();
+                selectedOrder?.Invoke(this, orderId);
+                DialogResult = DialogResult.OK;
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Windows.Forms;
 using MySqlConnector;
 using OrderingSystem.DatabaseConnection;
@@ -8,10 +9,10 @@ namespace OrderingSystem.Repository.Coupon
 {
     public class CouponRepository : ICouponRepository
     {
-        public bool generateCoupon(CouponModel co)
+        public DataView generateCoupon(CouponModel co)
         {
             var db = DatabaseHandler.getInstance();
-
+            DataTable dt = new DataTable();
             try
             {
                 var conn = db.getConnection();
@@ -22,8 +23,16 @@ namespace OrderingSystem.Repository.Coupon
                 cmd.Parameters.AddWithValue("p_rate", co.CouponRate);
                 cmd.Parameters.AddWithValue("p_expiry_date", co.ExpiryDate);
                 cmd.Parameters.AddWithValue("p_description", co.Description);
+                cmd.Parameters.AddWithValue("p_type", co.getType());
+                cmd.Parameters.AddWithValue("p_min", co.CouponMin);
                 cmd.ExecuteNonQuery();
-                return true;
+
+                using (var adapter = new MySqlDataAdapter(cmd))
+                {
+                    adapter.Fill(dt);
+                }
+                DataView view = new DataView(dt);
+                return view;
             }
             catch (MySqlException ex)
             {
@@ -34,7 +43,7 @@ namespace OrderingSystem.Repository.Coupon
                 db.closeConnection();
             }
 
-            return false;
+            return null;
         }
 
         public List<CouponModel> getAllCoupon()
@@ -55,8 +64,8 @@ namespace OrderingSystem.Repository.Coupon
                         reader.GetString("status"),
                         reader.GetDouble("rate"),
                         reader.GetDateTime("expiry_Date"),
-                         reader.IsDBNull(reader.GetOrdinal("coupon_description")) ? "" : reader.GetString(reader.GetOrdinal("coupon_description"))
-
+                         reader.IsDBNull(reader.GetOrdinal("coupon_description")) ? "" : reader.GetString(reader.GetOrdinal("coupon_description")),
+                         reader.GetString("type"), reader.GetDouble("min")
                        ));
                 }
             }
@@ -90,7 +99,8 @@ namespace OrderingSystem.Repository.Coupon
                         reader.GetString("status"),
                         reader.GetDouble("rate"),
                         reader.GetDateTime("expiry_Date"),
-                        reader.IsDBNull(reader.GetOrdinal("coupon_description")) ? "" : reader.GetString(reader.GetOrdinal("coupon_description"))
+                        reader.IsDBNull(reader.GetOrdinal("coupon_description")) ? "" : reader.GetString(reader.GetOrdinal("coupon_description")),
+                         reader.GetString("type"), reader.GetDouble("min")
                        );
                 }
             }

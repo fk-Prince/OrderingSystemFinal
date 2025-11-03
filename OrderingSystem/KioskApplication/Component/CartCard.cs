@@ -42,7 +42,7 @@ namespace OrderingSystem.KioskApplication.Components
             detail.Text = text;
             qty.Text = menu.PurchaseQty.ToString();
             bb.Text = qty.Text;
-            total.Text = (menu.PurchaseMenu.getPriceAfterVatWithDiscount() * menu.PurchaseQty).ToString("N2");
+            total.Text = Math.Round((menu.PurchaseMenu.getPriceAfterVatWithDiscount() * menu.PurchaseQty), 2).ToString("N2");
         }
 
         private void addQuantity(object sender, System.EventArgs e)

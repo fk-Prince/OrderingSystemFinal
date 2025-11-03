@@ -22,17 +22,13 @@ namespace OrderingSystem.CashierApp.Components
             display();
             layout();
         }
-
         private void layout()
         {
             BackColor = Color.Transparent;
             FillColor = Color.FromArgb(242, 242, 242);
             BorderRadius = 8;
             ShadowDecoration.Enabled = true;
-
-
         }
-
         private void click(Control c)
         {
             c.Click += update;
@@ -55,13 +51,11 @@ namespace OrderingSystem.CashierApp.Components
                 hover(cc);
             }
         }
-
         private void display()
         {
             name.Text = c.CategoryName;
             image.Image = c.CategoryImage;
         }
-
         private void update(object sender, EventArgs be)
         {
             CategoryPopup cat = new CategoryPopup("Update Category");
@@ -80,9 +74,9 @@ namespace OrderingSystem.CashierApp.Components
                     }
                     else MessageBox.Show("Category Failed to Updated", "Category", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                catch (DuplicateException ex)
+                catch (Exception ex) when (ex is InvalidInput || ex is DuplicateException)
                 {
-                    MessageBox.Show(ex.Message, "Category", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Category Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception)
                 {
@@ -96,13 +90,10 @@ namespace OrderingSystem.CashierApp.Components
                 cat.Hide();
             }
         }
-
         public void isAuthorized()
         {
             click(this);
             hover(this);
         }
-
-
     }
 }

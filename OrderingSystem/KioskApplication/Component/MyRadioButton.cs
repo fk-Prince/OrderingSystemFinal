@@ -40,7 +40,6 @@ namespace OrderingSystem.KioskApplication.Components
                 {
                     if (radioButton.Checked)
                     {
-                        //var pb = new PurchaseBuilder().Build(m);
                         RadioCheckedChanged?.Invoke(this, m);
                     }
                 }

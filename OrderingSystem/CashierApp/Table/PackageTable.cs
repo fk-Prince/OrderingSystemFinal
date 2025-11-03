@@ -78,52 +78,5 @@ namespace OrderingSystem.CashierApp.Table
                 }
             }
         }
-
-
-        private void dataGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            //foreach (DataGridViewRow row in dataGrid.Rows)
-            //{
-            //    bool isChecked = false;
-            //    if (row.Cells[0].Value != null && bool.TryParse(row.Cells[0].Value.ToString(), out bool isC))
-            //    {
-            //        isChecked = isC;
-            //    }
-
-            //    if (isChecked)
-            //    {
-            //        if (!int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int r))
-            //        {
-            //            MessageBox.Show("No quantity");
-            //            return;
-            //        }
-            //        string menuName = row.Cells["Menu Name"].Value?.ToString();
-            //        string flavor = row.Cells["Flavor"].Value?.ToString();
-            //        string size = row.Cells["Size"].Value?.ToString();
-            //        bool fx = bool.Parse(row.Cells["Fixed ✓"].Value.ToString());
-            //        int q = int.Parse(row.Cells["Quantity"].Value?.ToString());
-
-            //        MenuPackageModel selectedMenu = (MenuPackageModel)included.Find(x => x.MenuName == menuName && x.FlavorName == flavor && x.SizeName == size);
-
-            //        MenuPackageModel p = MenuPackageModel.Builder()
-            //            .WithMenuDetailId(selectedMenu.MenuDetailId)
-            //            .WithPackageId(selectedMenu.PackageId)
-            //            .WithMenuName(menuName)
-            //            .WithSizeName(size)
-            //            .WithFlavorName(flavor)
-            //            .WithQuantity(q)
-            //            .isFixed(fx)
-            //            .Build();
-
-            //        menuS.Add(p);
-            //    }
-            //}
-            //DialogResult = DialogResult.OK;
-        }
-
-        private void dataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

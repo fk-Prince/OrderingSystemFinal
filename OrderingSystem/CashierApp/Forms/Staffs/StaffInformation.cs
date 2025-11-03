@@ -144,11 +144,11 @@ namespace OrderingSystem.CashierApp.Forms.Staffs
             }
             catch (InvalidInput ex)
             {
-                MessageBox.Show(ex.Message, "Information Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Information Changes", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void addStaffLogic()

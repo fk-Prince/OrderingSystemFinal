@@ -12,7 +12,6 @@ namespace OrderingSystem.KioskApplication.Services
 {
     public class CartServices : ICalculateOrder
     {
-        //private IKioskMenuRepository _menuRepository;
         private KioskMenuServices menuServices;
         private FlowLayoutPanel flowCart;
         private List<OrderItemModel> orderList;
@@ -36,7 +35,6 @@ namespace OrderingSystem.KioskApplication.Services
                 if (mm != null)
                 {
                     mm.PurchaseQty++;
-
                     foreach (var i in flowCart.Controls.OfType<CartCard>())
                     {
                         i.displayPurchasedMenu();
@@ -45,13 +43,20 @@ namespace OrderingSystem.KioskApplication.Services
                 else
                 {
                     orderList.Add(menu);
-                    addNewCart(menu);
+                    addNewCartCard(menu);
                 }
                 quantityChanged?.Invoke(this, EventArgs.Empty);
             }
 
         }
-
+        private void addNewCartCard(OrderItemModel menu)
+        {
+            CartCard cc = new CartCard(menu);
+            cc.addQuantityEvent += addQuantity;
+            cc.deductQuantityEvent += deductQuantity;
+            cc.Margin = new Padding(10, 5, 5, 5);
+            flowCart.Controls.Add(cc);
+        }
         public void addQuantity(object sender, OrderItemModel e)
         {
             try
@@ -72,14 +77,6 @@ namespace OrderingSystem.KioskApplication.Services
                 throw;
             }
         }
-        public OrderItemModel getOrder(OrderItemModel e)
-        {
-            bool package = e.PurchaseMenu is MenuPackageModel;
-            return orderList.FirstOrDefault(o =>
-                o.PurchaseMenu.MenuDetailId == e.PurchaseMenu.MenuDetailId &&
-                o.PurchaseMenu.getPriceAfterVatWithDiscount() == e.PurchaseMenu.getPriceAfterVatWithDiscount() &&
-                (!package || o.PurchaseMenu is MenuPackageModel));
-        }
         public void deductQuantity(object sender, OrderItemModel e)
         {
             CartCard cc = sender as CartCard;
@@ -93,37 +90,30 @@ namespace OrderingSystem.KioskApplication.Services
             cc.displayPurchasedMenu();
             quantityChanged?.Invoke(this, EventArgs.Empty);
         }
-
-
+        public OrderItemModel getOrder(OrderItemModel e)
+        {
+            bool package = e.PurchaseMenu is MenuPackageModel;
+            return orderList.FirstOrDefault(o =>
+                o.PurchaseMenu.MenuDetailId == e.PurchaseMenu.MenuDetailId &&
+                o.PurchaseMenu.getPriceAfterVatWithDiscount() == e.PurchaseMenu.getPriceAfterVatWithDiscount() &&
+                (!package || o.PurchaseMenu is MenuPackageModel));
+        }
         public double calculateSubtotal()
         {
             return orderList.Sum(e => e.getSubtotal());
         }
-
         public double calculateCoupon(CouponModel coupon)
         {
             if (coupon == null) return 0.00;
             this.coupon = coupon;
             double subtotal = calculateSubtotal();
-            return subtotal * coupon.CouponRate;
+            return coupon.getCoupon(subtotal);
         }
-
         public double calculateTotalAmount()
         {
             double subtotal = calculateSubtotal();
             double coupon = calculateCoupon(this.coupon);
-            return (subtotal - coupon);
-        }
-
-
-
-        private void addNewCart(OrderItemModel menu)
-        {
-            CartCard cc = new CartCard(menu);
-            cc.addQuantityEvent += addQuantity;
-            cc.deductQuantityEvent += deductQuantity;
-            cc.Margin = new Padding(10, 5, 5, 5);
-            flowCart.Controls.Add(cc);
+            return Math.Max(0, (subtotal - coupon));
         }
     }
 }

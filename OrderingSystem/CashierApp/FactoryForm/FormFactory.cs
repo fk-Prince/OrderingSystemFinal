@@ -20,11 +20,21 @@ namespace OrderingSystem.CashierApp.Forms.FactoryForm
                 f1.t2.Visible = false;
                 f1.l1.Text = "Rate %";
                 f1.l2.Text = "Expiry Date";
+                f1.title.Size = new Size(wideSize.Width, f1.title.Height);
+                f1.x.Location = new Point(wideSize.Width - (f1.x.Width + 4), 4);
+                f1.Size = wideSize;
                 f1.l3.Text = "Number of Times";
                 f1.l4.Text = "Description";
+                f1.l5.Visible = true;
+                f1.l5.Text = "Type";
+                f1.c5.Visible = true;
+                f1.l6.Visible = false;
+                f1.l6.Text = "Minimum Total";
+                f1.t6.Visible = false;
                 f1.b1.Text = "Submit";
                 f1.title.Text = "Generate Coupon";
                 f1.dt2.MinDate = DateTime.Now;
+                centerButton(f1);
             }
             else if (fx is PopupForm f2 && type.ToLower() == "add-ingredients")
             {
@@ -146,7 +156,6 @@ namespace OrderingSystem.CashierApp.Forms.FactoryForm
                 f10.dt2.Visible = true;
                 f10.dt2.MinDate = DateTime.Now;
             }
-
             return fx;
         }
 

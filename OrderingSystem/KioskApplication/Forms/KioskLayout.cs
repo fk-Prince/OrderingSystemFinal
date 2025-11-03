@@ -43,6 +43,7 @@ namespace OrderingSystem
         public KioskLayout()
         {
             InitializeComponent();
+
             orderList = new List<OrderItemModel>();
             menuServicesKiosk = new KioskMenuServices(new KioskMenuRepository(orderList));
             buttonListTop = new List<Guna2Button>();
@@ -51,6 +52,7 @@ namespace OrderingSystem
             cc.Start();
             dt.Start();
             flowMenu.MouseWheel += FlowMenu_MouseWheel;
+
         }
 
         public void setType(string type)
@@ -229,7 +231,7 @@ namespace OrderingSystem
         private void couponOption(object sender, EventArgs bx)
         {
             ICouponRepository couponRepository = new CouponRepository();
-            CouponFrm c = new CouponFrm(couponRepository);
+            CouponFrm c = new CouponFrm(couponRepository, double.Parse(total.Text));
             c.CouponSelected += (s, e) =>
             {
                 couponSelected = e;

@@ -60,9 +60,9 @@ namespace OrderingSystem.CashierApp.Forms.Category
                     }
                     else MessageBox.Show("Category Failed to Create", "Category", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                catch (DuplicateException ex)
+                catch (Exception ex) when (ex is InvalidInput || ex is DuplicateException)
                 {
-                    MessageBox.Show(ex.Message, "Category", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Category Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception)
                 {
@@ -96,5 +96,4 @@ namespace OrderingSystem.CashierApp.Forms.Category
             }
         }
     }
-
 }

@@ -152,7 +152,6 @@ namespace OrderingSystem.KioskApplication.Options
                          .WithMenuDetailId(selectedMenu.MenuDetailId)
                          .WithEstimatedTime(selectedMenu.EstimatedTime)
                          .WithSizeName(selectedMenu.SizeName)
-                         //.WithPurchaseNote(n?.txt.Text.Trim())
                          .WithFlavorName(selectedMenu.FlavorName)
                          .WithMenuImage(selectedMenu.MenuImage)
                          .WithPrice(selectedMenu.MenuPrice)

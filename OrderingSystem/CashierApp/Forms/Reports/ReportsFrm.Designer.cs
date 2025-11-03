@@ -207,7 +207,7 @@
             this.p2.Controls.Add(this.label4);
             this.p2.Location = new System.Drawing.Point(57, 94);
             this.p2.Name = "p2";
-            this.p2.Size = new System.Drawing.Size(228, 42);
+            this.p2.Size = new System.Drawing.Size(320, 42);
             this.p2.TabIndex = 23;
             this.p2.Visible = false;
             // 
@@ -227,7 +227,7 @@
             this.dt2.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dt2.Name = "dt2";
             this.dt2.ShowUpDown = true;
-            this.dt2.Size = new System.Drawing.Size(129, 34);
+            this.dt2.Size = new System.Drawing.Size(187, 34);
             this.dt2.TabIndex = 24;
             this.dt2.Value = new System.DateTime(2025, 10, 24, 21, 13, 10, 0);
             this.dt2.ValueChanged += new System.EventHandler(this.dt2_ValueChanged);

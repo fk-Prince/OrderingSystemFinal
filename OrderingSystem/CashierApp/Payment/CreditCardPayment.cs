@@ -21,9 +21,6 @@ namespace OrderingSystem.CashierApp.Payment
         {
             return this.amount = amount;
         }
-
-
-
         public bool processPayment(OrderModel order, double cash)
         {
             if (SessionStaffData.StaffData == null)
@@ -33,11 +30,6 @@ namespace OrderingSystem.CashierApp.Payment
                 throw new ArgumentException("Invalid order ID.");
 
             return orderServices.payOrder(order, SessionStaffData.StaffId, PaymentName);
-        }
-
-        public double getCash()
-        {
-            return 0;
         }
     }
 }

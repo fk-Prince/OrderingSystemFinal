@@ -15,9 +15,7 @@ namespace OrderingSystem.Model
         public string Role { get; protected set; }
         public string Status { get; protected set; }
         public Image Image { get; protected set; }
-
         public static StaffBuilder Builder() => new StaffBuilder();
-
         public interface IStaffBuilder
         {
             StaffBuilder WithStaffId(int txt);

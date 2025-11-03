@@ -51,10 +51,9 @@ namespace OrderingSystem.KioskApplication.Components
         {
             menuName.Text = menu.MenuName;
             detail.Text = menu.SizeName;
-            price.Text = "₱       + " + menu.getPrice().ToString("N2");
+            price.Text = "₱       + " + menu.getPriceAfterVatWithDiscount().ToString("N2");
             image.Image = menu.MenuImage;
         }
-
         private void cardLayout()
         {
             BorderRadius = 5;
