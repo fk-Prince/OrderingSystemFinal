@@ -19,6 +19,16 @@ namespace OrderingSystem.KioskApplication.Services
         }
         public bool confirmOrder(OrderModel order)
         {
+            if (order == null)
+                throw new OrderInvalid("Order Error.");
+
+
+            if (order.OrderItemList.Count == 0)
+                throw new OrderInvalid("No Items in the Cart.");
+
+
+
+
             return orderRepository.saveNewOrder(order);
         }
         public OrderModel getAllOrders(string order_id)

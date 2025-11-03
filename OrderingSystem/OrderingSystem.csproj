@@ -451,10 +451,16 @@
     <Compile Include="Exceptions\NotSupportedException.cs" />
     <Compile Include="Exceptions\InvalidAction.cs" />
     <Compile Include="KioskApplication\Component\Filter.cs">
-      <SubType>Form</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="KioskApplication\Component\Filter.Designer.cs">
       <DependentUpon>Filter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KioskApplication\Component\MyRadioButton2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="KioskApplication\Component\MyRadioButton2.Designer.cs">
+      <DependentUpon>MyRadioButton2.cs</DependentUpon>
     </Compile>
     <Compile Include="KioskApplication\Component\OrderCard.cs">
       <SubType>Component</SubType>
@@ -685,6 +691,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KioskApplication\Component\Filter.resx">
       <DependentUpon>Filter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KioskApplication\Component\MyRadioButton2.resx">
+      <DependentUpon>MyRadioButton2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KioskApplication\Component\OrderCard.resx">
       <DependentUpon>OrderCard.cs</DependentUpon>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using OrderingSystem.Exceptions;
 using OrderingSystem.KioskApplication.Component;
 using OrderingSystem.KioskApplication.Services;
 using OrderingSystem.Model;
@@ -26,7 +27,16 @@ namespace OrderingSystem.KioskApplication.Forms
                 OrderCard oc = new OrderCard(i);
                 oc.Margin = new Padding(50, 0, 0, 10);
                 oc.AddQuantity += (s, e) => { AddQuantity?.Invoke(this, i); };
-                oc.DeductQuantity += (s, e) => { DeductQuantity?.Invoke(this, i); };
+                oc.DeductQuantity += (s, e) =>
+                {
+                    DeductQuantity?.Invoke(this, i);
+                    if (i.PurchaseQty == 0)
+                    {
+                        flow.Controls.Remove(oc);
+                        om.OrderItemList.Remove(i);
+                    }
+                    total.Text = "₱  " + om.GetTotalWithVAT().ToString("N2");
+                };
                 flow.Controls.Add(oc);
             }
         }
@@ -41,6 +51,7 @@ namespace OrderingSystem.KioskApplication.Forms
         {
             try
             {
+
                 bool suc = orderServices.confirmOrder(om);
                 if (suc)
                 {
@@ -51,9 +62,13 @@ namespace OrderingSystem.KioskApplication.Forms
                     DialogResult = DialogResult.OK;
                 }
             }
-            catch (Exception ex)
+            catch (OrderInvalid ex)
             {
-                MessageBox.Show("Internal Server Error." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Internal Server Error.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

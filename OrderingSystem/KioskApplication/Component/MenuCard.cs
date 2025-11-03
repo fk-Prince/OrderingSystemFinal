@@ -10,9 +10,8 @@ using OrderingSystem.Services;
 namespace OrderingSystem.KioskApplication.Cards
 {
     public partial class MenuCard : Guna2Panel
-
     {
-        private readonly MenuModel menu;
+        public readonly MenuModel menu;
         private readonly KioskMenuServices kioskMenuServices;
         public event EventHandler<List<OrderItemModel>> orderListEvent;
 

@@ -58,7 +58,6 @@
             this.time = new System.Windows.Forms.Label();
             this.catFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.xxx = new Guna.UI2.WinForms.Guna2Panel();
-            this.txt = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel9 = new Guna.UI2.WinForms.Guna2Panel();
             this.count2 = new System.Windows.Forms.Label();
@@ -354,13 +353,17 @@
             this.guna2Panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(119)))), ((int)(((byte)(206)))));
+            this.guna2Panel3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(119)))), ((int)(((byte)(206)))));
+            this.guna2Panel3.BorderThickness = 1;
             this.guna2Panel3.Controls.Add(this.week);
             this.guna2Panel3.Controls.Add(this.date);
             this.guna2Panel3.Controls.Add(this.guna2PictureBox4);
             this.guna2Panel3.Controls.Add(this.time);
             this.guna2Panel3.Controls.Add(this.catFlow);
+            this.guna2Panel3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(234)))), ((int)(((byte)(254)))));
             this.guna2Panel3.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel3.Margin = new System.Windows.Forms.Padding(0);
             this.guna2Panel3.MaximumSize = new System.Drawing.Size(230, 2000);
             this.guna2Panel3.MinimumSize = new System.Drawing.Size(230, 700);
             this.guna2Panel3.Name = "guna2Panel3";
@@ -417,13 +420,11 @@
             this.catFlow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.catFlow.AutoScroll = true;
             this.catFlow.Location = new System.Drawing.Point(0, 254);
             this.catFlow.Margin = new System.Windows.Forms.Padding(0);
             this.catFlow.MaximumSize = new System.Drawing.Size(230, 2000);
             this.catFlow.Name = "catFlow";
-            this.catFlow.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.catFlow.Size = new System.Drawing.Size(230, 398);
+            this.catFlow.Size = new System.Drawing.Size(229, 398);
             this.catFlow.TabIndex = 0;
             // 
             // xxx
@@ -431,8 +432,7 @@
             this.xxx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.xxx.BackColor = System.Drawing.Color.White;
-            this.xxx.BorderColor = System.Drawing.Color.DarkGray;
-            this.xxx.Controls.Add(this.txt);
+            this.xxx.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(234)))), ((int)(((byte)(254)))));
             this.xxx.Controls.Add(this.guna2Panel4);
             this.xxx.Location = new System.Drawing.Point(230, 0);
             this.xxx.MaximumSize = new System.Drawing.Size(1920, 150);
@@ -440,41 +440,6 @@
             this.xxx.Name = "xxx";
             this.xxx.Size = new System.Drawing.Size(1070, 150);
             this.xxx.TabIndex = 1;
-            // 
-            // txt
-            // 
-            this.txt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt.AutoRoundedCorners = true;
-            this.txt.BackColor = System.Drawing.Color.Transparent;
-            this.txt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(234)))), ((int)(((byte)(254)))));
-            this.txt.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt.DefaultText = "";
-            this.txt.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txt.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txt.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(234)))), ((int)(((byte)(254)))));
-            this.txt.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.txt.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt.IconLeft = global::OrderingSystem.Properties.Resources.ss;
-            this.txt.IconLeftSize = new System.Drawing.Size(35, 35);
-            this.txt.Location = new System.Drawing.Point(23, 27);
-            this.txt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txt.MaximumSize = new System.Drawing.Size(538, 53);
-            this.txt.MaxLength = 255;
-            this.txt.MinimumSize = new System.Drawing.Size(538, 53);
-            this.txt.Name = "txt";
-            this.txt.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(156)))), ((int)(((byte)(162)))));
-            this.txt.PlaceholderText = "Search Menu\'s";
-            this.txt.SelectedText = "";
-            this.txt.Size = new System.Drawing.Size(538, 53);
-            this.txt.TabIndex = 11;
-            this.txt.TextOffset = new System.Drawing.Point(10, 0);
-            this.txt.TextChanged += new System.EventHandler(this.searchedMenu);
             // 
             // guna2Panel4
             // 
@@ -553,7 +518,6 @@
             // debouncing
             // 
             this.debouncing.Interval = 500;
-            this.debouncing.Tick += new System.EventHandler(this.debouncing_Tick);
             // 
             // cc
             // 
@@ -632,7 +596,6 @@
         private System.Windows.Forms.Label count2;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private System.Windows.Forms.Timer debouncing;
-        private Guna.UI2.WinForms.Guna2TextBox txt;
         private System.Windows.Forms.Label date;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
         private System.Windows.Forms.Label time;

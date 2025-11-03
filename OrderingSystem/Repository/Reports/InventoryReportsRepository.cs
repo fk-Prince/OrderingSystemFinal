@@ -231,7 +231,6 @@ namespace OrderingSystem.Repository.Reports
                 db.closeConnection();
             }
         }
-
         public DataView getSupplier()
         {
             var db = DatabaseHandler.getInstance();

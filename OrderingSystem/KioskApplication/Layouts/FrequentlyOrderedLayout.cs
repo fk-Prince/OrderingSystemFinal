@@ -32,8 +32,8 @@ namespace OrderingSystem.KioskApplication
                 if (m.MaxOrder <= 10) continue;
                 FrequentlyOrderedCard fot = new FrequentlyOrderedCard(m);
                 fot.Location = new Point(20, title.Bottom + y);
-                fot.checkedMenu += (s, e) => { checkList.Add(e); };
-                fot.unCheckedMenu += (s, e) => { checkList.Remove(e); };
+                fot.checkedMenu += (s, e) => checkList.Add(e);
+                fot.unCheckedMenu += (s, e) => checkList.Remove(e);
                 this.Controls.Add(fot);
                 y += 120;
                 this.Height += 110;

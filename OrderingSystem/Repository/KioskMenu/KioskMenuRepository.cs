@@ -68,24 +68,6 @@ namespace OrderingSystem.Repository
             try
             {
                 var conn = db.getConnection();
-                //string query = @"                        
-                //                  SELECT 
-                //                      md.menu_id,
-                //                      m.menu_name,
-                //                      m.image,
-                //                      md.menu_detail_id,
-                //                      md.price,
-                //                      md.flavor_name,
-                //                      md.size_name,
-                //                      md.estimated_time
-                //                  FROM menu m
-                //                  LEFT JOIN category c ON m.category_id = c.category_id
-                //                  LEFT JOIN menu_detail md ON m.menu_id = md.menu_id 
-                //                  WHERE m.isAvailable = 'Yes' 
-                //                    AND m.menu_id = @menu_id
-                //                    AND md.menu_detail_id NOT IN (SELECT from_menu_detail_id FROM menu_package)
-                //                  ORDER BY md.price ASC;
-                //     ";
                 string query1 = @"
                                     SELECT * FROM view_menu_details m 
                                     WHERE m.isAvailable = 'Yes' 
@@ -190,6 +172,8 @@ namespace OrderingSystem.Repository
                                 .WithMenuName(reader.GetString("menu_name"))
                                 .WithMenuDescription(reader.GetString("menu_description"))
                                 .WithMenuDetailId(reader.GetInt32("menu_detail_id"))
+                                .WithFlavorName(reader.GetString("flavor_name"))
+                                .WithSizeName(reader.GetString("size_name"))
                                 .WithPrice(reader.GetDouble("price"))
                                 .WithMaxOrder(getMaxOrderRealTime2(menus.MenuId, reader.GetInt32("menu_detail_id"), orderList))
                                 .WithMenuImage(ImageHelper.GetImageFromBlob(reader, "menu"))
