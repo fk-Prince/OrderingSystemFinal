@@ -142,11 +142,11 @@ namespace OrderingSystem.Repository.Order
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@p_json_orderList", order.JsonOrderList());
-                    Console.WriteLine(order.JsonOrderList());
                     if (order.Coupon != null)
                         cmd.Parameters.AddWithValue("@p_coupon_code", order.Coupon.CouponCode);
                     else
                         cmd.Parameters.AddWithValue("@p_coupon_code", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@p_order_type", order.OrderType);
                     cmd.ExecuteNonQuery();
                     return true;
                 }

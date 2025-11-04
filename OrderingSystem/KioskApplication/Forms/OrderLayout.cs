@@ -66,7 +66,7 @@ namespace OrderingSystem.KioskApplication.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Internal Server Error.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

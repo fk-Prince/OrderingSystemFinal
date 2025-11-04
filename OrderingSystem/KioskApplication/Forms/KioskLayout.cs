@@ -28,7 +28,6 @@ namespace OrderingSystem
         private readonly Dictionary<int, FlowLayoutPanel> categoryPanels;
         private readonly Dictionary<int, Guna2Panel> categoryContainer;
         private readonly List<Guna2Button> buttonListTop;
-        private readonly List<Guna2Button> buttonListSide;
         private Filter filterSide;
         private List<MenuModel> allMenus;
         private Guna2Button lastActiveButtonSide;
@@ -40,18 +39,23 @@ namespace OrderingSystem
         private int x = 0;
         private int x1 = 20;
         private int basedx = 0;
+        private string type;
         public KioskLayout()
         {
             InitializeComponent();
             orderList = new List<OrderItemModel>();
             menuServicesKiosk = new KioskMenuServices(new KioskMenuRepository(orderList));
             buttonListTop = new List<Guna2Button>();
-            buttonListSide = new List<Guna2Button>();
             categoryPanels = new Dictionary<int, FlowLayoutPanel>();
             categoryContainer = new Dictionary<int, Guna2Panel>();
             cc.Start();
             dt.Start();
             flowMenu.MouseWheel += FlowMenu_MouseWheel;
+        }
+
+        public void setType(string type)
+        {
+            this.type = type;
         }
         private void lastButton(Guna2Button b)
         {
@@ -254,6 +258,7 @@ namespace OrderingSystem
                                     .WithOrderId(orderId)
                                     .WithOrderItemList(orderList)
                                     .WithCoupon(couponSelected)
+                                    .WithOrderType(type)
                                     .Build();
                 OrderLayout l = new OrderLayout(om, orderServices);
                 l.AddQuantity += (s, ee) =>
@@ -288,6 +293,8 @@ namespace OrderingSystem
                     orderList.Clear();
                     flowCart.Controls.Clear();
                     displayTotal(this, EventArgs.Empty);
+                    Dashboard f = this.Parent.Parent as Dashboard;
+                    f.reset();
                 };
                 DialogResult rs = l.ShowDialog(this);
                 if (rs == DialogResult.OK)

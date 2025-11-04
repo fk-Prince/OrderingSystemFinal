@@ -34,11 +34,12 @@
             this.flow = new System.Windows.Forms.FlowLayoutPanel();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.fb = new Guna.UI2.WinForms.Guna2Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tt
             // 
-            this.tt.Location = new System.Drawing.Point(26, 22);
+            this.tt.Location = new System.Drawing.Point(26, 28);
             this.tt.Maximum = 1000;
             this.tt.Minimum = 10;
             this.tt.Name = "tt";
@@ -52,7 +53,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 48);
+            this.label1.Location = new System.Drawing.Point(17, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(20, 21);
             this.label1.TabIndex = 1;
@@ -62,7 +63,7 @@
             // 
             this.max.AutoSize = true;
             this.max.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.max.Location = new System.Drawing.Point(173, 48);
+            this.max.Location = new System.Drawing.Point(173, 54);
             this.max.Name = "max";
             this.max.Size = new System.Drawing.Size(48, 21);
             this.max.TabIndex = 2;
@@ -71,7 +72,7 @@
             // flow
             // 
             this.flow.AutoScroll = true;
-            this.flow.Location = new System.Drawing.Point(9, 78);
+            this.flow.Location = new System.Drawing.Point(9, 83);
             this.flow.Margin = new System.Windows.Forms.Padding(0);
             this.flow.Name = "flow";
             this.flow.Size = new System.Drawing.Size(213, 307);
@@ -112,10 +113,21 @@
             this.fb.Text = "Reset";
             this.fb.Click += new System.EventHandler(this.fb_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 15);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Price range:";
+            // 
             // Filter
             // 
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(231, 483);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.fb);
             this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.flow);
@@ -136,5 +148,6 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         public Guna.UI2.WinForms.Guna2TrackBar tt;
         public Guna.UI2.WinForms.Guna2Button fb;
+        private System.Windows.Forms.Label label2;
     }
 }

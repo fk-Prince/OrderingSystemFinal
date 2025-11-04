@@ -10,6 +10,7 @@ namespace OrderingSystem.Model
         public List<OrderItemModel> OrderItemList { get; set; }
         public CouponModel Coupon { get; set; }
         public string OrderId { get => order_id; }
+        public string OrderType { get; set; }
 
 
         public double GetGrossRevenue()
@@ -60,6 +61,11 @@ namespace OrderingSystem.Model
             public OrderBuilder WithOrderId(string c)
             {
                 _order.order_id = c;
+                return this;
+            }
+            public OrderBuilder WithOrderType(string c)
+            {
+                _order.OrderType = c;
                 return this;
             }
 

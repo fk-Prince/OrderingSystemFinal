@@ -516,6 +516,12 @@
     <Compile Include="KioskApplication\Forms\CouponFrm.Designer.cs">
       <DependentUpon>CouponFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="KioskApplication\Forms\Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KioskApplication\Forms\Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="KioskApplication\Forms\OrderLayout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -715,6 +721,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KioskApplication\Component\CartCard.resx">
       <DependentUpon>CartCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KioskApplication\Forms\Dashboard.resx">
+      <DependentUpon>Dashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KioskApplication\Forms\OrderLayout.resx">
       <DependentUpon>OrderLayout.cs</DependentUpon>
