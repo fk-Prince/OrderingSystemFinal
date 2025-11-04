@@ -86,7 +86,7 @@ namespace OrderingSystem.CashierApp.Layout
 
             if (!double.TryParse(trans.Item2, out double percent))
             {
-                percentLabel.Text = "0%";
+                percentLabel.Text = "0";
                 percentLabel.ForeColor = Color.Gray;
                 picture.Image = Properties.Resources.even;
                 return;
@@ -106,7 +106,7 @@ namespace OrderingSystem.CashierApp.Layout
             }
             else
             {
-                percentLabel.Text = "0%";
+                percentLabel.Text = "0";
                 percentLabel.ForeColor = Color.Gray;
                 picture.Image = Properties.Resources.even;
             }

@@ -103,6 +103,16 @@ namespace OrderingSystem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cance {
+            get {
+                object obj = ResourceManager.GetObject("cance", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dashb {
             get {
                 object obj = ResourceManager.GetObject("dashb", resourceCulture);
@@ -296,6 +306,16 @@ namespace OrderingSystem.Properties {
         internal static System.Drawing.Bitmap orderb {
             get {
                 object obj = ResourceManager.GetObject("orderb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap orderC {
+            get {
+                object obj = ResourceManager.GetObject("orderC", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
