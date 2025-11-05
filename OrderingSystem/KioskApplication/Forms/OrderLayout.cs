@@ -26,7 +26,11 @@ namespace OrderingSystem.KioskApplication.Forms
             {
                 OrderCard oc = new OrderCard(i);
                 oc.Margin = new Padding(50, 0, 0, 10);
-                oc.AddQuantity += (s, e) => { AddQuantity?.Invoke(this, i); };
+                oc.AddQuantity += (s, e) =>
+                {
+                    AddQuantity?.Invoke(this, i);
+                    total.Text = "₱  " + om.GetTotalWithVAT().ToString("N2");
+                };
                 oc.DeductQuantity += (s, e) =>
                 {
                     DeductQuantity?.Invoke(this, i);
@@ -66,7 +70,7 @@ namespace OrderingSystem.KioskApplication.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Internal Server Error.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
