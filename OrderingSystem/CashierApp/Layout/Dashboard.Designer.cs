@@ -142,11 +142,12 @@
             // 
             // transactionP
             // 
+            this.transactionP.AutoSize = true;
             this.transactionP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.transactionP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.transactionP.Location = new System.Drawing.Point(211, 63);
+            this.transactionP.Location = new System.Drawing.Point(190, 63);
             this.transactionP.Name = "transactionP";
-            this.transactionP.Size = new System.Drawing.Size(38, 25);
+            this.transactionP.Size = new System.Drawing.Size(23, 21);
             this.transactionP.TabIndex = 5;
             this.transactionP.Text = "%";
             // 
@@ -154,7 +155,7 @@
             // 
             this.transactionI.Image = global::OrderingSystem.Properties.Resources.even;
             this.transactionI.ImageRotate = 0F;
-            this.transactionI.Location = new System.Drawing.Point(183, 57);
+            this.transactionI.Location = new System.Drawing.Point(162, 57);
             this.transactionI.Name = "transactionI";
             this.transactionI.Size = new System.Drawing.Size(27, 33);
             this.transactionI.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -188,7 +189,7 @@
             this.transactionT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.transactionT.Location = new System.Drawing.Point(49, 60);
             this.transactionT.Name = "transactionT";
-            this.transactionT.Size = new System.Drawing.Size(127, 25);
+            this.transactionT.Size = new System.Drawing.Size(107, 25);
             this.transactionT.TabIndex = 2;
             // 
             // label1
@@ -238,7 +239,7 @@
             // 
             this.orderP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.orderP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.orderP.Location = new System.Drawing.Point(211, 63);
+            this.orderP.Location = new System.Drawing.Point(190, 63);
             this.orderP.Name = "orderP";
             this.orderP.Size = new System.Drawing.Size(38, 25);
             this.orderP.TabIndex = 7;
@@ -248,7 +249,7 @@
             // 
             this.orderI.Image = global::OrderingSystem.Properties.Resources.even;
             this.orderI.ImageRotate = 0F;
-            this.orderI.Location = new System.Drawing.Point(183, 57);
+            this.orderI.Location = new System.Drawing.Point(162, 57);
             this.orderI.Name = "orderI";
             this.orderI.Size = new System.Drawing.Size(27, 33);
             this.orderI.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -333,7 +334,7 @@
             // 
             this.comP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.comP.Location = new System.Drawing.Point(211, 63);
+            this.comP.Location = new System.Drawing.Point(190, 63);
             this.comP.Name = "comP";
             this.comP.Size = new System.Drawing.Size(38, 25);
             this.comP.TabIndex = 9;
@@ -343,7 +344,7 @@
             // 
             this.comI.Image = global::OrderingSystem.Properties.Resources.even;
             this.comI.ImageRotate = 0F;
-            this.comI.Location = new System.Drawing.Point(183, 57);
+            this.comI.Location = new System.Drawing.Point(162, 57);
             this.comI.Name = "comI";
             this.comI.Size = new System.Drawing.Size(27, 33);
             this.comI.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -406,7 +407,7 @@
             // 
             this.coP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.coP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.coP.Location = new System.Drawing.Point(211, 63);
+            this.coP.Location = new System.Drawing.Point(190, 63);
             this.coP.Name = "coP";
             this.coP.Size = new System.Drawing.Size(38, 25);
             this.coP.TabIndex = 12;
@@ -416,7 +417,7 @@
             // 
             this.coI.Image = global::OrderingSystem.Properties.Resources.even;
             this.coI.ImageRotate = 0F;
-            this.coI.Location = new System.Drawing.Point(183, 57);
+            this.coI.Location = new System.Drawing.Point(162, 57);
             this.coI.Name = "coI";
             this.coI.Size = new System.Drawing.Size(27, 33);
             this.coI.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -489,7 +490,7 @@
             // 
             this.poP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.poP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.poP.Location = new System.Drawing.Point(211, 63);
+            this.poP.Location = new System.Drawing.Point(190, 63);
             this.poP.Name = "poP";
             this.poP.Size = new System.Drawing.Size(38, 25);
             this.poP.TabIndex = 10;
@@ -499,7 +500,7 @@
             // 
             this.poI.Image = global::OrderingSystem.Properties.Resources.even;
             this.poI.ImageRotate = 0F;
-            this.poI.Location = new System.Drawing.Point(183, 57);
+            this.poI.Location = new System.Drawing.Point(162, 57);
             this.poI.Name = "poI";
             this.poI.Size = new System.Drawing.Size(27, 33);
             this.poI.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;

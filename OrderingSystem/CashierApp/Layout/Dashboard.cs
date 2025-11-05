@@ -66,7 +66,7 @@ namespace OrderingSystem.CashierApp.Layout
                 display(comT, comP, comI, totalComplate);
 
                 Tuple<string, string> totalCancelled = ir.getTotalOrderByType(date.Value, "Cancelled");
-                display(coT, coP, coI, totalCancelled);
+                display(coT, coP, coI, totalCancelled, true);
 
                 Tuple<string, string> totalPending = ir.getTotalOrderByType(DateTime.Now, "pending");
                 display(poT, poP, poI, totalPending);
@@ -173,6 +173,7 @@ namespace OrderingSystem.CashierApp.Layout
 
             if (percent > 0)
             {
+                MessageBox.Show("Xdxd");
                 percentLabel.Text = $"+{percent:N0}%";
                 percentLabel.ForeColor = Color.Green;
                 picture.Image = Properties.Resources.increase;
@@ -191,7 +192,7 @@ namespace OrderingSystem.CashierApp.Layout
             }
         }
 
-        private void display(Label total, Label percentLabel, Guna2PictureBox picture, Tuple<string, string> trans)
+        private void display(Label total, Label percentLabel, Guna2PictureBox picture, Tuple<string, string> trans, bool reverse = false)
         {
             if (trans == null) return;
             total.Text = trans.Item1;
@@ -207,14 +208,14 @@ namespace OrderingSystem.CashierApp.Layout
             if (percent > 0)
             {
                 percentLabel.Text = $"+{percent:N0}";
-                percentLabel.ForeColor = Color.Green;
-                picture.Image = Properties.Resources.increase;
+                percentLabel.ForeColor = reverse ? Color.Red : Color.Green;
+                picture.Image = reverse ? Properties.Resources.decrease : Properties.Resources.increase;
             }
             else if (percent < 0)
             {
                 percentLabel.Text = $"{percent:N0}";
-                percentLabel.ForeColor = Color.Red;
-                picture.Image = Properties.Resources.decrease;
+                percentLabel.ForeColor = reverse ? Color.Red : Color.Green;
+                picture.Image = reverse ? Properties.Resources.decrease : Properties.Resources.increase;
             }
             else
             {
