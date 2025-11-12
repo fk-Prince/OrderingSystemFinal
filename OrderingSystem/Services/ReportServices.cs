@@ -37,7 +37,10 @@ namespace OrderingSystem.Services
         {
             return inventoryReportsRepository.getInvoice();
         }
-
+        public DataView getIngredientHistory(string ingredientName)
+        {
+            return inventoryReportsRepository.getIngredientHistory(ingredientName);
+        }
         public DataView getSupplier()
         {
             return inventoryReportsRepository.getSupplier();
@@ -60,11 +63,9 @@ namespace OrderingSystem.Services
 
         public List<Tuple<DateTime, int, int, int>> getOrderTotal()
         {
-
-
-
-
             return inventoryReportsRepository.getOrderMonthly();
         }
+
+
     }
 }

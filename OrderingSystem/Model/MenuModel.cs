@@ -84,7 +84,6 @@ namespace OrderingSystem.Model
                 .WithCategoryId(CategoryId)
                 .WithFlavorName(FlavorName)
                 .WithSizeName(SizeName)
-                .WithPurchaseNote(PurchaseNote)
                 .WithEstimatedTime(EstimatedTime)
                 .WithMenuImage(MenuImage)
                 .WithMenuImageByte(MenuImageByte)

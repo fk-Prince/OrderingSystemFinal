@@ -12,7 +12,6 @@ namespace OrderingSystem.CashierApp.Components
     {
         private DataTable table;
         private readonly IngredientServices ingredientServices;
-        private bool xd;
         private DataView view;
         private List<IngredientModel> ingredientList;
         private List<IngredientModel> ingredientSelected;

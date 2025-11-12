@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -7,6 +8,8 @@ using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using OrderingSystem.CashierApp.SessionData;
+using OrderingSystem.Model;
+using OrderingSystem.Repository.Ingredients;
 using OrderingSystem.Services;
 using Font = iTextSharp.text.Font;
 
@@ -32,8 +35,6 @@ namespace OrderingSystem.CashierApp.Forms
             db.Stop();
             db.Start();
         }
-
-
         private void filter()
         {
             dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -61,6 +62,11 @@ namespace OrderingSystem.CashierApp.Forms
                     title = "Inventory Usage Report";
                     reportIngredientUsage();
                     break;
+                case "Ingredient History":
+                    typePdf = "Normal";
+                    title = "Ingredient History";
+                    reportIngredientHistory();
+                    break;
                 case "Menu Popular's":
                     typePdf = "Normal";
                     title = "Menu Popular Report";
@@ -86,9 +92,14 @@ namespace OrderingSystem.CashierApp.Forms
 
 
 
-        private void cb_SelectedIndexChanged(object sender, EventArgs e)
+        private void cb_SelectedIndexChanged(object sender, EventArgs ee)
         {
             if (cb.SelectedIndex == -1) return;
+            view = null;
+            dataGrid.DataSource = null;
+            p3.Visible = false;
+            p1.Visible = false;
+            p2.Visible = false;
             string s = cb.Text;
 
             if (s == "Track Quantity In/Out")
@@ -111,6 +122,16 @@ namespace OrderingSystem.CashierApp.Forms
                 txt.PlaceholderText = "Search Ingredient";
                 view = inventoryServices.getIngredientsUsage();
             }
+            else if (s == "Ingredient History")
+            {
+                p1.Visible = true;
+                p3.Visible = true;
+                txt.PlaceholderText = "Search Ingredient";
+                ic.Items.Clear();
+                List<IngredientModel> ind = new IngredientServices(new IngredientRepository()).getIngredients();
+                ind.ForEach(e => ic.Items.Add(e.IngredientName));
+                return;
+            }
             else if (s == "Menu Popular's")
             {
                 txt.PlaceholderText = "Search Menu";
@@ -126,6 +147,7 @@ namespace OrderingSystem.CashierApp.Forms
                 txt.PlaceholderText = "Supplier name";
                 view = inventoryServices.getSupplier();
             }
+
             dataGrid.DataSource = view;
             dataGrid.Refresh();
             filter();
@@ -145,6 +167,14 @@ namespace OrderingSystem.CashierApp.Forms
         private void timer1_Tick(object sender, EventArgs e)
         {
             db.Stop();
+            filter();
+        }
+        private void ic_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ic.SelectedIndex <= -1) return;
+            view = inventoryServices.getIngredientHistory(ic.Text);
+            dataGrid.DataSource = view;
+            dataGrid.Refresh();
             filter();
         }
         private void dataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -181,10 +211,13 @@ namespace OrderingSystem.CashierApp.Forms
             }
 
         }
-
-
         private void guna2Button1_Click(object sender, EventArgs e)
         {
+            if (view == null)
+            {
+                MessageBox.Show("Nothing to print", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             DataTable table = view.ToTable();
             using (var save = new SaveFileDialog { Filter = "PDF File|*.pdf", FileName = $"{title + " - " + DateTime.Now.ToString("yyyy-MM-dd")}" })
             {
@@ -242,6 +275,7 @@ namespace OrderingSystem.CashierApp.Forms
                 }
             }
         }
+
         // -- REPORTS
         private void reportTrackQuantity()
         {
@@ -263,6 +297,16 @@ namespace OrderingSystem.CashierApp.Forms
             string finalFilter = string.Join(" OR ", new[] { ingredientFilter, dateFilter }.Where(f => !string.IsNullOrEmpty(f)));
             view.RowFilter = finalFilter;
         }
+        private void reportIngredientHistory()
+        {
+            dataGrid.Columns[0].Width = 200;
+            dataGrid.Columns[1].Width = 300;
+            p1.Visible = true;
+            p3.Visible = true;
+            dt2.Value = DateTime.Now.AddDays(1);
+            string dateFilter = $"[Date] >= #{dtFrom.Value:yyyy-MM-dd}# AND [Date] <= #{dtTo.Value:yyyy-MM-dd}#";
+            view.RowFilter = dateFilter;
+        }
         private void reportInventory()
         {
             p1.Visible = true;
@@ -279,7 +323,6 @@ namespace OrderingSystem.CashierApp.Forms
             dt2.CustomFormat = "yyyy";
             dataGrid.Columns[0].Width = 200;
             dataGrid.Columns[1].Width = 150;
-            dt2.Value = DateTime.Now;
             p1.Visible = false;
             p2.Visible = true;
             string ingredientFilter = string.IsNullOrEmpty(txt.Text) ? "" : $"[Ingredient Name] LIKE '%{txt.Text}%'";
@@ -303,6 +346,63 @@ namespace OrderingSystem.CashierApp.Forms
             string invoiceFilter = string.IsNullOrEmpty(txt.Text) ? "" : $"[Invoice ID] LIKE '%{txt.Text}%'";
             string finalFilter = string.Join(" AND ", new[] { invoiceFilter, dateFilter }.Where(f => !string.IsNullOrEmpty(f)));
             view.RowFilter = finalFilter;
+            updateTotalRowsInvoice();
+        }
+        private void updateTotalRowsInvoice()
+        {
+            decimal grossRevenue = 0;
+            decimal itemDiscount = 0;
+            decimal couponDiscount = 0;
+            decimal totalDiscount = 0;
+            decimal netRevenue = 0;
+            decimal totalTax = 0;
+            decimal netRevenueWithTax = 0;
+            decimal totalCost = 0;
+            decimal netProfit = 0;
+            DateTime? latestDate = null;
+
+            foreach (DataRowView rowView in view)
+            {
+                DataRow row = rowView.Row;
+
+                if (row["Invoice ID"].ToString() == "All")
+                    continue;
+
+                grossRevenue += Convert.ToDecimal(row["Gross Revenue"]);
+                itemDiscount += Convert.ToDecimal(row["Item Discount"]);
+                couponDiscount += Convert.ToDecimal(row["Coupon Discount"]);
+                totalDiscount += Convert.ToDecimal(row["Total Discount"]);
+                netRevenue += Convert.ToDecimal(row["Net Revenue"]);
+                totalTax += Convert.ToDecimal(row["Total Tax"]);
+                netRevenueWithTax += Convert.ToDecimal(row["Net Revenue with Tax"]);
+                totalCost += Convert.ToDecimal(row["Total Cost"]);
+                netProfit += Convert.ToDecimal(row["Net Profit"]);
+
+                DateTime currentDate = Convert.ToDateTime(row["Date"]);
+                if (latestDate == null || currentDate > latestDate)
+                    latestDate = currentDate;
+            }
+
+            decimal profitMargin = netRevenueWithTax > 0 ? (netProfit / netRevenueWithTax * 100) : 0;
+
+            DataTable dt = view.Table;
+            DataRow[] allRows = dt.Select("[Invoice ID] = 'All'");
+
+            if (allRows.Length > 0)
+            {
+                DataRow allRow = allRows[0];
+                allRow["Gross Revenue"] = grossRevenue;
+                allRow["Item Discount"] = itemDiscount;
+                allRow["Coupon Discount"] = couponDiscount;
+                allRow["Total Discount"] = totalDiscount;
+                allRow["Net Revenue"] = netRevenue;
+                allRow["Total Tax"] = totalTax;
+                allRow["Net Revenue with Tax"] = netRevenueWithTax;
+                allRow["Total Cost"] = totalCost;
+                allRow["Net Profit"] = netProfit;
+                allRow["Profit Margin %"] = profitMargin.ToString("N2");
+                allRow["Date"] = latestDate ?? DateTime.Now;
+            }
         }
         private void reportMenuPopular()
         {
@@ -315,7 +415,6 @@ namespace OrderingSystem.CashierApp.Forms
             string finalFilter = string.Join(" AND ", new[] { menuFilter, dateFilter }.Where(f => !string.IsNullOrEmpty(f)));
             view.RowFilter = finalFilter;
         }
-
         private void reportSuppliers()
         {
             p1.Visible = true;
@@ -327,6 +426,7 @@ namespace OrderingSystem.CashierApp.Forms
             string finalFilter = string.Join(" AND ", new[] { supplerFilter, dateFilter }.Where(f => !string.IsNullOrEmpty(f)));
             view.RowFilter = finalFilter;
         }
+
 
     }
 }

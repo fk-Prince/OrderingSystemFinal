@@ -179,6 +179,34 @@ namespace OrderingSystem.Repository.Reports
                 db.closeConnection();
             }
         }
+        public DataView getIngredientHistory(string ingredientName)
+        {
+            var db = DatabaseHandler.getInstance();
+            DataTable dt = new DataTable();
+            try
+            {
+                var conn = db.getConnection();
+                using (var cmd = new MySqlCommand("p_generate_ingredient_history", conn))
+                {
+                    cmd.Parameters.AddWithValue("@p_ingredient_name", ingredientName);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (var adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+                DataView view = new DataView(dt);
+                return view;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                db.closeConnection();
+            }
+        }
         public DataView getMenuPopularity()
         {
             var db = DatabaseHandler.getInstance();
@@ -215,6 +243,7 @@ namespace OrderingSystem.Repository.Reports
                 using (var cmd = new MySqlCommand("p_retrieve_invoice", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+
                     using (var adapter = new MySqlDataAdapter(cmd))
                     {
                         adapter.Fill(dt);
@@ -516,5 +545,7 @@ namespace OrderingSystem.Repository.Reports
             }
             return result;
         }
+
+
     }
 }

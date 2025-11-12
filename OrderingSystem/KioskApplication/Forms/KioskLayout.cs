@@ -30,7 +30,6 @@ namespace OrderingSystem
         private readonly List<Guna2Button> buttonListTop;
         private Filter filterSide;
         private List<MenuModel> allMenus;
-        private Guna2Button lastActiveButtonSide;
         private CartServices cartServices;
         private CouponModel couponSelected;
         private Guna2Button lastClickedTop;

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.txt = new Guna.UI2.WinForms.Guna2TextBox();
             this.dtFrom = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -43,9 +43,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.db = new System.Windows.Forms.Timer(this.components);
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.ic = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.p3 = new Guna.UI2.WinForms.Guna2Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.p1.SuspendLayout();
             this.p2.SuspendLayout();
+            this.p3.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGrid
@@ -58,14 +62,14 @@
             this.dataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGrid.ColumnHeadersHeight = 35;
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGrid.Location = new System.Drawing.Point(57, 177);
             this.dataGrid.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.dataGrid.Name = "dataGrid";
@@ -181,6 +185,7 @@
             "Expiry Tracking",
             "Inventory Reports",
             "Ingredient Usage",
+            "Ingredient History",
             "Menu Popular\'s",
             "Invoice Record",
             "Suppliers"});
@@ -251,12 +256,14 @@
             // 
             this.guna2Button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Button1.BorderRadius = 5;
+            this.guna2Button1.BorderThickness = 1;
             this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(234)))), ((int)(((byte)(254)))));
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button1.ForeColor = System.Drawing.Color.White;
+            this.guna2Button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.guna2Button1.Location = new System.Drawing.Point(877, 125);
             this.guna2Button1.MaximumSize = new System.Drawing.Size(180, 46);
             this.guna2Button1.MinimumSize = new System.Drawing.Size(180, 46);
@@ -266,11 +273,51 @@
             this.guna2Button1.Text = "Save to PDF";
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
+            // ic
+            // 
+            this.ic.AutoCompleteCustomSource.AddRange(new string[] {
+            "Track Quantity In/Out",
+            "Expiry Tracking",
+            "Inventory Reports",
+            "Ingredient Usage",
+            "Menu Popular\'s",
+            "Invoice Record",
+            "Suppliers"});
+            this.ic.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ic.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ic.FormattingEnabled = true;
+            this.ic.Location = new System.Drawing.Point(107, 7);
+            this.ic.Name = "ic";
+            this.ic.Size = new System.Drawing.Size(233, 29);
+            this.ic.TabIndex = 25;
+            this.ic.SelectedIndexChanged += new System.EventHandler(this.ic_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(4, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(98, 15);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "Select Ingredient:";
+            // 
+            // p3
+            // 
+            this.p3.Controls.Add(this.ic);
+            this.p3.Controls.Add(this.label3);
+            this.p3.Location = new System.Drawing.Point(448, 133);
+            this.p3.Name = "p3";
+            this.p3.Size = new System.Drawing.Size(352, 42);
+            this.p3.TabIndex = 25;
+            this.p3.Visible = false;
+            // 
             // ReportsFrm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1121, 660);
+            this.Controls.Add(this.p3);
             this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.p2);
             this.Controls.Add(this.p1);
@@ -288,6 +335,8 @@
             this.p1.PerformLayout();
             this.p2.ResumeLayout(false);
             this.p2.PerformLayout();
+            this.p3.ResumeLayout(false);
+            this.p3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -307,5 +356,8 @@
         private Guna.UI2.WinForms.Guna2DateTimePicker dt2;
         private System.Windows.Forms.Timer db;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
+        private System.Windows.Forms.ComboBox ic;
+        private System.Windows.Forms.Label label3;
+        private Guna.UI2.WinForms.Guna2Panel p3;
     }
 }

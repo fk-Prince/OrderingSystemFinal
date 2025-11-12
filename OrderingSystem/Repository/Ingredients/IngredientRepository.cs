@@ -428,7 +428,6 @@ namespace OrderingSystem.Repository.Ingredients
             }
             return id;
         }
-
         public bool removeExpiredIngredient()
         {
             string query2 = @"INSERT INTO monitor_inventory 
@@ -512,7 +511,6 @@ namespace OrderingSystem.Repository.Ingredients
                 db.closeConnection();
             }
         }
-
         public List<string> getSuppliers()
         {
             List<string> im = new List<string>();

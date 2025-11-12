@@ -10,6 +10,7 @@ namespace OrderingSystem.Repository.Reports
         DataView getIngredientExpiry();
         DataView getInventoryReports();
         DataView getIngredientsUsage();
+        DataView getIngredientHistory(string ingredientName);
         DataView getMenuPopularity();
         DataView getInvoice();
         DataView getSupplier();
