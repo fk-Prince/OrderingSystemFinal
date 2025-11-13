@@ -159,9 +159,26 @@ namespace OrderingSystem.CashierApp.Forms
                 MessageBox.Show("Internal Server Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void dataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
+
+        private void dataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || om == null || om.OrderItemList == null || om.OrderItemList.Count == 0)
+                return;
+
+            int index = e.RowIndex;
+
+            if (index >= 0 && index < om.OrderItemList.Count)
+            {
+                var selectedItem = om.OrderItemList[index];
+
+                OrderDetail od = new OrderDetail(selectedItem);
+                DialogResult rs = od.ShowDialog(this);
+                if (rs == DialogResult.OK)
+                {
+                    od.Hide();
+                }
+            }
         }
     }
 }

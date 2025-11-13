@@ -58,6 +58,7 @@ namespace OrderingSystem.Services
             if (quantity > orig.IngredientQuantity)
                 throw new InvalidInput("Insufficient stock to deduct the requested quantity.");
 
+
             return ingredientRepository.deductIngredient(stockId, quantity, reason);
         }
 
@@ -81,7 +82,17 @@ namespace OrderingSystem.Services
             if (cost <= 0)
                 throw new InvalidInput("Cost must be must be greater than zero.");
 
-            return ingredientRepository.restockIngredient(id, qty, value, reason, supplierName, cost);
+            Supplier s = new Supplier(supplierName);
+            IngredientStockModel os = IngredientStockModel.Builder()
+                .WithIngredientStockId(id)
+                .WithIngredientQTy(qty)
+                .WithExpiryDate(value)
+                .WithReason(reason)
+                .WithSupplier(s)
+                .WithBatchCost(cost)
+                .Build();
+
+            return ingredientRepository.restockIngredient(os);
         }
 
         public bool validateAddIngredients(string name, string quantity, string unit, DateTime expire, string supplierName, string batchCost)
@@ -104,7 +115,17 @@ namespace OrderingSystem.Services
             if (cost <= 0)
                 throw new InvalidInput("Cost must be must be greater than zero.");
 
-            return ingredientRepository.addIngredient(name, qty, unit, expire, supplierName, cost);
+            Supplier s = new Supplier(supplierName);
+            IngredientStockModel os = IngredientStockModel.Builder()
+                .WithIngredientQTy(qty)
+                .WithIngredientName(name)
+                .WithSupplier(s)
+                .WithBatchCost(cost)
+                .WithExpiryDate(expire)
+                .WithUnit(unit)
+                .Build();
+
+            return ingredientRepository.addIngredient(os);
         }
 
         public bool validateUpdateIngredient(int id, string name, string unit)

@@ -95,6 +95,7 @@ namespace OrderingSystem.Repository.Order
                                 .WithFlavorName(reader.GetString("flavor_name"))
                                 .WithSizeName(reader.GetString("size_name"))
                                 .WithPrice(reader.GetDouble("price"))
+                                .WithMenuImage(ImageHelper.GetImageFromBlob(reader, "menu"))
                                 .WithDiscount(d)
                                 .Build();
                             OrderItemModel xd = OrderItemModel.Builder()
@@ -103,6 +104,7 @@ namespace OrderingSystem.Repository.Order
                                 .WithPurchaseMenu(m)
                                 .Build();
                             oim.Add(xd);
+
 
                             if (string.IsNullOrEmpty(orderId))
                             {

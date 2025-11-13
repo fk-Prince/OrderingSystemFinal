@@ -51,8 +51,6 @@
                 ingredientModel.ingredientQuantity = ingredientQuantity;
                 return this;
             }
-
         }
-
     }
 }

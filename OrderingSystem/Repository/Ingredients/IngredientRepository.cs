@@ -16,10 +16,13 @@ namespace OrderingSystem.Repository.Ingredients
         {
             List<IngredientModel> im = new List<IngredientModel>();
             var db = DatabaseHandler.getInstance();
+            string query = @"
+                        SELECT i.ingredient_id, i.ingredient_name, i.unit  FROM ingredients i
+                        ";
             try
             {
                 var conn = db.getConnection();
-                using (var cmd = new MySqlCommand("SELECT i.ingredient_id, i.ingredient_name, i.unit FROM ingredients i", conn))
+                using (var cmd = new MySqlCommand(query, conn))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -57,12 +60,12 @@ namespace OrderingSystem.Repository.Ingredients
                     query = @"
                     SELECT i.ingredient_id, i.ingredient_name,i.unit, COALESCE(SUM(mi.quantity), 0) quantity FROM ingredients i
                     LEFT JOIN menu_ingredient mi ON mi.ingredient_id = i.ingredient_id AND mi.menu_detail_id = @menu_detail_id
-                    GROUP BY  i.ingredient_id, i.ingredient_name;";
+                    GROUP BY  i.ingredient_id, i.ingredient_name";
                 }
                 else
                 {
                     query = @"
-                    SELECT i.ingredient_id, i.ingredient_name, i.unit, COALESCE(SUM(CASE WHEN m.menu_id = @menu_id THEN mi.quantity ELSE 0 END), 0) quantity
+                    SELECT i.ingredient_id, i.ingredient_name, i.unit, COALESCE(SUM(CASE WHEN m.menu_id = @menu_id THEN mi.quantity ELSE 0 END), 0) quantity 
                     FROM ingredients i
                     LEFT JOIN menu_ingredient mi ON mi.ingredient_id = i.ingredient_id
                     LEFT JOIN menu_detail md ON md.menu_detail_id = mi.menu_detail_id
@@ -120,7 +123,7 @@ namespace OrderingSystem.Repository.Ingredients
                             IngredientStockModel m = IngredientStockModel.Builder()
                                 .WithIngredientStockId(reader.GetInt32("ingredient_stock_id"))
                                 .WithIngredientName(reader.GetString("ingredient_name"))
-                                .SetIngredientQuantity(reader.GetInt32("current_stock"))
+                                .WithIngredientQTy(reader.GetInt32("current_stock"))
                                 .Build();
                             l.Add(m);
                         }
@@ -278,7 +281,7 @@ namespace OrderingSystem.Repository.Ingredients
                 cmd.ExecuteNonQuery();
             }
         }
-        public bool restockIngredient(int id, int quantity, DateTime value, string reason, string supplierName, double cost)
+        public bool restockIngredient(IngredientStockModel os)
         {
             string query = @"INSERT INTO ingredient_stock (ingredient_id,current_stock,expiry_date,batch_cost,supplier_id) VALUES (@ingredient_id,@current_stock,@expiry_date,@batch_cost,@supplier_id)";
             int lastId;
@@ -288,19 +291,19 @@ namespace OrderingSystem.Repository.Ingredients
                 var conn = db.getConnection();
                 using (var transaction = conn.BeginTransaction())
                 {
-                    int sid = checkSupplier(supplierName, transaction, conn);
+                    int sid = checkSupplier(os.Supplier.SupplierName, transaction, conn);
                     using (var cmd = new MySqlCommand(query, conn, transaction))
                     {
-                        cmd.Parameters.AddWithValue("@ingredient_id", id);
-                        cmd.Parameters.AddWithValue("@current_stock", quantity);
-                        cmd.Parameters.AddWithValue("@expiry_date", value);
+                        cmd.Parameters.AddWithValue("@ingredient_id", os.IngredientStockId);
+                        cmd.Parameters.AddWithValue("@current_stock", os.IngredientQuantity);
+                        cmd.Parameters.AddWithValue("@expiry_date", os.ExpiryDate);
                         cmd.Parameters.AddWithValue("@supplier_id", sid);
-                        cmd.Parameters.AddWithValue("@batch_cost", cost);
+                        cmd.Parameters.AddWithValue("@batch_cost", os.BatchCost);
                         cmd.ExecuteNonQuery();
 
                         lastId = (int)cmd.LastInsertedId;
                     }
-                    monitorInventory(lastId, quantity, reason, transaction, conn, "Add");
+                    monitorInventory(lastId, os.IngredientQuantity, os.Reason, transaction, conn, "Add");
                     transaction.Commit();
                 }
                 return true;
@@ -353,7 +356,7 @@ namespace OrderingSystem.Repository.Ingredients
                 db.closeConnection();
             }
         }
-        public bool addIngredient(string name, int quantity, string unit, DateTime expiry, string supplierName, double cost)
+        public bool addIngredient(IngredientStockModel os)
         {
             string query1 = @"INSERT INTO ingredients (ingredient_name,unit) VALUES (@ingredient_name,@unit)";
             string query2 = @"INSERT INTO ingredient_stock (ingredient_id,current_stock,expiry_date,batch_cost,supplier_id) VALUES
@@ -368,27 +371,27 @@ namespace OrderingSystem.Repository.Ingredients
 
                     using (var cmd = new MySqlCommand(query1, conn, transaction))
                     {
-                        cmd.Parameters.AddWithValue("@ingredient_name", name);
-                        cmd.Parameters.AddWithValue("@unit", unit);
+                        cmd.Parameters.AddWithValue("@ingredient_name", os.IngredientName);
+                        cmd.Parameters.AddWithValue("@unit", os.IngredientUnit);
                         cmd.ExecuteNonQuery();
 
                         lastId = (int)cmd.LastInsertedId;
                     }
 
-                    int sid = checkSupplier(supplierName, transaction, conn);
+                    int sid = checkSupplier(os.Supplier.SupplierName, transaction, conn);
 
                     using (var cmd = new MySqlCommand(query2, conn, transaction))
                     {
                         cmd.Parameters.AddWithValue("@ingredient_id", lastId);
-                        cmd.Parameters.AddWithValue("@current_stock", quantity);
-                        cmd.Parameters.AddWithValue("@expiry_date", expiry);
+                        cmd.Parameters.AddWithValue("@current_stock", os.IngredientQuantity);
+                        cmd.Parameters.AddWithValue("@expiry_date", os.ExpiryDate);
                         cmd.Parameters.AddWithValue("@supplier_id", sid);
-                        cmd.Parameters.AddWithValue("@batch_cost", cost);
+                        cmd.Parameters.AddWithValue("@batch_cost", os.BatchCost);
                         cmd.ExecuteNonQuery();
 
                         lastId = (int)cmd.LastInsertedId;
                     }
-                    monitorInventory(lastId, quantity, "Initial-Stock", transaction, conn, "Add");
+                    monitorInventory(lastId, os.IngredientQuantity, "Initial-Stock", transaction, conn, "Add");
                     transaction.Commit();
                 }
                 return true;

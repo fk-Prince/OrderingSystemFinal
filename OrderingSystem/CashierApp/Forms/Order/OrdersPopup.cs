@@ -61,16 +61,17 @@ namespace OrderingSystem.CashierApp.Forms.Order
                 voidOrder.Width = 70;
                 dataGridView1.Columns.Add(voidOrder);
             }
-            if (dataGridView1.Columns["Select"] == null)
+            if (dataGridView1.Columns["Select Order"] == null)
             {
-                DataGridViewButtonColumn viewButton = new DataGridViewButtonColumn();
-                viewButton.HeaderText = "View Order";
-                viewButton.Name = "View Order";
-                viewButton.Text = "View Order";
-                viewButton.UseColumnTextForButtonValue = true;
-                viewButton.Width = 70;
-                dataGridView1.Columns.Add(viewButton);
+                DataGridViewButtonColumn selectOrder = new DataGridViewButtonColumn();
+                selectOrder.HeaderText = "Select Order";
+                selectOrder.Name = "Select Order";
+                selectOrder.Text = "Select Order";
+                selectOrder.UseColumnTextForButtonValue = true;
+                selectOrder.Width = 70;
+                dataGridView1.Columns.Add(selectOrder);
             }
+
 
         }
 
@@ -123,7 +124,7 @@ namespace OrderingSystem.CashierApp.Forms.Order
                 }
             }
 
-            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "View Order")
+            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "Select Order")
             {
                 string orderId = dataGridView1.Rows[e.RowIndex].Cells["Order ID"].Value.ToString();
                 selectedOrder?.Invoke(this, orderId);
