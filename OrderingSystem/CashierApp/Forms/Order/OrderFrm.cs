@@ -45,6 +45,7 @@ namespace OrderingSystem.CashierApp.Forms
         {
             try
             {
+                table.Rows.Clear();
                 om = orderServices.getOrders(orderId);
                 if (om.OrderItemList.Count > 0)
                     foreach (var order in om.OrderItemList)
@@ -80,16 +81,22 @@ namespace OrderingSystem.CashierApp.Forms
         {
             table.Clear();
             txt.Text = "";
+            om = null;
             subtotal.Text = "0.00";
             coupon.Text = "0.00";
             vat.Text = "0.00";
             total.Text = "0.00";
             wo.Text = "0.00";
         }
-        private void cashPayment(object sender, System.EventArgs e)
+        private void payment(object sender, System.EventArgs e)
         {
             try
             {
+                if (om == null)
+                {
+                    MessageBox.Show("Enter an Order ID", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 bool suc = orderServices.isOrderAvailable(om.OrderId);
 
                 if (suc)

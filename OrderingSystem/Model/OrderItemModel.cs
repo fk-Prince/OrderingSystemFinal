@@ -1,4 +1,6 @@
-﻿namespace OrderingSystem.Model
+﻿using System;
+
+namespace OrderingSystem.Model
 {
     public class OrderItemModel
     {
@@ -22,7 +24,7 @@
         }
         public double getSubtotal()
         {
-            return PurchaseMenu.getPriceAfterVatWithDiscount() * PurchaseQty;
+            return (Math.Round(PurchaseMenu.getPriceAfterVatWithDiscount(), 2) * PurchaseQty);
         }
     }
 }

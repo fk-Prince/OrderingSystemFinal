@@ -263,6 +263,7 @@ namespace OrderingSystem
                 {
 
                     foreach (var cc in flowCart.Controls.OfType<CartCard>())
+                    {
                         if (cc.menu.PurchaseMenu.SizeName == ee.PurchaseMenu.SizeName &&
                         cc.menu.PurchaseMenu.FlavorName == ee.PurchaseMenu.FlavorName &&
                         cc.menu.PurchaseMenu.getPriceAfterVatWithDiscount() == ee.PurchaseMenu.getPriceAfterVatWithDiscount())
@@ -272,10 +273,12 @@ namespace OrderingSystem
                             l.refersh();
                             break;
                         }
+                    }
                 };
                 l.DeductQuantity += (s, ee) =>
                 {
                     foreach (var cc in flowCart.Controls.OfType<CartCard>())
+                    {
                         if (cc.menu.PurchaseMenu.SizeName == ee.PurchaseMenu.SizeName &&
                         cc.menu.PurchaseMenu.FlavorName == ee.PurchaseMenu.FlavorName &&
                         cc.menu.PurchaseMenu.getPriceAfterVatWithDiscount() == ee.PurchaseMenu.getPriceAfterVatWithDiscount())
@@ -285,6 +288,7 @@ namespace OrderingSystem
                             l.refersh();
                             break;
                         }
+                    }
                 };
                 l.successfulPayment += (s, ee) =>
                 {

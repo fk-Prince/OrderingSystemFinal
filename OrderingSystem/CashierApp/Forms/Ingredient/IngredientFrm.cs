@@ -48,7 +48,7 @@ namespace OrderingSystem.CashierApp.Forms
             else
                 expiryFilter = $"[Expiry Date] > #{DateTime.Now:yyyy-MM-dd}#";
 
-            string finalFilter = string.Join(" OR ", new[] { ingredientQuery, expiryFilter }.Where(f => !string.IsNullOrEmpty(f)));
+            string finalFilter = string.Join(" AND ", new[] { ingredientQuery, expiryFilter }.Where(f => !string.IsNullOrEmpty(f)));
             view.RowFilter = finalFilter;
         }
         private void checkboxChanged(object sender, System.EventArgs e)

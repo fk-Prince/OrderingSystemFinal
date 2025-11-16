@@ -545,5 +545,46 @@ namespace OrderingSystem.Repository.Reports
             }
             return result;
         }
+        public DataView getOrderStock(string v)
+        {
+            var db = DatabaseHandler.getInstance();
+            string query = @"
+                      SELECT 
+                        oi.order_id AS 'Order-ID', 
+                        CONCAT(i.ingredient_name, ' Supplied By ', s.supplier_name) AS 'Details',
+                        oss.ingredient_stock_id AS 'Stock ID',
+                        SUM(ois.quantity) AS 'Total Used' 
+                    FROM order_item_stock ois
+                    INNER JOIN order_item oi ON ois.order_item_id = oi.order_item_id
+                    INNER JOIN ingredient_stock oss ON oss.ingredient_stock_id = ois.ingredient_stock_id
+                    INNER JOIN ingredients i ON i.ingredient_id = oss.ingredient_id
+                    INNER JOIN suppliers s ON s.supplier_id = oss.supplier_id
+                    WHERE oi.order_id = @order_id
+                    GROUP BY oi.order_id, CONCAT(i.ingredient_name, ' Supplied By ', s.supplier_name),oss.ingredient_stock_id;
+                        ";
+            DataTable dt = new DataTable();
+            try
+            {
+                var conn = db.getConnection();
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@order_id", v);
+                    using (var adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+                DataView view = new DataView(dt);
+                return view;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                db.closeConnection();
+            }
+        }
     }
 }

@@ -18,10 +18,11 @@ namespace OrderingSystem.KioskApplication.Component
             refreshDetail();
         }
 
-        private void addQuantity(object sender, System.EventArgs e)
+        private void addQuantity(object sender, EventArgs e)
         {
             AddQuantity?.Invoke(this, om);
         }
+
 
         private void deductQuantity(object sender, System.EventArgs e)
         {
@@ -36,13 +37,13 @@ namespace OrderingSystem.KioskApplication.Component
             s2.Text = om.PurchaseMenu.SizeName;
 
 
-            price.Text = om.PurchaseMenu.getPriceAfterVat().ToString("C", new CultureInfo("en-PH"));
-            dPrice.Text = om.PurchaseMenu.getPriceAfterVat() != om.PurchaseMenu.getPriceAfterVatWithDiscount() ? om.PurchaseMenu.getPriceAfterVatWithDiscount().ToString("C", new CultureInfo("en-PH")) : "0.00";
+            price.Text = om.PurchaseMenu.getPriceAfterVat().ToString("N2");
+            dPrice.Text = om.PurchaseMenu.getPriceAfterVat() != om.PurchaseMenu.getPriceAfterVatWithDiscount() ? om.PurchaseMenu.getPriceAfterVatWithDiscount().ToString("N2") : "0.00";
             dPrice.Visible = om.PurchaseMenu.getPriceAfterVatWithDiscount() != om.PurchaseMenu.getPriceAfterVat();
             v1.Visible = om.PurchaseMenu.getPriceAfterVatWithDiscount() != om.PurchaseMenu.getPriceAfterVat();
             v2.Visible = om.PurchaseMenu.getPriceAfterVatWithDiscount() != om.PurchaseMenu.getPriceAfterVat();
             qty.Text = om.PurchaseQty.ToString();
-            total.Text = om.getSubtotal().ToString("C", new CultureInfo("en-PH"));
+            total.Text = om.getSubtotal().ToString("N2");
 
 
             if (om.PurchaseMenu is MenuPackageModel)
@@ -65,5 +66,6 @@ namespace OrderingSystem.KioskApplication.Component
                 f2.Text = om.PurchaseMenu.SizeName;
             }
         }
+
     }
 }

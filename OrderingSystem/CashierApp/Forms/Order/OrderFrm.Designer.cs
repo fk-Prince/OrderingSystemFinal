@@ -167,7 +167,7 @@
             this.guna2Button3.Size = new System.Drawing.Size(282, 45);
             this.guna2Button3.TabIndex = 3;
             this.guna2Button3.Text = "PAYMENT";
-            this.guna2Button3.Click += new System.EventHandler(this.cashPayment);
+            this.guna2Button3.Click += new System.EventHandler(this.payment);
             // 
             // label1
             // 

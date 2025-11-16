@@ -94,6 +94,7 @@ namespace OrderingSystem.CashierApp.Forms
         private void cb_SelectedIndexChanged(object sender, EventArgs ee)
         {
             if (cb.SelectedIndex == -1) return;
+            txt.IconLeftClick -= txt_IconLeftClick;
             view = null;
             dataGrid.DataSource = null;
             p3.Visible = false;
@@ -122,6 +123,11 @@ namespace OrderingSystem.CashierApp.Forms
             {
                 txt.PlaceholderText = "Search Ingredient";
                 view = inventoryServices.getIngredientsUsage();
+            }
+            else if (s == "Trace Ingredient Stock Order")
+            {
+                txt.IconLeftClick += txt_IconLeftClick;
+                txt.PlaceholderText = "Search OrderID";
             }
             else if (s == "Ingredient History")
             {
@@ -153,6 +159,8 @@ namespace OrderingSystem.CashierApp.Forms
             dataGrid.Refresh();
             filter();
         }
+
+
         private void dtTo_ValueChanged(object sender, System.EventArgs e)
         {
             filter();
@@ -289,6 +297,15 @@ namespace OrderingSystem.CashierApp.Forms
             string finalFilter = string.IsNullOrEmpty(staff_ingredient_filter) ? dateFilter : $"({staff_ingredient_filter}) AND {dateFilter}";
             view.RowFilter = finalFilter;
         }
+        private void txt_IconLeftClick(object sender, EventArgs e)
+        {
+
+            if (string.IsNullOrEmpty(txt.Text)) return;
+            view = inventoryServices.getIngredientByOrder(txt.Text.Trim());
+            dataGrid.DataSource = view;
+            dataGrid.Refresh();
+        }
+
         private void reportExpirationIngredient()
         {
             p1.Visible = true;

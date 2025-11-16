@@ -66,6 +66,9 @@ namespace OrderingSystem.Services
             return inventoryReportsRepository.getOrderMonthly();
         }
 
-
+        public DataView getIngredientByOrder(string v)
+        {
+            return inventoryReportsRepository.getOrderStock(v);
+        }
     }
 }

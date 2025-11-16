@@ -14,6 +14,7 @@ namespace OrderingSystem.Repository.Reports
         DataView getMenuPopularity();
         DataView getInvoice();
         DataView getSupplier();
+        DataView getOrderStock(string v);
 
         Tuple<string, string> getTransactions(DateTime now);
         Tuple<string, string> getOrders(DateTime now, string query);
