@@ -58,6 +58,7 @@
             this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowPanel.AutoScroll = true;
             this.flowPanel.Location = new System.Drawing.Point(12, 63);
             this.flowPanel.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.flowPanel.MinimumSize = new System.Drawing.Size(1082, 585);

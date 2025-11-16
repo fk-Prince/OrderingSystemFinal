@@ -191,7 +191,7 @@
             // 
             this.f2.AutoSize = true;
             this.f2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.f2.Location = new System.Drawing.Point(502, 36);
+            this.f2.Location = new System.Drawing.Point(456, 32);
             this.f2.Name = "f2";
             this.f2.Size = new System.Drawing.Size(13, 15);
             this.f2.TabIndex = 26;
@@ -202,7 +202,7 @@
             // 
             this.s2.AutoSize = true;
             this.s2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.s2.Location = new System.Drawing.Point(502, 18);
+            this.s2.Location = new System.Drawing.Point(456, 14);
             this.s2.Name = "s2";
             this.s2.Size = new System.Drawing.Size(13, 15);
             this.s2.TabIndex = 25;
@@ -213,7 +213,7 @@
             // 
             this.f1.AutoSize = true;
             this.f1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.f1.Location = new System.Drawing.Point(451, 36);
+            this.f1.Location = new System.Drawing.Point(405, 32);
             this.f1.Name = "f1";
             this.f1.Size = new System.Drawing.Size(45, 15);
             this.f1.TabIndex = 24;
@@ -224,7 +224,7 @@
             // 
             this.s1.AutoSize = true;
             this.s1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.s1.Location = new System.Drawing.Point(451, 18);
+            this.s1.Location = new System.Drawing.Point(405, 14);
             this.s1.Name = "s1";
             this.s1.Size = new System.Drawing.Size(33, 15);
             this.s1.TabIndex = 23;

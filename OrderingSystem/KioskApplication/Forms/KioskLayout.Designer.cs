@@ -499,10 +499,10 @@
             this.flowMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowMenu.Location = new System.Drawing.Point(285, 149);
             this.flowMenu.MaximumSize = new System.Drawing.Size(1920, 2000);
-            this.flowMenu.MinimumSize = new System.Drawing.Size(732, 551);
+            this.flowMenu.MinimumSize = new System.Drawing.Size(587, 551);
             this.flowMenu.Name = "flowMenu";
             this.flowMenu.Padding = new System.Windows.Forms.Padding(0, 20, 0, 40);
-            this.flowMenu.Size = new System.Drawing.Size(732, 551);
+            this.flowMenu.Size = new System.Drawing.Size(587, 551);
             this.flowMenu.TabIndex = 0;
             this.flowMenu.WrapContents = false;
             this.flowMenu.Scroll += new System.Windows.Forms.ScrollEventHandler(this.flowMenu_Scroll);

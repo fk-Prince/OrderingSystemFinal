@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Forms;
 using OrderingSystem.Model;
 
@@ -66,6 +65,5 @@ namespace OrderingSystem.KioskApplication.Component
                 f2.Text = om.PurchaseMenu.SizeName;
             }
         }
-
     }
 }

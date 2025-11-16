@@ -41,6 +41,7 @@
             this.flow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.flow.AutoScroll = true;
             this.flow.Location = new System.Drawing.Point(39, 171);
             this.flow.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.flow.MinimumSize = new System.Drawing.Size(1040, 456);
