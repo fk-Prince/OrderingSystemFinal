@@ -90,7 +90,7 @@ namespace OrderingSystem.KioskApplication.Forms
                         }
                     }
                 }
-                x.Hide();
+                x?.Hide();
             }
             catch (OrderInvalid ex)
             {
