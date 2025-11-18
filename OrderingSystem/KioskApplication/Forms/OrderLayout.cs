@@ -6,6 +6,7 @@ using OrderingSystem.KioskApplication.Component;
 using OrderingSystem.KioskApplication.Services;
 using OrderingSystem.Model;
 using OrderingSystem.Receipt;
+using OrderingSystem.Repository.Coupon;
 
 namespace OrderingSystem.KioskApplication.Forms
 {
@@ -16,6 +17,7 @@ namespace OrderingSystem.KioskApplication.Forms
         public event EventHandler successfulPayment;
         public event EventHandler<OrderItemModel> AddQuantity;
         public event EventHandler<OrderItemModel> DeductQuantity;
+        public event EventHandler<CouponModel> couponSelected;
         public bool isBrowsing;
         public OrderLayout(OrderModel om, OrderServices orderServices)
         {
@@ -105,6 +107,23 @@ namespace OrderingSystem.KioskApplication.Forms
         private void guna2PictureBox1_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            CouponFrm c = new CouponFrm(new CouponRepository(), om.GetTotalWithVAT());
+            c.CouponSelected += (sss, eee) =>
+            {
+                couponSelected?.Invoke(this, eee);
+                om.Coupon = eee;
+                total.Text = "₱  " + om.GetTotalWithVAT().ToString("N2");
+            };
+            DialogResult rs = c.ShowDialog(this);
+            if (rs == DialogResult.OK)
+            {
+                c.Hide();
+
+            }
         }
     }
 }

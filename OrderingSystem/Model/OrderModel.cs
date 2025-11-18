@@ -18,18 +18,17 @@ namespace OrderingSystem.Model
         public CouponModel Coupon { get; set; }
         public string OrderId { get => order_id; }
         public OrderType Type { get; set; }
-        public CouponModel CouponSelected { get; }
         public OrderModel(string orderId, List<OrderItemModel> orderList, CouponModel couponSelected, OrderType orderType)
         {
             order_id = orderId;
             OrderItemList = orderList;
-            CouponSelected = couponSelected;
+            Coupon = couponSelected;
             Type = orderType;
         }
         public OrderModel(string orderId, CouponModel couponModel, List<OrderItemModel> oim)
         {
             order_id = orderId;
-            CouponSelected = couponModel;
+            Coupon = couponModel;
             OrderItemList = oim;
         }
 

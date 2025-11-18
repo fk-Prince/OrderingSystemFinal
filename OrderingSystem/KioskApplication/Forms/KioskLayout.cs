@@ -262,6 +262,11 @@ namespace OrderingSystem
                 else
                     om = new OrderModel(orderId, couponSelected, orderList);
                 OrderLayout l = new OrderLayout(om, orderServices);
+                l.couponSelected += (ss, ee) =>
+                {
+                    couponSelected = ee;
+                    displayTotal(this, EventArgs.Empty);
+                };
                 l.isBrowsing = string.IsNullOrEmpty(this.type);
                 l.AddQuantity += (s, ee) =>
                 {
