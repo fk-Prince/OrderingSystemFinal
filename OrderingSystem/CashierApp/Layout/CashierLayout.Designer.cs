@@ -676,7 +676,7 @@
             // 
             // dts
             // 
-            this.dts.Interval = 10000;
+            this.dts.Interval = 1000;
             this.dts.Tick += new System.EventHandler(this.dts_Tick);
             // 
             // CashierLayout

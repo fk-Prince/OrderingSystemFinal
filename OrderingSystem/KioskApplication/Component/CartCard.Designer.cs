@@ -86,9 +86,9 @@
             // 
             // bb
             // 
-            this.bb.BackColor = System.Drawing.Color.IndianRed;
+            this.bb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
             this.bb.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.bb.ForeColor = System.Drawing.Color.White;
             this.bb.Location = new System.Drawing.Point(41, 137);
             this.bb.Name = "bb";
             this.bb.Size = new System.Drawing.Size(49, 25);
