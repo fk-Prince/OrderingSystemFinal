@@ -34,11 +34,11 @@
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.updateButton = new Guna.UI2.WinForms.Guna2Button();
             this.confirmButton = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.xx = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.closeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xx)).BeginInit();
             this.SuspendLayout();
             // 
             // closeButton
@@ -137,21 +137,21 @@
             this.confirmButton.Text = "Confirm";
             this.confirmButton.Click += new System.EventHandler(this.submit);
             // 
-            // guna2PictureBox1
+            // xx
             // 
-            this.guna2PictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.xx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.guna2PictureBox1.Image = global::OrderingSystem.Properties.Resources.exit;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(497, 4);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(27, 22);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 16;
-            this.guna2PictureBox1.TabStop = false;
-            this.guna2PictureBox1.Click += new System.EventHandler(this.guna2PictureBox1_Click);
+            this.xx.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.xx.Image = global::OrderingSystem.Properties.Resources.exit;
+            this.xx.ImageRotate = 0F;
+            this.xx.Location = new System.Drawing.Point(497, 4);
+            this.xx.Name = "xx";
+            this.xx.Size = new System.Drawing.Size(27, 22);
+            this.xx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.xx.TabIndex = 16;
+            this.xx.TabStop = false;
+            this.xx.Click += new System.EventHandler(this.guna2PictureBox1_Click);
             // 
             // guna2BorderlessForm1
             // 
@@ -165,7 +165,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(532, 468);
-            this.Controls.Add(this.guna2PictureBox1);
+            this.Controls.Add(this.xx);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.closeButton);
@@ -177,7 +177,7 @@
             this.Text = "IngredientMenu";
             ((System.ComponentModel.ISupportInitialize)(this.closeButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xx)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -186,7 +186,7 @@
 
         public Guna.UI2.WinForms.Guna2PictureBox closeButton;
         private Guna.UI2.WinForms.Guna2TextBox search;
-        public Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
+        public Guna.UI2.WinForms.Guna2PictureBox xx;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
         public Guna.UI2.WinForms.Guna2Button updateButton;
         public Guna.UI2.WinForms.Guna2Button confirmButton;

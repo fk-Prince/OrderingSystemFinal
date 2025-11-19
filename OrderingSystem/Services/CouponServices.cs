@@ -46,11 +46,15 @@ namespace OrderingSystem.Services
                     if (!double.TryParse(minC, out min))
                         throw new InvalidInput("Invalid min.");
 
+                    if (dRate < 0)
+                    {
+                        throw new InvalidInput("Fixed amount must be greater than 0.");
+                    }
                     if (min < 0)
-                        throw new InvalidInput("Rate must be greater than 0 ");
+                        throw new InvalidInput("Rate must be greater than 0.");
 
                     if (min < dRate)
-                        throw new InvalidInput("The Fixed amount cannot be less than Minimun Amount");
+                        throw new InvalidInput("The Fixed amount cannot be less than Minimun Amount.");
                 }
                 else
                     min = 0;

@@ -102,6 +102,7 @@ namespace OrderingSystem.CashierApp.Forms
             p2.Visible = false;
             string s = cb.Text;
             dtTo.Value = DateTime.Now.AddDays(1);
+            dt2.Value = DateTime.Now;
             dtFrom.Value = DateTime.Parse("2020-01-01");
 
             if (s == "Track Quantity In/Out")
@@ -379,7 +380,7 @@ namespace OrderingSystem.CashierApp.Forms
             decimal totalCost = 0;
             decimal netProfit = 0;
             decimal fee = 0;
-            DateTime? latestDate = null;
+            DateTime? lastDate = null;
 
             foreach (DataRowView rowView in view)
             {
@@ -388,20 +389,20 @@ namespace OrderingSystem.CashierApp.Forms
                 if (row["Invoice ID"].ToString() == "All")
                     continue;
 
-                grossRevenue += Convert.ToDecimal(row["Gross Revenue"]);
-                itemDiscount += Convert.ToDecimal(row["Item Discount"]);
-                couponDiscount += Convert.ToDecimal(row["Coupon Discount"]);
-                totalDiscount += Convert.ToDecimal(row["Total Discount"]);
-                netRevenue += Convert.ToDecimal(row["Net Revenue"]);
-                totalTax += Convert.ToDecimal(row["Total Tax"]);
-                netRevenueWithTax += Convert.ToDecimal(row["Net Revenue with Tax"]);
-                totalCost += Convert.ToDecimal(row["Total Cost"]);
-                netProfit += Convert.ToDecimal(row["Net Profit"]);
-                fee += Convert.ToDecimal(row["Transaction Fee"]);
+                grossRevenue += decimal.Parse(row["Gross Revenue"].ToString());
+                itemDiscount += decimal.Parse(row["Item Discount"].ToString());
+                couponDiscount += decimal.Parse(row["Coupon Discount"].ToString());
+                totalDiscount += decimal.Parse(row["Total Discount"].ToString());
+                netRevenue += decimal.Parse(row["Net Revenue"].ToString());
+                totalTax += decimal.Parse(row["Total Tax"].ToString());
+                netRevenueWithTax += decimal.Parse(row["Net Revenue with Tax"].ToString());
+                totalCost += decimal.Parse(row["Total Cost"].ToString());
+                netProfit += decimal.Parse(row["Net Profit"].ToString());
+                fee += decimal.Parse(row["Transaction Fee"].ToString());
 
-                DateTime currentDate = Convert.ToDateTime(row["Date"]);
-                if (latestDate == null || currentDate > latestDate)
-                    latestDate = currentDate;
+                DateTime currentDate =DateTime.Parse(row["Date"].ToString());
+                if (lastDate == null || currentDate > lastDate)
+                    lastDate = currentDate;
             }
 
             decimal profitMargin = netRevenueWithTax > 0 ? (netProfit / netRevenueWithTax * 100) : 0;
@@ -423,13 +424,13 @@ namespace OrderingSystem.CashierApp.Forms
                 allRow["Net Profit"] = netProfit;
                 allRow["Profit Margin %"] = profitMargin.ToString("N2");
                 allRow["Transaction Fee"] = fee.ToString("N2");
-                allRow["Date"] = latestDate ?? DateTime.Now;
+                allRow["Date"] = lastDate ?? DateTime.Now;
             }
         }
         private void reportMenuPopular()
         {
+       
             dt2.CustomFormat = "yyyy-MMMM";
-            dt2.Value = DateTime.Now;
             p1.Visible = false;
             p2.Visible = true;
             string dateFilter = $"[Year] = '{dt2.Value.Year}' AND [Month] = '{dt2.Value.ToString("MMMM")}'";
@@ -441,7 +442,6 @@ namespace OrderingSystem.CashierApp.Forms
         {
             p1.Visible = true;
             p2.Visible = false;
-            dtTo.Value = DateTime.Now;
 
             string dateFilter = $"[Recently Supplied] >= '{dtFrom.Value}' AND [Recently Supplied] <= '{dtTo.Value}'";
             string supplerFilter = string.IsNullOrEmpty(txt.Text) ? "" : $"[Supplier Name] LIKE '%{txt.Text}%'";

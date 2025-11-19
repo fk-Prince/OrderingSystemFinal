@@ -37,7 +37,6 @@
             this.p = new System.Windows.Forms.Label();
             this.menuPrice = new Guna.UI2.WinForms.Guna2TextBox();
             this.lp = new System.Windows.Forms.Label();
-            this.guna2BorderlessForm2 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
             this.label13 = new System.Windows.Forms.Label();
             this.estimatedTime = new Guna.UI2.WinForms.Guna2TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -49,6 +48,7 @@
             // 
             // guna2BorderlessForm1
             // 
+            this.guna2BorderlessForm1.BorderRadius = 20;
             this.guna2BorderlessForm1.ContainerControl = this;
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
@@ -147,12 +147,6 @@
             this.lp.Size = new System.Drawing.Size(12, 13);
             this.lp.TabIndex = 65;
             this.lp.Text = "*";
-            // 
-            // guna2BorderlessForm2
-            // 
-            this.guna2BorderlessForm2.ContainerControl = this;
-            this.guna2BorderlessForm2.DockIndicatorTransparencyValue = 0.6D;
-            this.guna2BorderlessForm2.TransparentWhileDrag = true;
             // 
             // label13
             // 
@@ -280,7 +274,6 @@
         private System.Windows.Forms.Label p;
         private Guna.UI2.WinForms.Guna2TextBox menuPrice;
         private System.Windows.Forms.Label lp;
-        private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm2;
         private System.Windows.Forms.Label label13;
         private Guna.UI2.WinForms.Guna2TextBox estimatedTime;
         private System.Windows.Forms.Label label14;

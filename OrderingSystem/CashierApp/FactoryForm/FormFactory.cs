@@ -154,6 +154,10 @@ namespace OrderingSystem.CashierApp.Forms.FactoryForm
                 f10.l3.Visible = false;
                 f10.l4.Visible = false;
                 f10.dt2.Visible = true;
+                f10.l5.Visible = false;
+                f10.c5.Visible = false;
+                f10.l6.Visible = false;
+                f10.t6.Visible = false;
                 f10.dt2.MinDate = DateTime.Now;
             }
             return fx;

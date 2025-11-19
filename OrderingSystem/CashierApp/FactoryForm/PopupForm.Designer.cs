@@ -366,7 +366,7 @@
             this.l6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.l6.Location = new System.Drawing.Point(427, 174);
             this.l6.Name = "l6";
-            this.l6.Size = new System.Drawing.Size(61, 13);
+            this.l6.Size = new System.Drawing.Size(62, 13);
             this.l6.TabIndex = 74;
             this.l6.Text = "Batch Cost";
             // 
@@ -395,7 +395,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(421, 484);
+            this.ClientSize = new System.Drawing.Size(425, 484);
             this.Controls.Add(this.l6);
             this.Controls.Add(this.t6);
             this.Controls.Add(this.c5);

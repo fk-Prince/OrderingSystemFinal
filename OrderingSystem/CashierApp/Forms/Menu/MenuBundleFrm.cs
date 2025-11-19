@@ -41,9 +41,9 @@ namespace OrderingSystem.CashierApp.Forms.Menu
                     return;
                 }
 
-                if (inclded.Count <= 1)
+                if (inclded.Count <= 0)
                 {
-                    MessageBox.Show("It should atleast contain 2 Existing Menu.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("It should atleast contain 1 Existing Menu.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -100,14 +100,14 @@ namespace OrderingSystem.CashierApp.Forms.Menu
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (MySqlException)
+            catch (MySqlException ex)
             {
-                MessageBox.Show("Internal Server Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Internal Server Error" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private bool isPriceValid(string text)
         {
-            return Regex.IsMatch(menuPrice.Text.Trim(), @"^(\d{1,3}(,\d{3})*|\d+)(\.\d{1,2})?$");
+            return Regex.IsMatch(text.Trim(), @"^(\d{1,3}(,\d{3})*|\d+)(\.\d{1,2})?$");
         }
         private void ingredientListButton(object sender, EventArgs eb)
         {
@@ -129,6 +129,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
                 p.Hide();
             }
         }
+      
         private void menuListButton(object sender, System.EventArgs e)
         {
             BundleMenuPopup p = new BundleMenuPopup(menuService, inclded);
@@ -188,13 +189,21 @@ namespace OrderingSystem.CashierApp.Forms.Menu
             }
             if (double.TryParse(menuPrice.Text.Trim(), out double d))
             {
-                l2.Text = $"Price After Tax | (  {(d / TaxHelper.TAX_F).ToString("N2")} Sale Price";
+                l2.Text = $"Price After Tax | (  {(d / TaxHelper.TAX_F).ToString("N2")} Sale Price )";
             }
             else
             {
                 l2.Text = "Price";
             }
             lp.Location = new Point(l2.Right + 2, lp.Location.Y);
+        }
+
+        private void menuPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ namespace OrderingSystem.CashierApp.Components
             menuList = menuService.getMenuDetail();
             initTable();
         }
-
+      
         private void initTable()
         {
             table = new DataTable();
@@ -133,7 +133,7 @@ namespace OrderingSystem.CashierApp.Components
                 {
                     if (!int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int r))
                     {
-                        MessageBox.Show("No quantity");
+                        MessageBox.Show("No Quantity", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                     string menuName = row.Cells["Menu Name"].Value?.ToString();

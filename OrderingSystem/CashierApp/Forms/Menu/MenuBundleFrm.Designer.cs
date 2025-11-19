@@ -337,6 +337,7 @@
             this.menuPrice.Size = new System.Drawing.Size(253, 30);
             this.menuPrice.TabIndex = 68;
             this.menuPrice.TextChanged += new System.EventHandler(this.menuPrice_TextChanged);
+            this.menuPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.menuPrice_KeyPress);
             // 
             // lp
             // 
@@ -434,7 +435,7 @@
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.label6.Location = new System.Drawing.Point(44, 295);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(163, 15);
+            this.label6.Size = new System.Drawing.Size(164, 15);
             this.label6.TabIndex = 77;
             this.label6.Text = "Estimated-Time (HH-MM-SS)";
             // 

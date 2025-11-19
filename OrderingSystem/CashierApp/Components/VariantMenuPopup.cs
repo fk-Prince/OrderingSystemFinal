@@ -76,7 +76,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
                 .Build();
             variantList.Add(variant);
 
-            MessageBox.Show("Successfully Added");
+            MessageBox.Show("Successfully Added", "New Variant", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ingredientSelected.Clear();
         }
         public List<MenuDetailModel> getVariants()
@@ -119,6 +119,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
             }
 
             IngredientMenu im = new IngredientMenu(ingredientServices);
+            im.xx.Visible = false;
             im.getIngredient();
             im.initTable2();
             im.confirmButton.Visible = true;

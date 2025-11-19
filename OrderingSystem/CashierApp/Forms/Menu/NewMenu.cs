@@ -138,6 +138,8 @@ namespace OrderingSystem.CashierApp.Forms.Menu
                 {
                     menuUpdate.Invoke(this, EventArgs.Empty);
                     MessageBox.Show("New menu created successfully.", "Menu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
+                        
                 }
                 else
                     MessageBox.Show("Failed to create new menu.", "Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -149,7 +151,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
             }
             catch (Exception)
             {
-                MessageBox.Show("Internal Server Error.");
+                MessageBox.Show("Internal Server Error.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void VariantPopupButton(object sender, System.EventArgs e)
@@ -169,7 +171,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
                     foreach (var x in variantList)
                     {
                         string s = string.Join(", ", x.MenuIngredients.Select(xx => xx.IngredientName));
-                        table.Rows.Add(x.FlavorName, x.SizeName, x.EstimatedTime, x.MenuPrice, s);
+                        table.Rows.Add(x.FlavorName, x.SizeName, x.EstimatedTime, x.MenuPrice.ToString("N2"), s);
                     }
                 }
                 else
