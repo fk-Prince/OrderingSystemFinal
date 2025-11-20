@@ -42,6 +42,9 @@
             this.t2 = new Guna.UI2.WinForms.Guna2TextBox();
             this.fee = new System.Windows.Forms.Label();
             this.cd = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,7 +89,7 @@
             this.cb.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cb.ItemHeight = 30;
-            this.cb.Location = new System.Drawing.Point(129, 131);
+            this.cb.Location = new System.Drawing.Point(193, 131);
             this.cb.Name = "cb";
             this.cb.Size = new System.Drawing.Size(268, 36);
             this.cb.TabIndex = 8;
@@ -209,7 +212,7 @@
             // fee
             // 
             this.fee.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fee.Location = new System.Drawing.Point(259, 105);
+            this.fee.Location = new System.Drawing.Point(323, 105);
             this.fee.Name = "fee";
             this.fee.Size = new System.Drawing.Size(138, 23);
             this.fee.TabIndex = 16;
@@ -227,17 +230,49 @@
             this.cd.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cd.ItemHeight = 30;
-            this.cd.Location = new System.Drawing.Point(129, 182);
+            this.cd.Location = new System.Drawing.Point(193, 186);
             this.cd.Name = "cd";
             this.cd.Size = new System.Drawing.Size(268, 36);
             this.cd.TabIndex = 17;
             this.cd.SelectedIndexChanged += new System.EventHandler(this.cd_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(44, 138);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(121, 20);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Payment Method";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(44, 192);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(0, 20);
+            this.label4.TabIndex = 19;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(44, 192);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(102, 20);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Discount Type";
             // 
             // PaymentMethod
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(234)))), ((int)(((byte)(254)))));
             this.ClientSize = new System.Drawing.Size(504, 457);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.cd);
             this.Controls.Add(this.fee);
             this.Controls.Add(this.l2);
@@ -274,5 +309,8 @@
         private Guna.UI2.WinForms.Guna2TextBox t2;
         private System.Windows.Forms.Label fee;
         private Guna.UI2.WinForms.Guna2ComboBox cd;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
     }
 }
