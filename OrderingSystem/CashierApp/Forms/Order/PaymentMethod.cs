@@ -4,7 +4,6 @@ using OrderingSystem.CashierApp.Payment;
 using OrderingSystem.Exceptions;
 using OrderingSystem.KioskApplication.Services;
 using OrderingSystem.Model;
-using OrderingSystem.Services;
 
 namespace OrderingSystem.CashierApp.Forms.Order
 {
@@ -104,8 +103,6 @@ namespace OrderingSystem.CashierApp.Forms.Order
                     MessageBox.Show("Failed to process payment.", "Payment Method",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                StripeService s = new StripeService();
 
             }
             catch (Exception ex)
