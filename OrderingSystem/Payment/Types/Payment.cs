@@ -8,10 +8,10 @@ namespace OrderingSystem.CashierApp.Payment
     {
         public abstract string PaymentName { get; }
 
-        public virtual InvoiceModel processPayment(OrderModel order)
+        public virtual InvoiceModel processPayment(OrderModel order, string type)
         {
             validateOrder(order);
-            return finalizeOrder(order);
+            return finalizeOrder(order, 0, type);
         }
         public virtual void validateOrder(OrderModel order)
         {
@@ -21,9 +21,16 @@ namespace OrderingSystem.CashierApp.Payment
             if (string.IsNullOrWhiteSpace(order.OrderId))
                 throw new ArgumentException("Invalid order ID.");
         }
-        public virtual InvoiceModel finalizeOrder(OrderModel order, double fee = 0)
+        public virtual InvoiceModel finalizeOrder(OrderModel order, double fee = 0, string type = "")
         {
-            InvoiceModel i = new InvoiceModel(order.OrderId, order, SessionStaffData.StaffData, this, order.GetTotalWithVAT() + (1 * fee));
+            double total;
+
+            if (type.ToLower() == "pwd" && type.ToLower() == "senior citizen")
+                total = order.getTotalDiscount();
+            else
+                total = order.GetTotalWithVAT() + (1 * fee);
+
+            InvoiceModel i = new InvoiceModel(order.OrderId, order, SessionStaffData.StaffData, this, total, type);
             return i;
         }
     }

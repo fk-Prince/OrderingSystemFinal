@@ -44,8 +44,12 @@
             this.price = new System.Windows.Forms.Label();
             this.qty = new System.Windows.Forms.Label();
             this.total = new System.Windows.Forms.Label();
+            this.b = new Guna.UI2.WinForms.Guna2Button();
+            this.qtyToAdd = new Guna.UI2.WinForms.Guna2NumericUpDown();
+            this.v = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qtyToAdd)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2BorderlessForm1
@@ -151,7 +155,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label2.Location = new System.Drawing.Point(362, 178);
+            this.label2.Location = new System.Drawing.Point(299, 181);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 13);
             this.label2.TabIndex = 22;
@@ -162,7 +166,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label5.Location = new System.Drawing.Point(362, 202);
+            this.label5.Location = new System.Drawing.Point(299, 205);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(107, 13);
             this.label5.TabIndex = 23;
@@ -173,7 +177,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label6.Location = new System.Drawing.Point(362, 231);
+            this.label6.Location = new System.Drawing.Point(299, 234);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(32, 13);
             this.label6.TabIndex = 24;
@@ -183,7 +187,7 @@
             // 
             this.price.AutoEllipsis = true;
             this.price.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.price.Location = new System.Drawing.Point(492, 178);
+            this.price.Location = new System.Drawing.Point(429, 181);
             this.price.Name = "price";
             this.price.Size = new System.Drawing.Size(116, 13);
             this.price.TabIndex = 25;
@@ -194,7 +198,7 @@
             // 
             this.qty.AutoEllipsis = true;
             this.qty.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.qty.Location = new System.Drawing.Point(492, 202);
+            this.qty.Location = new System.Drawing.Point(429, 205);
             this.qty.Name = "qty";
             this.qty.Size = new System.Drawing.Size(116, 13);
             this.qty.TabIndex = 26;
@@ -205,12 +209,69 @@
             // 
             this.total.AutoEllipsis = true;
             this.total.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.total.Location = new System.Drawing.Point(492, 231);
+            this.total.Location = new System.Drawing.Point(429, 234);
             this.total.Name = "total";
             this.total.Size = new System.Drawing.Size(116, 13);
             this.total.TabIndex = 27;
             this.total.Text = "Menu Name";
             this.total.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // b
+            // 
+            this.b.BackColor = System.Drawing.Color.Transparent;
+            this.b.BorderRadius = 5;
+            this.b.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.b.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.b.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.b.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.b.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.b.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.b.ForeColor = System.Drawing.Color.White;
+            this.b.Location = new System.Drawing.Point(12, 210);
+            this.b.Name = "b";
+            this.b.Size = new System.Drawing.Size(97, 45);
+            this.b.TabIndex = 28;
+            this.b.Text = "VOID";
+            this.b.Click += new System.EventHandler(this.guna2Button1_Click);
+            // 
+            // qtyToAdd
+            // 
+            this.qtyToAdd.BackColor = System.Drawing.Color.Transparent;
+            this.qtyToAdd.BorderRadius = 5;
+            this.qtyToAdd.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.qtyToAdd.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.qtyToAdd.Location = new System.Drawing.Point(571, 196);
+            this.qtyToAdd.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.qtyToAdd.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.qtyToAdd.Name = "qtyToAdd";
+            this.qtyToAdd.Size = new System.Drawing.Size(54, 36);
+            this.qtyToAdd.TabIndex = 29;
+            this.qtyToAdd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.qtyToAdd.ValueChanged += new System.EventHandler(this.guna2NumericUpDown1_ValueChanged);
+            // 
+            // v
+            // 
+            this.v.AutoSize = true;
+            this.v.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.v.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.v.Location = new System.Drawing.Point(25, 223);
+            this.v.Name = "v";
+            this.v.Size = new System.Drawing.Size(72, 21);
+            this.v.TabIndex = 30;
+            this.v.Text = "VOIDED";
+            this.v.Visible = false;
             // 
             // OrderDetail
             // 
@@ -218,6 +279,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(637, 267);
+            this.Controls.Add(this.v);
+            this.Controls.Add(this.qtyToAdd);
+            this.Controls.Add(this.b);
             this.Controls.Add(this.total);
             this.Controls.Add(this.qty);
             this.Controls.Add(this.price);
@@ -238,6 +302,7 @@
             this.Text = "OrderDetail";
             ((System.ComponentModel.ISupportInitialize)(this.image)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qtyToAdd)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,5 +325,8 @@
         private System.Windows.Forms.Label price;
         private System.Windows.Forms.Label total;
         private System.Windows.Forms.Label qty;
+        private Guna.UI2.WinForms.Guna2Button b;
+        private Guna.UI2.WinForms.Guna2NumericUpDown qtyToAdd;
+        private System.Windows.Forms.Label v;
     }
 }

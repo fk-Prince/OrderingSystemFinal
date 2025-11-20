@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using OrderingSystem.CashierApp.Layout;
+using OrderingSystem.CashierApp.SessionData;
 using OrderingSystem.KioskApplication.Services;
+using OrderingSystem.Model;
 
 namespace OrderingSystem.CashierApp.Forms.Order
 {
@@ -97,31 +100,40 @@ namespace OrderingSystem.CashierApp.Forms.Order
                     MessageBox.Show($"Only orders with status 'Pending' can be voided.\nCurrent status: {status}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
-                DialogResult confirm = MessageBox.Show(
-                    $"Are you sure you want to void order #{orderId}?",
-                    "Confirm Void",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-
-                if (confirm == DialogResult.Yes)
+                if (SessionStaffData.Role != StaffModel.StaffRole.Manager)
                 {
-                    try
+                    ManagerLogin ml = new ManagerLogin();
+                    DialogResult rs1 = ml.ShowDialog(this);
+                    if (rs1 == DialogResult.OK)
                     {
-                        bool suc = orderServices.voidOrder(orderId);
+                        DialogResult confirm = MessageBox.Show(
+                              $"Are you sure you want to void order #{orderId}?",
+                              "Confirm Void",
+                              MessageBoxButtons.YesNo,
+                              MessageBoxIcon.Warning
+                           );
 
-                        if (suc)
+                        if (confirm == DialogResult.Yes)
                         {
-                            MessageBox.Show("Order has been voided successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            fetchData();
+                            try
+                            {
+                                bool suc = orderServices.voidOrder(orderId);
+
+                                if (suc)
+                                {
+                                    MessageBox.Show("Order has been voided successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    fetchData();
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("Internal Server Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Internal Server Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
                 }
+
+
             }
 
             if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "Select Order")

@@ -163,6 +163,11 @@ namespace OrderingSystem.Receipt
                 e.Graphics.DrawString($"Payment Method: {invoice.payment.PaymentName} {f.feePercent * 100}%", new Font("Segui UI", 9, FontStyle.Regular), Brushes.Black, x, y);
                 y += 20;
             }
+            if (invoice != null && invoice.payment != null && invoice.specialDiscount.ToLower() != "regular")
+            {
+                e.Graphics.DrawString($"SC:PWD Discount", new Font("Segui UI", 9, FontStyle.Regular), Brushes.Black, x, y);
+                y += 20;
+            }
 
 
             e.Graphics.DrawString("Total Amount Due", new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular), Brushes.Black, x, y);
@@ -207,20 +212,38 @@ namespace OrderingSystem.Receipt
                 e.Graphics.DrawString(fee.ToString("N2"), new Font("Segui UI", 9, FontStyle.Regular), Brushes.Black, x - size1.Width, y1);
                 y1 += 20;
             }
+            if (invoice != null && invoice.payment != null && invoice.specialDiscount.ToLower() != "regular")
+            {
+                e.Graphics.DrawString($"( {(invoice.Order.getTotalDiscount() * 0.20).ToString("N2")} )", new Font("Segui UI", 9, FontStyle.Regular), Brushes.Black, x - size1.Width, y1);
+                y1 += 20;
 
-
-            size1 = graphics.MeasureString(totalWithVAT.ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular));
-            e.Graphics.DrawString(totalWithVAT.ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular), Brushes.Black, x - size1.Width, y1);
+                size1 = graphics.MeasureString((invoice.Order.getTotalDiscount() - (om.getTotalDiscount() * 0.20)).ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular));
+                e.Graphics.DrawString((invoice.Order.getTotalDiscount() - (om.getTotalDiscount() * 0.20)).ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular), Brushes.Black, x - size1.Width, y1);
+                y1 += 20;
+            }
+            else
+            {
+                size1 = graphics.MeasureString(totalWithVAT.ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular));
+                e.Graphics.DrawString(totalWithVAT.ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular), Brushes.Black, x - size1.Width, y1);
+                y1 += 20;
+            }
 
             if (cash != 0)
             {
-                y1 += 20;
                 size1 = graphics.MeasureString(cash.ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular));
                 e.Graphics.DrawString(cash.ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular), Brushes.Black, x - size1.Width, y1);
 
                 y1 += 20;
-                size1 = graphics.MeasureString((cash - totalWithVAT).ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular));
-                e.Graphics.DrawString((cash - totalWithVAT).ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular), Brushes.Black, x - size1.Width, y1);
+                if (invoice != null && invoice.payment != null && invoice.specialDiscount.ToLower() != "regular")
+                {
+                    size1 = graphics.MeasureString((cash - (invoice.Order.getTotalDiscount() - (om.getTotalDiscount() * 0.20))).ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular));
+                    e.Graphics.DrawString((cash - (invoice.Order.getTotalDiscount() - (om.getTotalDiscount() * 0.20))).ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular), Brushes.Black, x - size1.Width, y1);
+                }
+                else
+                {
+                    size1 = graphics.MeasureString((cash - totalWithVAT).ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular));
+                    e.Graphics.DrawString((cash - totalWithVAT).ToString("N2"), new Font("Segui UI", 10, FontStyle.Bold | FontStyle.Regular), Brushes.Black, x - size1.Width, y1);
+                }
             }
 
 

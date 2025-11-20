@@ -49,6 +49,12 @@ namespace OrderingSystem.CashierApp.Layout
                 StaffModel loginStaff = staffService.loginStaff(user.Text.Trim(), pass.Text.Trim());
                 if (loginStaff != null)
                 {
+                    if (loginStaff.Status == StaffModel.StaffStatus.InActive)
+                    {
+                        MessageBox.Show("This staff is currently fired.", "Fired Staff", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        loginStaff = null;
+                        return;
+                    }
                     SessionStaffData.setSessionData(loginStaff);
                     MessageBox.Show("Successfully Login", "Authorized", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;

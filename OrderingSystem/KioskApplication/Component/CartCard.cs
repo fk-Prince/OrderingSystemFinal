@@ -13,17 +13,9 @@ namespace OrderingSystem.KioskApplication.Components
             InitializeComponent();
             this.menu = menu;
             displayPurchasedMenu();
-            cardLayout();
         }
 
-        private void cardLayout()
-        {
-            //pp.BorderRadius = 5;
-            //BorderColor = Color.LightGray;
-            //BorderThickness = 1;
-            //FillColor = Color.FromArgb(255, 255, 255);
-            //BackColor = Color.Transparent;
-        }
+        
 
         public void displayPurchasedMenu()
         {

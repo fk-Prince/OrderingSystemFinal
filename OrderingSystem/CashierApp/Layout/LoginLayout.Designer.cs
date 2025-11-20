@@ -110,7 +110,7 @@
             // guna2PictureBox3
             // 
             this.guna2PictureBox3.BorderRadius = 5;
-            this.guna2PictureBox3.Image = global::OrderingSystem.Properties.Resources.finaldashicon;
+            this.guna2PictureBox3.Image = Properties.Resources.finaldashicon;
             this.guna2PictureBox3.ImageRotate = 0F;
             this.guna2PictureBox3.Location = new System.Drawing.Point(98, -25);
             this.guna2PictureBox3.Name = "guna2PictureBox3";
@@ -122,7 +122,7 @@
             // guna2PictureBox2
             // 
             this.guna2PictureBox2.BorderRadius = 5;
-            this.guna2PictureBox2.Image = global::OrderingSystem.Properties.Resources.exit;
+            this.guna2PictureBox2.Image = Properties.Resources.exit;
             this.guna2PictureBox2.ImageRotate = 0F;
             this.guna2PictureBox2.Location = new System.Drawing.Point(332, 1);
             this.guna2PictureBox2.Name = "guna2PictureBox2";

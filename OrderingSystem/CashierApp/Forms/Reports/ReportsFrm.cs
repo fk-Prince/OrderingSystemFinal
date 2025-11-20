@@ -373,6 +373,7 @@ namespace OrderingSystem.CashierApp.Forms
             decimal grossRevenue = 0;
             decimal itemDiscount = 0;
             decimal couponDiscount = 0;
+            decimal specialDiscount = 0;
             decimal totalDiscount = 0;
             decimal netRevenue = 0;
             decimal totalTax = 0;
@@ -385,13 +386,13 @@ namespace OrderingSystem.CashierApp.Forms
             foreach (DataRowView rowView in view)
             {
                 DataRow row = rowView.Row;
-
                 if (row["Invoice ID"].ToString() == "All")
                     continue;
 
                 grossRevenue += decimal.Parse(row["Gross Revenue"].ToString());
                 itemDiscount += decimal.Parse(row["Item Discount"].ToString());
                 couponDiscount += decimal.Parse(row["Coupon Discount"].ToString());
+                specialDiscount += decimal.Parse(row["Special Discount"].ToString());
                 totalDiscount += decimal.Parse(row["Total Discount"].ToString());
                 netRevenue += decimal.Parse(row["Net Revenue"].ToString());
                 totalTax += decimal.Parse(row["Total Tax"].ToString());
@@ -400,7 +401,7 @@ namespace OrderingSystem.CashierApp.Forms
                 netProfit += decimal.Parse(row["Net Profit"].ToString());
                 fee += decimal.Parse(row["Transaction Fee"].ToString());
 
-                DateTime currentDate =DateTime.Parse(row["Date"].ToString());
+                DateTime currentDate = DateTime.Parse(row["Date"].ToString());
                 if (lastDate == null || currentDate > lastDate)
                     lastDate = currentDate;
             }
@@ -409,13 +410,13 @@ namespace OrderingSystem.CashierApp.Forms
 
             DataTable dt = view.Table;
             DataRow[] allRows = dt.Select("[Invoice ID] = 'All'");
-
             if (allRows.Length > 0)
             {
                 DataRow allRow = allRows[0];
                 allRow["Gross Revenue"] = grossRevenue;
                 allRow["Item Discount"] = itemDiscount;
                 allRow["Coupon Discount"] = couponDiscount;
+                allRow["Special Discount"] = specialDiscount;
                 allRow["Total Discount"] = totalDiscount;
                 allRow["Net Revenue"] = netRevenue;
                 allRow["Total Tax"] = totalTax;
@@ -429,7 +430,7 @@ namespace OrderingSystem.CashierApp.Forms
         }
         private void reportMenuPopular()
         {
-       
+
             dt2.CustomFormat = "yyyy-MMMM";
             p1.Visible = false;
             p2.Visible = true;

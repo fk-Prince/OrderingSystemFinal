@@ -17,13 +17,13 @@ namespace OrderingSystem.CashierApp.Payment
                 throw new InsuffiecientAmount("The cash amount is insufficient to process the payment.");
         }
 
-        public override InvoiceModel processPayment(OrderModel order)
+        public override InvoiceModel processPayment(OrderModel order, string type)
         {
             validateOrder(order);
-            double totalAmount = order.GetTotalWithVAT();
-            validateCashAmount(cashReceived, totalAmount);
 
-            return finalizeOrder(order);
+            double totalAmount = type.ToLower() == "regular" ? order.GetTotalWithVAT() : order.getTotalDiscount() - (order.getTotalDiscount() * 0.20);
+            validateCashAmount(cashReceived, totalAmount);
+            return finalizeOrder(order, 0, type);
         }
         public void setCashReceieved(double cashReceived)
         {

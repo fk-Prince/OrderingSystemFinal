@@ -20,5 +20,8 @@ namespace OrderingSystem.Repository
         bool voidOrder(string orderId);
         bool adjustOrderingTime();
         double getFeePaymentMethod(string paymentName);
+        bool voidOrderItem(string orderItemId);
+        void addQuantityOrder(OrderItemModel om, int value);
+        List<SpecialDiscount> getSpecialDiscount();
     }
 }

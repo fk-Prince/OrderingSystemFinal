@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using Guna.UI2.WinForms;
 using OrderingSystem.CashierApp.Forms.Order;
 using OrderingSystem.CashierApp.Payment;
-using OrderingSystem.CashierApp.SessionData;
 using OrderingSystem.Exceptions;
 using OrderingSystem.KioskApplication.Services;
 using OrderingSystem.Model;
@@ -36,6 +35,7 @@ namespace OrderingSystem.CashierApp.Forms
             table = new DataTable();
             table.Columns.Add("Order-ID");
             table.Columns.Add("Name");
+            table.Columns.Add("Menu Order Status");
             table.Columns.Add("Price");
             table.Columns.Add("Quantity");
             table.Columns.Add("Total Amount", typeof(string));
@@ -49,7 +49,7 @@ namespace OrderingSystem.CashierApp.Forms
                 om = orderServices.getOrders(orderId);
                 if (om.OrderItemList.Count > 0)
                     foreach (var order in om.OrderItemList)
-                        table.Rows.Add(om.OrderId, order.PurchaseMenu.MenuName, order.PurchaseMenu.getPriceAfterVatWithDiscount().ToString("N2"), order.PurchaseQty, order.getSubtotal().ToString("N2"));
+                        table.Rows.Add(om.OrderId, order.PurchaseMenu.MenuName, order.Status, order.PurchaseMenu.getPriceAfterVatWithDiscount().ToString("N2"), order.PurchaseQty, order.getSubtotal().ToString("N2"));
 
                 double withoutVat = om.OrderItemList.Sum(o => o.PurchaseMenu.MenuPrice * o.PurchaseQty);
                 double subtotald = om.GetGrossRevenue();
@@ -115,7 +115,7 @@ namespace OrderingSystem.CashierApp.Forms
                         if (pm is IFeeCalculator f)
                             fee = f.feePercent;
 
-                        InvoiceModel i = new InvoiceModel(xd.Item2, om, SessionStaffData.StaffData, pm, om.GetTotalWithVAT() + (1 * fee));
+                        InvoiceModel i = p.inv;
                         or.setInvoice(i);
 
                         or.receiptMessages("Wait for your Order", xd.Item1.ToString(@"hh\:mm\:ss"), xd.Item3);
@@ -187,10 +187,11 @@ namespace OrderingSystem.CashierApp.Forms
             {
                 var selectedItem = om.OrderItemList[index];
 
-                OrderDetail od = new OrderDetail(selectedItem);
+                OrderDetail od = new OrderDetail(orderServices, selectedItem, om);
                 DialogResult rs = od.ShowDialog(this);
                 if (rs == DialogResult.OK)
                 {
+                    displayOrders(om.OrderId);
                     od.Hide();
                 }
             }

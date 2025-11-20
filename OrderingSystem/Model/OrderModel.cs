@@ -18,6 +18,7 @@ namespace OrderingSystem.Model
         public CouponModel Coupon { get; set; }
         public string OrderId { get => order_id; }
         public OrderType Type { get; set; }
+        public string OrderStatus { get; set; }
         public OrderModel(string orderId, List<OrderItemModel> orderList, CouponModel couponSelected, OrderType orderType)
         {
             order_id = orderId;
@@ -40,6 +41,16 @@ namespace OrderingSystem.Model
         {
             return OrderItemList.Sum(item => item.getSubtotal());
         }
+
+        public double getTotalDiscount()
+        {
+            return OrderItemList.Sum(item => item.PurchaseMenu.getPriceAfterDiscount() * item.PurchaseQty) - GetCouponDiscount();
+        }
+        public double getTotalDiscount2()
+        {
+            return OrderItemList.Sum(item => item.PurchaseMenu.getPriceAfterDiscount() * item.PurchaseQty) - GetCouponDiscount() - (1 * 0.20);
+        }
+
         public double GetCouponDiscount()
         {
             if (Coupon == null) return 0;

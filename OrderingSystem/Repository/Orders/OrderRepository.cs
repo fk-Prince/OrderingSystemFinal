@@ -72,6 +72,7 @@ namespace OrderingSystem.Repository.Order
             double couponRate = 0;
             string orderId = "";
             string couponType = "";
+            string orderStatus = "";
 
             try
             {
@@ -88,6 +89,7 @@ namespace OrderingSystem.Repository.Order
                             DiscountModel d = new DiscountModel(reader.GetInt32("discount_id"), reader.GetDouble("rate"));
 
                             MenuDetailModel m = MenuDetailModel.Builder()
+                                .WithMenuDetailId(reader.GetInt32("menu_detail_id"))
                                 .WithMenuName(reader.GetString("menu_name"))
                                 .WithFlavorName(reader.GetString("flavor_name"))
                                 .WithSizeName(reader.GetString("size_name"))
@@ -98,11 +100,12 @@ namespace OrderingSystem.Repository.Order
 
                             OrderItemModel oxm = new OrderItemModel(reader.GetInt32("order_item_id"), reader.GetInt32("quantity"), m);
                             oim.Add(oxm);
-
+                            oxm.Status = reader.GetString("status");
 
                             if (string.IsNullOrEmpty(orderId))
                             {
                                 orderId = reader.GetString("order_id");
+                                orderStatus = reader.GetString("orderstatus");
                                 couponRate = reader.GetDouble("coupon_rate");
                                 couponType = reader.GetString("type");
                             }
@@ -120,6 +123,7 @@ namespace OrderingSystem.Repository.Order
                 db.closeConnection();
             }
             OrderModel om = new OrderModel(orderId, new CouponModel(couponRate, CouponModel.getType(couponType)), oim);
+            om.OrderStatus = orderStatus;
             return om;
         }
         public bool saveNewOrder(OrderModel order)
@@ -163,6 +167,7 @@ namespace OrderingSystem.Repository.Order
                     cmd.Parameters.AddWithValue("@v_order_id", i.Order.OrderId);
                     cmd.Parameters.AddWithValue("@p_staff_id", i.Staff.StaffId);
                     cmd.Parameters.AddWithValue("@p_payment_method ", i.payment.PaymentName);
+                    cmd.Parameters.AddWithValue("@p_sp ", i.specialDiscount);
                     cmd.ExecuteNonQuery();
                     return true;
                 }
@@ -425,6 +430,88 @@ namespace OrderingSystem.Repository.Order
                 db.closeConnection();
             }
             return 0;
+        }
+
+        public bool voidOrderItem(string orderItemId)
+        {
+            string query = @"
+                  UPDATE order_item SET status = 'Voided' WHERE order_item_id = @order_item_id
+                ";
+
+            var db = DatabaseHandler.getInstance();
+            try
+            {
+                var conn = db.getConnection();
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@order_item_id", orderItemId);
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                db.closeConnection();
+            }
+        }
+
+        public void addQuantityOrder(OrderItemModel om, int value)
+        {
+            var db = DatabaseHandler.getInstance();
+            try
+            {
+                var conn = db.getConnection();
+                using (var cmd = new MySqlCommand("p_addQuantity", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@p_order_item_id", om.OrderItemId);
+                    cmd.Parameters.AddWithValue("@p_qty", value);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                db.closeConnection();
+            }
+        }
+
+        public List<SpecialDiscount> getSpecialDiscount()
+        {
+            List<SpecialDiscount> d = new List<SpecialDiscount>();
+            var db = DatabaseHandler.getInstance();
+            try
+            {
+                var conn = db.getConnection();
+                using (var cmd = new MySqlCommand("SELECT * FROM discount_special", conn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            d.Add(new SpecialDiscount(reader.GetInt32("s_discount_id"), reader.GetString("discount_type"), reader.GetDouble("rate")));
+                        }
+                    }
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                db.closeConnection();
+            }
+            return d;
         }
     }
 }

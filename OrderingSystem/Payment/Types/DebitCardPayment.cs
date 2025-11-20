@@ -15,10 +15,10 @@ namespace OrderingSystem.CashierApp.Payment.Types
             fee = new FeeCalculator(orderServices.getFeePaymentMethod(PaymentName));
         }
 
-        public override InvoiceModel processPayment(OrderModel order)
+        public override InvoiceModel processPayment(OrderModel order, string type)
         {
             validateOrder(order);
-            return finalizeOrder(order, feePercent);
+            return finalizeOrder(order, feePercent, type);
         }
 
         public double calculateFee(double amount)

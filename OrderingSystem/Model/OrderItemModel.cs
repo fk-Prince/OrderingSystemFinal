@@ -9,6 +9,7 @@ namespace OrderingSystem.Model
         public int PurchaseQty { get; set; }
         public MenuDetailModel PurchaseMenu { get; protected set; }
 
+        public string Status { get; set; }
 
         public OrderItemModel(int orderItemId, int purchaseQty, MenuDetailModel purchaseMenu)
         {

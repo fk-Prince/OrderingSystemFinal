@@ -81,5 +81,20 @@ namespace OrderingSystem.KioskApplication.Services
         {
             return orderRepository.getFeePaymentMethod(paymentName);
         }
+
+        public bool voidOrderItem(string orderItemId)
+        {
+            return orderRepository.voidOrderItem(orderItemId);
+        }
+
+        public void addQuantityOrderItem(OrderItemModel om, int value)
+        {
+            orderRepository.addQuantityOrder(om, value);
+        }
+
+        public List<SpecialDiscount> getSpecialDiscount()
+        {
+            return orderRepository.getSpecialDiscount();
+        }
     }
 }

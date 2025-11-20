@@ -4,6 +4,7 @@ using OrderingSystem.CashierApp.Payment;
 using OrderingSystem.Exceptions;
 using OrderingSystem.KioskApplication.Services;
 using OrderingSystem.Model;
+using OrderingSystem.Services;
 
 namespace OrderingSystem.CashierApp.Forms.Order
 {
@@ -14,6 +15,7 @@ namespace OrderingSystem.CashierApp.Forms.Order
 
         public double Cash;
         public Payment.Payment paymentT;
+        public InvoiceModel inv;
 
         public PaymentMethod(OrderServices orderServices)
         {
@@ -23,11 +25,18 @@ namespace OrderingSystem.CashierApp.Forms.Order
             var payments = orderServices.getAvailablePayments();
             payments.ForEach(payment => cb.Items.Add(payment));
 
+            var sp = orderServices.getSpecialDiscount();
+            sp.ForEach(p => cd.Items.Add(p.discountName));
+
             if (payments.Count > 0)
                 cb.SelectedIndex = 0;
 
             if (payments.Contains("Cash"))
                 cb.SelectedIndex = payments.IndexOf("Cash");
+
+            if (sp.Count > 0)
+                cd.SelectedIndex = 0;
+
 
             cb_SelectedIndexChanged(this, EventArgs.Empty);
         }
@@ -80,20 +89,24 @@ namespace OrderingSystem.CashierApp.Forms.Order
                     cashPayment.setCashReceieved(cashAmount);
                 }
 
-                InvoiceModel invoice = payment.processPayment(om);
+                InvoiceModel invoice = payment.processPayment(om, cd.SelectedItem.ToString());
                 bool success = orderServices.payOrder(invoice);
                 if (success)
                 {
                     MessageBox.Show("Payment successful!", "Payment Method",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    DialogResult = DialogResult.OK;
                     paymentT = (Payment.Payment)payment;
+                    inv = invoice;
+                    DialogResult = DialogResult.OK;
                 }
                 else
                 {
                     MessageBox.Show("Failed to process payment.", "Payment Method",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                StripeService s = new StripeService();
+
             }
             catch (Exception ex)
             {
@@ -148,7 +161,7 @@ namespace OrderingSystem.CashierApp.Forms.Order
 
                 if (payment is ICashHandling cashPayment)
                 {
-                    double total = om.GetTotalWithVAT();
+                    double total = cd.SelectedItem.ToString().ToLower() == "regular" ? om.GetTotalWithVAT() : (om.getTotalDiscount() - (om.getTotalDiscount() * 0.20));
                     double change = cash >= total ? cash - total : 0;
                     Cash = cash;
                     t2.Text = change.ToString("N2");
@@ -163,6 +176,31 @@ namespace OrderingSystem.CashierApp.Forms.Order
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             Hide();
+        }
+
+        private void cd_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (om == null) return;
+
+            if (cd.SelectedItem.ToString().ToLower() != "regular")
+            {
+                IPayment payment = createPayment();
+
+                if (payment is ICashHandling cashPayment)
+                {
+                    total.Text = (om.getTotalDiscount() - (om.getTotalDiscount() * 0.20)).ToString("N2");
+                }
+                else if (payment is IFeeCalculator f)
+                {
+                    total.Text = (om.getTotalDiscount() + (1 * f.feePercent)).ToString();
+                }
+                t1_TextChanged(t1, EventArgs.Empty);
+            }
+            else
+            {
+                total.Text = om.GetTotalWithVAT().ToString("N2");
+                t1_TextChanged(t1, EventArgs.Empty);
+            }
         }
     }
 }

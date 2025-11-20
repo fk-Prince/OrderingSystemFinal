@@ -135,6 +135,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
       <Private>True</Private>
@@ -394,6 +395,12 @@
     <Compile Include="CashierApp\Layout\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="CashierApp\Layout\ManagerLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CashierApp\Layout\ManagerLogin.Designer.cs">
+      <DependentUpon>ManagerLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="CashierApp\Layout\LoginLayout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -407,6 +414,7 @@
       <DependentUpon>OrderTypeFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\InvoiceModel.cs" />
+    <Compile Include="Model\SpecialDiscount.cs" />
     <Compile Include="Payment\Types\Payment.cs" />
     <Compile Include="Payment\Other\FeeCalculator.cs" />
     <Compile Include="Payment\Types\CashPayment.cs" />
@@ -709,6 +717,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CashierApp\Layout\Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashierApp\Layout\ManagerLogin.resx">
+      <DependentUpon>ManagerLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CashierApp\Layout\LoginLayout.resx">
       <DependentUpon>LoginLayout.cs</DependentUpon>
