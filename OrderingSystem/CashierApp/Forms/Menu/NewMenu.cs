@@ -109,7 +109,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
 
                 if (variantList.Count <= 0)
                 {
-                    throw new InvalidInput("No Selected Ingredient");
+                    throw new InvalidInput("No Selected Variant");
                 }
 
                 string name = menuName.Text.Trim();

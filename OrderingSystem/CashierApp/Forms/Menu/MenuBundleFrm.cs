@@ -120,7 +120,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
             p.IngredientSelectedEvent += (s, e) =>
             {
                 ingredientSelected = e;
-                if (e.Count > 0) MessageBox.Show("Added");
+                if (e.Count > 0) MessageBox.Show("Added", "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
             };
             DialogResult rs = p.ShowDialog(this);
             if (rs == DialogResult.OK)

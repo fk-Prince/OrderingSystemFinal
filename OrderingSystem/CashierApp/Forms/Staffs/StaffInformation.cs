@@ -139,8 +139,9 @@ namespace OrderingSystem.CashierApp.Forms.Staffs
                         bool upSuc = staffServices.updateStaff(ss);
                         if (upSuc)
                         {
+                            displayStaff(ss);
                             fName.Text = ss.getFullName();
-                            MessageBox.Show("Successfully updated", "Information Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                            MessageBox.Show("Successfully updated", "Information Changes", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             staffUpdated.Invoke(this, EventArgs.Empty);
                         }
 
