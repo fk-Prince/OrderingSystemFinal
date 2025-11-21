@@ -45,11 +45,13 @@
             this.qty = new System.Windows.Forms.Label();
             this.total = new System.Windows.Forms.Label();
             this.b = new Guna.UI2.WinForms.Guna2Button();
-            this.qtyToAdd = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.v = new System.Windows.Forms.Label();
+            this.s = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.a = new Guna.UI2.WinForms.Guna2PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qtyToAdd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.s)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.a)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2BorderlessForm1
@@ -179,7 +181,7 @@
             this.label6.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.label6.Location = new System.Drawing.Point(299, 234);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.Size = new System.Drawing.Size(31, 13);
             this.label6.TabIndex = 24;
             this.label6.Text = "Total";
             // 
@@ -234,33 +236,6 @@
             this.b.Text = "VOID";
             this.b.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
-            // qtyToAdd
-            // 
-            this.qtyToAdd.BackColor = System.Drawing.Color.Transparent;
-            this.qtyToAdd.BorderRadius = 5;
-            this.qtyToAdd.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.qtyToAdd.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.qtyToAdd.Location = new System.Drawing.Point(571, 196);
-            this.qtyToAdd.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.qtyToAdd.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.qtyToAdd.Name = "qtyToAdd";
-            this.qtyToAdd.Size = new System.Drawing.Size(54, 36);
-            this.qtyToAdd.TabIndex = 29;
-            this.qtyToAdd.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.qtyToAdd.ValueChanged += new System.EventHandler(this.guna2NumericUpDown1_ValueChanged);
-            // 
             // v
             // 
             this.v.AutoSize = true;
@@ -273,14 +248,43 @@
             this.v.Text = "VOIDED";
             this.v.Visible = false;
             // 
+            // s
+            // 
+            this.s.BackColor = System.Drawing.Color.Transparent;
+            this.s.Image = global::OrderingSystem.Properties.Resources.minus;
+            this.s.ImageRotate = 0F;
+            this.s.Location = new System.Drawing.Point(591, 198);
+            this.s.Name = "s";
+            this.s.Size = new System.Drawing.Size(40, 40);
+            this.s.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.s.TabIndex = 32;
+            this.s.TabStop = false;
+            this.s.UseTransparentBackground = true;
+            this.s.Click += new System.EventHandler(this.sub);
+            // 
+            // a
+            // 
+            this.a.BackColor = System.Drawing.Color.Transparent;
+            this.a.Image = global::OrderingSystem.Properties.Resources.add;
+            this.a.ImageRotate = 0F;
+            this.a.Location = new System.Drawing.Point(551, 198);
+            this.a.Name = "a";
+            this.a.Size = new System.Drawing.Size(40, 40);
+            this.a.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.a.TabIndex = 31;
+            this.a.TabStop = false;
+            this.a.UseTransparentBackground = true;
+            this.a.Click += new System.EventHandler(this.add);
+            // 
             // OrderDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(637, 267);
+            this.Controls.Add(this.s);
+            this.Controls.Add(this.a);
             this.Controls.Add(this.v);
-            this.Controls.Add(this.qtyToAdd);
             this.Controls.Add(this.b);
             this.Controls.Add(this.total);
             this.Controls.Add(this.qty);
@@ -302,7 +306,8 @@
             this.Text = "OrderDetail";
             ((System.ComponentModel.ISupportInitialize)(this.image)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qtyToAdd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.s)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.a)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -326,7 +331,8 @@
         private System.Windows.Forms.Label total;
         private System.Windows.Forms.Label qty;
         private Guna.UI2.WinForms.Guna2Button b;
-        private Guna.UI2.WinForms.Guna2NumericUpDown qtyToAdd;
         private System.Windows.Forms.Label v;
+        private Guna.UI2.WinForms.Guna2PictureBox s;
+        private Guna.UI2.WinForms.Guna2PictureBox a;
     }
 }

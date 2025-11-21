@@ -335,7 +335,7 @@ namespace OrderingSystem.CashierApp.Components
                 List<IngredientModel> ingredientSelected = ee;
                 if (ingredientSelected.Count > 0)
                 {
-
+                   
                     bool suc = ingredientServices.saveIngredientByMenu(menu.MenuId, ingredientSelected, "Package");
                     if (suc)
                     {

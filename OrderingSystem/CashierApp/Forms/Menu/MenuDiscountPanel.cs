@@ -19,6 +19,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
         public void AddDiscountPopup(Form f)
         {
             PopupForm p = new PopupForm();
+            p.dt2.MinDate = DateTime.Now.AddDays(1);
             p.buttonClicked += (ss, ee) =>
             {
                 try

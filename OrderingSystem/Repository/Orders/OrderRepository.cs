@@ -374,8 +374,9 @@ namespace OrderingSystem.Repository.Order
         public bool adjustOrderingTime()
         {
             string query = @"
-                  UPDATE orders SET available_until = @date WHERE status = 'Pending';
-                ";
+                        UPDATE orders
+                        SET available_until = DATE_ADD(available_until, INTERVAL 30 MINUTE)
+                        WHERE status = 'Pending'              ";
 
             var db = DatabaseHandler.getInstance();
             try
@@ -383,7 +384,6 @@ namespace OrderingSystem.Repository.Order
                 var conn = db.getConnection();
                 using (var cmd = new MySqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@date", DateTime.Now.AddMinutes(30));
                     cmd.ExecuteNonQuery();
                     return true;
                 }

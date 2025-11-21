@@ -156,9 +156,9 @@
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.label13.Location = new System.Drawing.Point(289, 37);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(157, 15);
+            this.label13.Size = new System.Drawing.Size(153, 15);
             this.label13.TabIndex = 69;
-            this.label13.Text = "Prep. Est-Time (HH-MM-SS)";
+            this.label13.Text = "Prep. Est-Time (HH:MM:SS)";
             // 
             // estimatedTime
             // 

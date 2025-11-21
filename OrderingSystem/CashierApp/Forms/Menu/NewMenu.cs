@@ -162,6 +162,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
 
             if (rs == DialogResult.OK)
             {
+                p.Hide();
                 variantList = p.getVariants();
                 table.Rows.Clear();
                 if (variantList.Count > 0)
@@ -171,7 +172,7 @@ namespace OrderingSystem.CashierApp.Forms.Menu
                     foreach (var x in variantList)
                     {
                         string s = string.Join(", ", x.MenuIngredients.Select(xx => xx.IngredientName));
-                        table.Rows.Add(x.FlavorName, x.SizeName, x.EstimatedTime, x.MenuPrice.ToString("N2"), s);
+                        table.Rows.Add(x.FlavorName, x.SizeName, x.EstimatedTime, x.getPriceAfterVatWithDiscount().ToString("N2"), s);
                     }
                 }
                 else

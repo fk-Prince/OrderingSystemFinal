@@ -96,6 +96,7 @@ namespace OrderingSystem.CashierApp.Forms
             if (cb.SelectedIndex == -1) return;
             txt.IconLeftClick -= txt_IconLeftClick;
             view = null;
+            txt.Text = "";
             dataGrid.DataSource = null;
             p3.Visible = false;
             p1.Visible = false;

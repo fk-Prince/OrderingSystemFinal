@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using OrderingSystem.CashierApp.Layout;
 using OrderingSystem.CashierApp.SessionData;
 using OrderingSystem.Exceptions;
@@ -17,6 +18,7 @@ namespace OrderingSystem.CashierApp.Forms.Order
         private OrderServices or;
         private OrderItemModel om;
         private OrderModel omm;
+        private bool x;
         public OrderDetail(OrderServices or, OrderItemModel om, OrderModel omm)
         {
             InitializeComponent();
@@ -27,13 +29,13 @@ namespace OrderingSystem.CashierApp.Forms.Order
             name.Text = om.PurchaseMenu.MenuName;
             flavor.Text = om.PurchaseMenu.FlavorName;
             size.Text = om.PurchaseMenu.SizeName;
-            qtyToAdd.Value = om.PurchaseQty;
             price.Text = om.PurchaseMenu.getPriceAfterVatWithDiscount().ToString("N2", new CultureInfo("en-PH"));
             qty.Text = om.PurchaseQty.ToString();
             total.Text = om.getSubtotal().ToString("N2", new CultureInfo("en-PH"));
 
 
             hide();
+            x = true;
         }
 
         private void hide()
@@ -46,12 +48,14 @@ namespace OrderingSystem.CashierApp.Forms.Order
             else
             {
                 b.Visible = false;
-                qtyToAdd.Visible = false;
+                a.Visible = false;
+                s.Visible = false;
             }
 
             if (omm.OrderStatus.ToLower() == "pending")
             {
-                qtyToAdd.Visible = false;
+                a.Visible = false;
+                s.Visible = false;
                 if (om.Status.ToLower() == "voided")
                 {
                     v.Visible = true;
@@ -59,9 +63,16 @@ namespace OrderingSystem.CashierApp.Forms.Order
                 }
                 else
                 {
-                    qtyToAdd.Visible = true;
+                    a.Visible = true;
+                    s.Visible = true;
                     b.Visible = true;
                 }
+            } else if (omm.OrderStatus.ToLower() == "voided")
+            {
+                b.Visible = false;
+                a.Visible = false;
+                s.Visible = false;
+                v.Visible = true;
             }
         }
 
@@ -112,30 +123,44 @@ namespace OrderingSystem.CashierApp.Forms.Order
                 }
             }
         }
-        private void guna2NumericUpDown1_ValueChanged(object sender, EventArgs e)
+    
+       
+
+        private void sub(object sender, EventArgs e)
         {
+            if (om.PurchaseQty == 1) return;
+
+            om.PurchaseQty = om.PurchaseQty - 1;
+            or.addQuantityOrderItem(om, om.PurchaseQty);
+            qty.Text = om.PurchaseQty.ToString();
+            total.Text = om.getSubtotal().ToString("N2", new CultureInfo("en-PH"));
+        }
+
+        private void add(object sender, EventArgs e)
+        {
+
             try
             {
-                List<OrderItemModel> o = new List<OrderItemModel>();
-                o.AddRange(omm.OrderItemList); KioskMenuServices kk = new KioskMenuServices(new KioskMenuRepository(o));
+                List<OrderItemModel> o = new List<OrderItemModel>(omm.OrderItemList);
+                KioskMenuServices kk = new KioskMenuServices(new KioskMenuRepository(o));
+                o.RemoveAll(x => x.OrderItemId == om.OrderItemId);
                 int b = kk.getMaxOrderRealTime(om.PurchaseMenu.MenuDetailId, o);
-                if (b <= 0) throw new MaxOrder("Unable to add more quantity.");
-                or.addQuantityOrderItem(om, (int)qtyToAdd.Value);
-                qty.Text = qtyToAdd.Value.ToString();
-                om.PurchaseQty = (int)qtyToAdd.Value;
+                if (b <= 0)
+                {
+                    MessageBox.Show("Unable to add more quantity.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                om.PurchaseQty = om.PurchaseQty + 1;
+                or.addQuantityOrderItem(om, om.PurchaseQty);
+                qty.Text = om.PurchaseQty.ToString();
                 total.Text = om.getSubtotal().ToString("N2", new CultureInfo("en-PH"));
-            }
-            catch (MaxOrder ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                qtyToAdd.Value = (int)qtyToAdd.Value - 1;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
         }
-
-
     }
 }

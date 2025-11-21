@@ -309,32 +309,54 @@ namespace OrderingSystem.Repository.Reports
                 using (var conn = db.getConnection())
                 {
                     string query = @"
-                            WITH totals AS (
-                              SELECT
-                                COALESCE(SUM(CASE 
-                                  WHEN MONTH(available_until) = MONTH(@start_date)
-                                       AND YEAR(available_until) = YEAR(@start_date)
-                                  THEN total_amount ELSE 0 END), 0) AS this_month,
-                                COALESCE(SUM(CASE 
-                                  WHEN MONTH(available_until) = MONTH(DATE_SUB(@start_date, INTERVAL 1 MONTH))
-                                       AND YEAR(available_until) = YEAR(DATE_SUB(@start_date, INTERVAL 1 MONTH))
-                                  THEN total_amount ELSE 0 END), 0) AS last_month
-                              FROM orders
-                              WHERE status = 'Paid'
+                       WITH totals AS (
+                               SELECT
+                                 COALESCE(SUM(
+                                   CASE 
+                                     WHEN MONTH(i.created_at) = MONTH(NOW())
+                                          AND YEAR(i.created_at) = YEAR(NOW())
+                                     THEN 
+                                       CASE
+                                         WHEN sd.s_discount_id <> 1 THEN
+                                              (i.total_amount / 1.12) - ((i.total_amount / 1.12) * sd.rate)
+                                         ELSE
+                                              i.total_amount
+                                       END
+                                     ELSE 0
+                                   END
+                                 ), 0) AS this_month,
+
+                                 COALESCE(SUM(
+                                   CASE 
+                                     WHEN MONTH(i.created_at) = MONTH(DATE_SUB(NOW(), INTERVAL 1 MONTH))
+                                          AND YEAR(i.created_at) = YEAR(DATE_SUB(NOW(), INTERVAL 1 MONTH))
+                                     THEN
+                                       CASE
+                                         WHEN sd.s_discount_id <> 1 THEN
+                                              (i.total_amount / 1.12) - ((i.total_amount / 1.12) * sd.rate)
+                                         ELSE
+                                              i.total_amount
+                                       END
+                                     ELSE 0
+                                   END
+                                 ), 0) AS last_month
+                               FROM invoice i
+                               LEFT JOIN invoice_discount id ON id.invoice_id = i.invoice_id
+                               LEFT JOIN discount_special sd ON sd.s_discount_id = id.s_discount_id
                             )
                             SELECT
-                              this_month,
-                              last_month,
+                               ROUND(this_month,2) AS this_month,
+                               ROUND(last_month,2) AS last_month,
                               COALESCE(
                                 ROUND(
                                   CASE 
-                                    WHEN last_month = 0 AND this_month > 0 THEN 100     
-                                    WHEN last_month = 0 AND this_month = 0 THEN 0  
+                                    WHEN last_month = 0 AND this_month > 0 THEN 100
+                                    WHEN last_month = 0 AND this_month = 0 THEN 0
                                     ELSE ((this_month - last_month) / last_month) * 100
-                                  END, 
+                                  END,
                                   2
-                                ), 0
-                              ) AS percent_change
+                                ), 
+                              0) AS percent_change
                             FROM totals;
                         ";
 

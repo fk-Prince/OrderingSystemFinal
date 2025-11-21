@@ -123,7 +123,7 @@ namespace OrderingSystem.KioskApplication.Options
         }
         public List<OrderItemModel> confirmOrder()
         {
-            if (selectedFlavor == null && selectedSize == null)
+            if (selectedFlavor == null || selectedSize == null)
                 throw new NoSelectedMenu("No Selected Menu.");
 
 

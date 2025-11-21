@@ -38,7 +38,7 @@ namespace OrderingSystem.Repository
                                 .WithPrice(reader.GetDouble("min_price"))
                                 .WithEstimatedTime(reader.GetTimeSpan("estimated_time"))
                                 .WithCategoryId(reader.GetInt32("category_id"))
-                                .WithMaxOrder(getMaxOrderRealTime(reader.GetInt32("menu_id"), orderList))
+                                .WithMaxOrder(getMaxOrderRealTime(reader.GetInt32("menu_detail_id"), orderList))
                                 .WithMenuImage(ImageHelper.GetImageFromBlob(reader, "menu"))
                                 .WithDiscount(d)
                                 .Build();
@@ -390,6 +390,7 @@ namespace OrderingSystem.Repository
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     string json = JsonConvert.SerializeObject(orderList);
+                    Console.WriteLine(json);    
                     cmd.Parameters.AddWithValue("@p_menu_id", menu_id);
                     cmd.Parameters.AddWithValue("@p_json", json);
 
@@ -424,6 +425,7 @@ namespace OrderingSystem.Repository
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     string json = JsonConvert.SerializeObject(orderList);
+                    Console.WriteLine(json);
                     cmd.Parameters.AddWithValue("@p_menu_detail_id", menu_id);
                     cmd.Parameters.AddWithValue("@p_json", json);
 

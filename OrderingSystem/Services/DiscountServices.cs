@@ -37,6 +37,7 @@ namespace OrderingSystem.Services
             if (d < 1)
                 throw new InvalidInput("Invalid Discount Rate, rate should cannot less than 1");
 
+
             if (DateTime.Now > date)
                 throw new InvalidInput("Invalid Date. Date is past");
 

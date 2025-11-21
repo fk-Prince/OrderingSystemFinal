@@ -63,7 +63,7 @@ namespace OrderingSystem.KioskApplication.Services
                 CartCard cc = sender as CartCard;
                 OrderItemModel order = getOrder(e);
                 int b = menuServices.getMaxOrderRealTime(e.PurchaseMenu.MenuDetailId, orderList);
-
+                //int x = b - order.PurchaseQty;
                 if (b <= 0)
                     throw new MaxOrder("Unable to add more quantity.");
 
@@ -71,9 +71,9 @@ namespace OrderingSystem.KioskApplication.Services
                 cc.displayPurchasedMenu();
                 quantityChanged?.Invoke(this, EventArgs.Empty);
             }
-            catch (MaxOrder)
+            catch (MaxOrder ex)
             {
-                throw;
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         public void deductQuantity(object sender, OrderItemModel e)
