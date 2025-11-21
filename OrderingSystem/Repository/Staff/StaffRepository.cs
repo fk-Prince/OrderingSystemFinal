@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows;
 using MySqlConnector;
 using OrderingSystem.DatabaseConnection;
 using OrderingSystem.Model;
@@ -87,8 +88,9 @@ namespace OrderingSystem.Repository.Staff
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 throw;
             }
 

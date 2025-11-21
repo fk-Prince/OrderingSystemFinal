@@ -69,7 +69,8 @@ namespace OrderingSystem.CashierApp.Forms.Staffs
             phone.Text = string.IsNullOrWhiteSpace(viewingStaff.PhoneNumber) ? "N/A" : viewingStaff.PhoneNumber;
             hired.Text = viewingStaff.HiredDate.ToString("yyyy, MMMM dd");
             username.Text = viewingStaff.Username;
-            password.Text = "passwordplaceholder";
+            password.Text = viewingStaff.Password;
+            password.UseSystemPasswordChar = true;
             firstName.Text = viewingStaff.FirstName;
             lastName.Text = viewingStaff.LastName;
             cRole.SelectedItem = viewingStaff.Role.ToString();
