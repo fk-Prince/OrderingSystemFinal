@@ -38,7 +38,11 @@ namespace OrderingSystem.KioskApplication.Cards
             dPrice.Visible = menu.getPriceAfterVatWithDiscount() != menu.getPriceAfterVat();
             v1.Visible = menu.getPriceAfterVatWithDiscount() != menu.getPriceAfterVat();
             v2.Visible = menu.getPriceAfterVatWithDiscount() != menu.getPriceAfterVat();
-
+            if (menu.Discount != null && menu.Discount.DiscountId != 0)
+            {
+                dd.Visible = true;
+                dd.Text = (menu.Discount.Rate * 100).ToString("N2") + "%";
+            }
             sale.Visible = ooo.Visible || (menu.Discount != null && menu.Discount.DiscountId != 0);
             ooo.Visible = !(menu.MaxOrder <= 0);
 

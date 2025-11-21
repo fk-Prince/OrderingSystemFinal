@@ -41,6 +41,7 @@
             this.menuName = new System.Windows.Forms.Label();
             this.price = new System.Windows.Forms.Label();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
+            this.dd = new System.Windows.Forms.Label();
             this.pp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ooo)).BeginInit();
@@ -51,6 +52,7 @@
             // 
             this.pp.BackColor = System.Drawing.Color.Transparent;
             this.pp.BorderRadius = 8;
+            this.pp.Controls.Add(this.dd);
             this.pp.Controls.Add(this.sale);
             this.pp.Controls.Add(this.v2);
             this.pp.Controls.Add(this.v1);
@@ -186,12 +188,25 @@
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
+            // dd
+            // 
+            this.dd.AutoSize = true;
+            this.dd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dd.ForeColor = System.Drawing.Color.IndianRed;
+            this.dd.Location = new System.Drawing.Point(25, 36);
+            this.dd.Name = "dd";
+            this.dd.Size = new System.Drawing.Size(38, 15);
+            this.dd.TabIndex = 18;
+            this.dd.Text = "label1";
+            this.dd.Visible = false;
+            // 
             // MenuCard
             // 
             this.Controls.Add(this.pp);
             this.Name = "MenuCard";
             this.Size = new System.Drawing.Size(250, 189);
             this.pp.ResumeLayout(false);
+            this.pp.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ooo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.image)).EndInit();
@@ -212,5 +227,6 @@
         private System.Windows.Forms.Label menuName;
         private System.Windows.Forms.Label price;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
+        private System.Windows.Forms.Label dd;
     }
 }
